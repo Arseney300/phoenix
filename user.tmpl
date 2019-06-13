@@ -1,0 +1,158 @@
+<%c++ #include "user.h"%>
+<%skin my_skin%>
+<%view user_view uses user_content::content %>
+<%template render()%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>PHOENIX</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<style>
+  main{
+    font-family: Arial, "Times New Roman", sans-serif;
+
+    height: 100vh;
+    background-image: linear-gradient(to bottom, #fbbe4b, #f3b540, #ecab35, #e4a229, #dc991b);
+  }
+  .note_card{
+        height: 25vh;
+        border-radius: 5px;
+    }
+  .plus_button{
+    height: 25vh;
+    background-colour: red;
+  }
+  .create_note_card{
+    position: fixed;
+    left: 40%;
+    top: 20%;
+    height: 30%;
+    width: 20%;
+    border-radius: 9px;
+    z-index: 999;
+  }
+  
+  
+</style>
+<body>
+  <main>
+    <header> 
+      <nav class="navbar navbar-expand-lg navbar-dark orange accent-4">
+        <div class="container-fluid">
+          <a href="#" class="navbar-brand waves-effect"><strong class="" style="font-size: 25px">PHOENIX</strong></a>   
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+           </button>   
+        <div class="navbar-collapse collapse" id="navbarNav">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a href="#" class="nav-link">test<span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link">test2</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">test3</a></li>
+          </ul>
+          <form method="POST" class="form-inline">
+            <div class="md-form my-0">
+              <input autocomplete="off" type="search" class="form-control mr-sm-2" name="input1" placeholder="Search" aria-label="Search">
+              
+            </div>
+            <button class="btn btn-outline-white btn-md ml-2" type="submit" >Search</button>
+          </form>
+          <div class="dropdown">
+            <button class="m-0 ml-2 btn peach-gradient dropdown-toggle pb-2 pr-3 pl-3 pt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="border-radius: 8px">
+              <img src="img/question.jpeg" style="width:30px; height: 30px;"alt="" class="img rounded-circle m-0 p-0">
+              <%= account.account_name %>
+            </button>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item" onclick="$('#main_card').toggle()">Account</a>
+              <a href="#" class="dropdown-item">Settings</a>
+              <a href="#" class="dropdown-item">Notes</a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item text-right">Exit</a>
+            </div>
+          </div>
+        </div> 
+        </div>
+      </nav>
+    </header>
+
+      <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+
+    <!--v-bind:onclick="bind_click(note.id)" -->
+    <div class="container-fluid main" id="main">
+
+        <div class="create_note_card" id="create_note_card" >
+          <div class="card amber lighten-5" style="height: 100%; width: 100%;">
+            <div class="card-body">
+              <div class="card-title" style="text-align:center"><h3>Create New Note<img onclick="$('#create_note_card').hide();note_open = false;" style="float:right; height: 20px; width: 20px;" src="krest.png"></img></h3></div>
+              <div class="container-fluid m-0  p-0 pb-5" style="height: 100%">
+                <textarea   style ="resize:none; height: 100%;"name="create_card_textarea"  id="CreateNoteTextArea"  class="form-control z-depth-1" placeholder="Write Something..." spellcheck="false"></textarea>
+              </div>
+              <div style="text-align:center" class="p-0">
+                <button class="btn btn-danger" onclick="create_note($('#CreateNoteTextArea').val())">CREATE NOTE</button>
+              </div>             
+            </div>
+          </div>
+        </div>
+
+        <div class="row"> 
+            <div v-for="note in notes" class="col-md-3" >
+                <div class="card note_card mt-4" v-bind:id="note.id" v-bind:onclick="bind_click(note.id)" >
+                    <div class="card-body">
+                        <div class="card-title" style="text-align:center"><h3>{{note.id}} <img  v-bind:onclick="bind_close(note.id)" style="float:right; height: 20px; width: 20px;display:none;" src="krest.png"></img></h3></div>
+                        <div class="container-fluid m-0 p-0 pb-5" style="height: 100%"><textarea   style ="resize:none; height: 100%;"   class="form-control z-depth-1" placeholder="Write Something..." spellcheck="false">{{note.text}}</textarea></div>
+                    </div>
+                </div>
+            </div>
+            <div class="plus_button mt-4 col-md-3">
+              <div class="picture">
+                <img style="position: relative;height: 200px; width: 200; left:25%;margin-top:5%;" src="plus_PNG106.png" onclick="open_create_note_function()"></img>                
+              </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+  </main>
+
+
+  <!-- SCRIPTS -->
+
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Для мувов -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>    
+  <!-- VUE: -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+
+  <script src="user.js"></script>
+
+</body>
+
+</html>
+
+<%end template%>
+
+<%end view%>
+<%end skin%>

@@ -1,0 +1,163 @@
+<%c++ #include "note_page.h"%>
+<%skin my_skin%>
+<%view note_page_view uses note_page_content::content %>
+<%template render()%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>PHOENIX</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<style>
+  main{
+    font-family: Arial, "Times New Roman", sans-serif;
+
+    height: 100vh;
+    background-image: linear-gradient(to bottom, #fbbe4b, #f3b540, #ecab35, #e4a229, #dc991b);
+  }
+  
+  
+</style>
+<body>
+  <main>
+    <header> 
+      <nav class="navbar navbar-expand-lg navbar-dark orange accent-4">
+        <div class="container-fluid">
+          <a href="#" class="navbar-brand waves-effect"><strong class="" style="font-size: 25px">PHOENIX</strong></a>   
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+           </button>   
+        <div class="navbar-collapse collapse" id="navbarNav">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a href="#" class="nav-link">test<span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a href="#" class="nav-link">test2</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">test3</a></li>
+          </ul>
+          <form method="POST" class="form-inline">
+            <div class="md-form my-0">
+              <input autocomplete="off" type="search" class="form-control mr-sm-2" name="input1" placeholder="Search" aria-label="Search">
+              
+            </div>
+            <button class="btn btn-outline-white btn-md ml-2" type="submit" >Search</button>
+          </form>
+          <div class="dropdown">
+            <button class="m-0 ml-2 btn peach-gradient dropdown-toggle pb-2 pr-3 pl-3 pt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="border-radius: 8px">
+              <img src="img/question.jpeg" style="width:30px; height: 30px;"alt="" class="img rounded-circle m-0 p-0">
+              <%= account.account_name %>
+            </button>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item" onclick="$('#main_card').toggle()">Account</a>
+              <a href="#" class="dropdown-item">Settings</a>
+              <a href="#" class="dropdown-item">Notes</a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item text-right">Exit</a>
+            </div>
+          </div>
+        </div> 
+        </div>
+      </nav>
+    </header>
+
+    <style>
+      .mycard{
+        position:  absolute;
+        left: 40%;
+        top: 20%;
+        height: 30%;
+        width: 20%;
+        border-radius: 9px;
+      }
+      .main_textarea{
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        max-height: 100%;
+        resize: none;
+      }
+    </style>
+
+    
+    <div class="card mycard" id="main_card">
+      <div class="card-body" >
+        <div class="card-title" style="text-align: center;">
+          <h3 id="local_id"><%= local_id %></h3>
+        </div>
+        <div class="container-fluid m-0  p-0 pb-5" style="height: 100%">
+          <textarea   style ="resize:none; height: 100%;"name="test"  id="QuickNoteTextArea"  class="form-control z-depth-1" placeholder="Write Something..." spellcheck="false" id="main_textarea" ><%= text%></textarea>
+        </div>
+      </div>
+    </div>
+
+    
+
+
+  </main>
+
+
+  <!-- SCRIPTS -->
+  <!-- AutoSize TextArea -->
+
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!-- Для мувов -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>    
+  <!-- animation: -->
+  <script>
+    function update_note(local_id,new_text) {
+      // body...
+      $.post("http://phoenixnote.site/post/update_quick_note",{"local_id":local_id,"text":new_text},function (data) {
+        // body...
+        //alert(data);
+      })
+    }
+
+
+    jQuery(document).ready(function($) {
+      $("#main_card").animate({
+        left: "10%",
+        top:"15%",
+        height: "70%",
+        width: "80%"});
+    });
+    counter = 0;
+    jQuery(document).ready(function($) {
+      $("#main_card").on('input', function(event) {
+        event.preventDefault();
+        counter +=1;
+        if (counter == 5){
+          update_note($("#local_id").text() ,$("#QuickNoteTextArea").val());
+          counter = 0;
+        }
+        
+        /* Act on the event */
+      });
+    });
+  </script>
+</body>
+
+</html>
+
+
+
+<%end template%>
+<%end view%>
+<%end skin%>
