@@ -1,27 +1,27 @@
-#line 1 "note_page.tmpl"
+#line 1 "tmpl/note_page.tmpl"
 #include "note_page.h"
-#line 2 "note_page.tmpl"
+#line 2 "tmpl/note_page.tmpl"
 namespace my_skin {
-	#line 3 "note_page.tmpl"
+	#line 3 "tmpl/note_page.tmpl"
 	struct  note_page_view :public cppcms::base_view
-	#line 3 "note_page.tmpl"
+	#line 3 "tmpl/note_page.tmpl"
 	{
-	#line 3 "note_page.tmpl"
+	#line 3 "tmpl/note_page.tmpl"
 		note_page_content::content &content;
-	#line 3 "note_page.tmpl"
+	#line 3 "tmpl/note_page.tmpl"
 		note_page_view(std::ostream &_s,note_page_content::content &_content): cppcms::base_view(_s),content(_content),_domain_id(0)
-	#line 3 "note_page.tmpl"
+	#line 3 "tmpl/note_page.tmpl"
 		{
-	#line 3 "note_page.tmpl"
+	#line 3 "tmpl/note_page.tmpl"
 			_domain_id=booster::locale::ios_info::get(_s).domain_id();
-	#line 3 "note_page.tmpl"
+	#line 3 "tmpl/note_page.tmpl"
 		}
-		#line 4 "note_page.tmpl"
+		#line 4 "tmpl/note_page.tmpl"
 		virtual void render() {
-		#line 4 "note_page.tmpl"
+		#line 4 "tmpl/note_page.tmpl"
 			cppcms::translation_domain_scope _trs(out(),_domain_id);
 
-			#line 59 "note_page.tmpl"
+			#line 59 "tmpl/note_page.tmpl"
 			out()<<"\n"
 				"<!DOCTYPE html>\n"
 				"<html lang=\"en\">\n"
@@ -78,9 +78,9 @@ namespace my_skin {
 				"            <button class=\"m-0 ml-2 btn peach-gradient dropdown-toggle pb-2 pr-3 pl-3 pt-2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"  style=\"border-radius: 8px\">\n"
 				"              <img src=\"img/question.jpeg\" style=\"width:30px; height: 30px;\"alt=\"\" class=\"img rounded-circle m-0 p-0\">\n"
 				"              ";
-			#line 59 "note_page.tmpl"
+			#line 59 "tmpl/note_page.tmpl"
 			out()<<cppcms::filters::escape(content.account.account_name);
-			#line 96 "note_page.tmpl"
+			#line 96 "tmpl/note_page.tmpl"
 			out()<<"\n"
 				"            </button>\n"
 				"            <div class=\"dropdown-menu\">\n"
@@ -119,16 +119,16 @@ namespace my_skin {
 				"      <div class=\"card-body\" >\n"
 				"        <div class=\"card-title\" style=\"text-align: center;\">\n"
 				"          <h3 id=\"local_id\">";
-			#line 96 "note_page.tmpl"
+			#line 96 "tmpl/note_page.tmpl"
 			out()<<cppcms::filters::escape(content.local_id);
-			#line 99 "note_page.tmpl"
+			#line 99 "tmpl/note_page.tmpl"
 			out()<<"</h3>\n"
 				"        </div>\n"
 				"        <div class=\"container-fluid m-0  p-0 pb-5\" style=\"height: 100%\">\n"
 				"          <textarea   style =\"resize:none; height: 100%;\"name=\"test\"  id=\"QuickNoteTextArea\"  class=\"form-control z-depth-1\" placeholder=\"Write Something...\" spellcheck=\"false\" id=\"main_textarea\" >";
-			#line 99 "note_page.tmpl"
+			#line 99 "tmpl/note_page.tmpl"
 			out()<<cppcms::filters::escape(content.text);
-			#line 161 "note_page.tmpl"
+			#line 161 "tmpl/note_page.tmpl"
 			out()<<"</textarea>\n"
 				"        </div>\n"
 				"      </div>\n"
@@ -192,39 +192,39 @@ namespace my_skin {
 				"\n"
 				"\n"
 				"";
-		#line 161 "note_page.tmpl"
+		#line 161 "tmpl/note_page.tmpl"
 		} // end of template render
-	#line 162 "note_page.tmpl"
+	#line 162 "tmpl/note_page.tmpl"
 	private:
-	#line 162 "note_page.tmpl"
+	#line 162 "tmpl/note_page.tmpl"
 		int _domain_id;
-	#line 162 "note_page.tmpl"
+	#line 162 "tmpl/note_page.tmpl"
 	}; // end of class note_page_view
-#line 163 "note_page.tmpl"
+#line 163 "tmpl/note_page.tmpl"
 } // end of namespace my_skin
-#line 2 "note_page.tmpl"
+#line 2 "tmpl/note_page.tmpl"
 namespace my_skin {
-#line 163 "note_page.tmpl"
+#line 163 "tmpl/note_page.tmpl"
 } // end of namespace my_skin
-#line 163 "note_page.tmpl"
+#line 163 "tmpl/note_page.tmpl"
 namespace {
-#line 163 "note_page.tmpl"
+#line 163 "tmpl/note_page.tmpl"
  cppcms::views::generator my_generator; 
-#line 163 "note_page.tmpl"
+#line 163 "tmpl/note_page.tmpl"
  struct loader { 
-#line 163 "note_page.tmpl"
+#line 163 "tmpl/note_page.tmpl"
   loader() { 
-#line 163 "note_page.tmpl"
+#line 163 "tmpl/note_page.tmpl"
    my_generator.name("my_skin");
-#line 163 "note_page.tmpl"
+#line 163 "tmpl/note_page.tmpl"
    my_generator.add_view<my_skin::note_page_view,note_page_content::content>("note_page_view",true);
-#line 163 "note_page.tmpl"
+#line 163 "tmpl/note_page.tmpl"
     cppcms::views::pool::instance().add(my_generator);
-#line 163 "note_page.tmpl"
+#line 163 "tmpl/note_page.tmpl"
  }
-#line 163 "note_page.tmpl"
+#line 163 "tmpl/note_page.tmpl"
  ~loader() {  cppcms::views::pool::instance().remove(my_generator); }
-#line 163 "note_page.tmpl"
+#line 163 "tmpl/note_page.tmpl"
 } a_loader;
-#line 163 "note_page.tmpl"
+#line 163 "tmpl/note_page.tmpl"
 } // anon 

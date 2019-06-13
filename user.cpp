@@ -1,27 +1,27 @@
-#line 1 "user.tmpl"
+#line 1 "tmpl/user.tmpl"
 #include "user.h"
-#line 2 "user.tmpl"
+#line 2 "tmpl/user.tmpl"
 namespace my_skin {
-	#line 3 "user.tmpl"
+	#line 3 "tmpl/user.tmpl"
 	struct  user_view :public cppcms::base_view
-	#line 3 "user.tmpl"
+	#line 3 "tmpl/user.tmpl"
 	{
-	#line 3 "user.tmpl"
+	#line 3 "tmpl/user.tmpl"
 		user_content::content &content;
-	#line 3 "user.tmpl"
+	#line 3 "tmpl/user.tmpl"
 		user_view(std::ostream &_s,user_content::content &_content): cppcms::base_view(_s),content(_content),_domain_id(0)
-	#line 3 "user.tmpl"
+	#line 3 "tmpl/user.tmpl"
 		{
-	#line 3 "user.tmpl"
+	#line 3 "tmpl/user.tmpl"
 			_domain_id=booster::locale::ios_info::get(_s).domain_id();
-	#line 3 "user.tmpl"
+	#line 3 "tmpl/user.tmpl"
 		}
-		#line 4 "user.tmpl"
+		#line 4 "tmpl/user.tmpl"
 		virtual void render() {
-		#line 4 "user.tmpl"
+		#line 4 "tmpl/user.tmpl"
 			cppcms::translation_domain_scope _trs(out(),_domain_id);
 
-			#line 76 "user.tmpl"
+			#line 76 "tmpl/user.tmpl"
 			out()<<"\n"
 				"<!DOCTYPE html>\n"
 				"<html lang=\"en\">\n"
@@ -95,9 +95,9 @@ namespace my_skin {
 				"            <button class=\"m-0 ml-2 btn peach-gradient dropdown-toggle pb-2 pr-3 pl-3 pt-2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"  style=\"border-radius: 8px\">\n"
 				"              <img src=\"img/question.jpeg\" style=\"width:30px; height: 30px;\"alt=\"\" class=\"img rounded-circle m-0 p-0\">\n"
 				"              ";
-			#line 76 "user.tmpl"
+			#line 76 "tmpl/user.tmpl"
 			out()<<cppcms::filters::escape(content.account.account_name);
-			#line 155 "user.tmpl"
+			#line 155 "tmpl/user.tmpl"
 			out()<<"\n"
 				"            </button>\n"
 				"            <div class=\"dropdown-menu\">\n"
@@ -178,39 +178,39 @@ namespace my_skin {
 				"</html>\n"
 				"\n"
 				"";
-		#line 155 "user.tmpl"
+		#line 155 "tmpl/user.tmpl"
 		} // end of template render
-	#line 157 "user.tmpl"
+	#line 157 "tmpl/user.tmpl"
 	private:
-	#line 157 "user.tmpl"
+	#line 157 "tmpl/user.tmpl"
 		int _domain_id;
-	#line 157 "user.tmpl"
+	#line 157 "tmpl/user.tmpl"
 	}; // end of class user_view
-#line 158 "user.tmpl"
+#line 158 "tmpl/user.tmpl"
 } // end of namespace my_skin
-#line 2 "user.tmpl"
+#line 2 "tmpl/user.tmpl"
 namespace my_skin {
-#line 158 "user.tmpl"
+#line 158 "tmpl/user.tmpl"
 } // end of namespace my_skin
-#line 158 "user.tmpl"
+#line 158 "tmpl/user.tmpl"
 namespace {
-#line 158 "user.tmpl"
+#line 158 "tmpl/user.tmpl"
  cppcms::views::generator my_generator; 
-#line 158 "user.tmpl"
+#line 158 "tmpl/user.tmpl"
  struct loader { 
-#line 158 "user.tmpl"
+#line 158 "tmpl/user.tmpl"
   loader() { 
-#line 158 "user.tmpl"
+#line 158 "tmpl/user.tmpl"
    my_generator.name("my_skin");
-#line 158 "user.tmpl"
+#line 158 "tmpl/user.tmpl"
    my_generator.add_view<my_skin::user_view,user_content::content>("user_view",true);
-#line 158 "user.tmpl"
+#line 158 "tmpl/user.tmpl"
     cppcms::views::pool::instance().add(my_generator);
-#line 158 "user.tmpl"
+#line 158 "tmpl/user.tmpl"
  }
-#line 158 "user.tmpl"
+#line 158 "tmpl/user.tmpl"
  ~loader() {  cppcms::views::pool::instance().remove(my_generator); }
-#line 158 "user.tmpl"
+#line 158 "tmpl/user.tmpl"
 } a_loader;
-#line 158 "user.tmpl"
+#line 158 "tmpl/user.tmpl"
 } // anon 

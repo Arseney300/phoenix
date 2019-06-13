@@ -1,27 +1,27 @@
-#line 1 "main_window.tmpl"
+#line 1 "tmpl/main_window.tmpl"
 #include "main_window.h"
-#line 2 "main_window.tmpl"
+#line 2 "tmpl/main_window.tmpl"
 namespace my_skin {
-	#line 3 "main_window.tmpl"
+	#line 3 "tmpl/main_window.tmpl"
 	struct  phoenix_view :public cppcms::base_view
-	#line 3 "main_window.tmpl"
+	#line 3 "tmpl/main_window.tmpl"
 	{
-	#line 3 "main_window.tmpl"
+	#line 3 "tmpl/main_window.tmpl"
 		main_window_content::content &content;
-	#line 3 "main_window.tmpl"
+	#line 3 "tmpl/main_window.tmpl"
 		phoenix_view(std::ostream &_s,main_window_content::content &_content): cppcms::base_view(_s),content(_content),_domain_id(0)
-	#line 3 "main_window.tmpl"
+	#line 3 "tmpl/main_window.tmpl"
 		{
-	#line 3 "main_window.tmpl"
+	#line 3 "tmpl/main_window.tmpl"
 			_domain_id=booster::locale::ios_info::get(_s).domain_id();
-	#line 3 "main_window.tmpl"
+	#line 3 "tmpl/main_window.tmpl"
 		}
-		#line 4 "main_window.tmpl"
+		#line 4 "tmpl/main_window.tmpl"
 		virtual void render() {
-		#line 4 "main_window.tmpl"
+		#line 4 "tmpl/main_window.tmpl"
 			cppcms::translation_domain_scope _trs(out(),_domain_id);
 
-			#line 59 "main_window.tmpl"
+			#line 59 "tmpl/main_window.tmpl"
 			out()<<"\n"
 				"<!DOCTYPE html>\n"
 				"<html lang=\"en\">\n"
@@ -78,9 +78,9 @@ namespace my_skin {
 				"            <button class=\"m-0 ml-2 btn peach-gradient dropdown-toggle pb-2 pr-3 pl-3 pt-2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"  style=\"border-radius: 8px\">\n"
 				"              <img src=\"img/question.jpeg\" style=\"width:30px; height: 30px;\"alt=\"\" class=\"img rounded-circle m-0 p-0\">\n"
 				"              ";
-			#line 59 "main_window.tmpl"
+			#line 59 "tmpl/main_window.tmpl"
 			out()<<cppcms::filters::escape(content.account.account_name);
-			#line 209 "main_window.tmpl"
+			#line 209 "tmpl/main_window.tmpl"
 			out()<<"\n"
 				"            </button>\n"
 				"            <div class=\"dropdown-menu\">\n"
@@ -232,9 +232,9 @@ namespace my_skin {
 				"                <div class=\"form-group shadow-textarea\">\n"
 				"                  <label for=\"QuickNoteTextArea\">Your Note:</label>\n"
 				"                  <textarea style=\"max-height: 65vh\" name=\"";
-			#line 209 "main_window.tmpl"
+			#line 209 "tmpl/main_window.tmpl"
 			out()<<cppcms::filters::escape(content.qn_form.textarea.name());
-			#line 348 "main_window.tmpl"
+			#line 348 "tmpl/main_window.tmpl"
 			out()<<"\"  id=\"QuickNoteTextArea\" cols=\"30\" rows=\"10\" class=\"form-control z-depth-1\" placeholder=\"Write Something...\" spellcheck=\"false\"></textarea>\n"
 				"                </div>\n"
 				"                <div class=\"text-center\"><button class=\"btn btn-danger\" onclick=\"create_quick_note($('#QuickNoteTextArea').val())\">Create</button></div>\n"
@@ -375,39 +375,39 @@ namespace my_skin {
 				"</html>\n"
 				"\n"
 				"";
-		#line 348 "main_window.tmpl"
+		#line 348 "tmpl/main_window.tmpl"
 		} // end of template render
-	#line 350 "main_window.tmpl"
+	#line 350 "tmpl/main_window.tmpl"
 	private:
-	#line 350 "main_window.tmpl"
+	#line 350 "tmpl/main_window.tmpl"
 		int _domain_id;
-	#line 350 "main_window.tmpl"
+	#line 350 "tmpl/main_window.tmpl"
 	}; // end of class phoenix_view
-#line 351 "main_window.tmpl"
+#line 351 "tmpl/main_window.tmpl"
 } // end of namespace my_skin
-#line 2 "main_window.tmpl"
+#line 2 "tmpl/main_window.tmpl"
 namespace my_skin {
-#line 351 "main_window.tmpl"
+#line 351 "tmpl/main_window.tmpl"
 } // end of namespace my_skin
-#line 351 "main_window.tmpl"
+#line 351 "tmpl/main_window.tmpl"
 namespace {
-#line 351 "main_window.tmpl"
+#line 351 "tmpl/main_window.tmpl"
  cppcms::views::generator my_generator; 
-#line 351 "main_window.tmpl"
+#line 351 "tmpl/main_window.tmpl"
  struct loader { 
-#line 351 "main_window.tmpl"
+#line 351 "tmpl/main_window.tmpl"
   loader() { 
-#line 351 "main_window.tmpl"
+#line 351 "tmpl/main_window.tmpl"
    my_generator.name("my_skin");
-#line 351 "main_window.tmpl"
+#line 351 "tmpl/main_window.tmpl"
    my_generator.add_view<my_skin::phoenix_view,main_window_content::content>("phoenix_view",true);
-#line 351 "main_window.tmpl"
+#line 351 "tmpl/main_window.tmpl"
     cppcms::views::pool::instance().add(my_generator);
-#line 351 "main_window.tmpl"
+#line 351 "tmpl/main_window.tmpl"
  }
-#line 351 "main_window.tmpl"
+#line 351 "tmpl/main_window.tmpl"
  ~loader() {  cppcms::views::pool::instance().remove(my_generator); }
-#line 351 "main_window.tmpl"
+#line 351 "tmpl/main_window.tmpl"
 } a_loader;
-#line 351 "main_window.tmpl"
+#line 351 "tmpl/main_window.tmpl"
 } // anon 
