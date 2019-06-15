@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content">
+    <android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        app:cardCornerRadius="10sp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:layout_marginTop="@dimen/mtrl_card_spacing"
+        android:layout_marginRight="@dimen/mtrl_card_spacing"
+        style="@style/Widget.MaterialComponents.CardView"
+        app:cardBackgroundColor="?attr/colorBackgroundFloating"
+        android:minHeight="200dp">
+        <EditText
+
+            android:minLines="7"
+            android:maxLines="7"
+            android:gravity="top"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:id="@+id/priv_createtext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </android.support.design.card.MaterialCardView>
+
+    <android.support.design.button.MaterialButton
+        android:id="@+id/priv_createbtn"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/create"
+        android:textAppearance="@style/Widget.MaterialComponents.Button"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:cornerRadius="5sp" />
+
+</LinearLayout>
