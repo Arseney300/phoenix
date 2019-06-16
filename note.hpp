@@ -2,7 +2,8 @@
 #define note_hpp
 #include "boost_include.hpp"
 #include <string>
-
+//test class
+//now not work
 class date{
     private:
         int validate(unsigned int num, std::string type){

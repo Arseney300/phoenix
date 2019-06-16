@@ -124,7 +124,7 @@ public:
         c.title ="oahuth";  //timed
         c.welcome_text = "toaehusnt"; //timed
         c.account.account_name = "Arseney";   //timed
-        if (request().request_method() == "POST"){ //какая-то дичь
+        if (request().request_method() == "POST"){ 
             c.qn_form.load(context());
             if (c.qn_form.validate()){
                 std::cout << c.qn_form.textarea.value() << std::endl;

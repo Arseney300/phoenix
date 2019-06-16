@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+//now not work, because i have old version of albatross
+
 std::string encrypt_algo(std::string text,std::string key){
     std::vector<uint8_t> btext;
     for (auto i:text)
