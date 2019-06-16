@@ -13,6 +13,7 @@
 #include <fstream>
 
 
+#define DB_SESSION_DATA "mysql:database=phoenix;user=tester;password=123456789"
 #include "utils.h"
 
 // include tmpl:
@@ -25,10 +26,11 @@
 //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
 class hello : public cppcms::application {  
 private:
-    cppdb::session sql = cppdb::session("mysql:database=phoenix;user=tester;password=123456789");
+    
+    cppdb::session sql = cppdb::session(DB_SESSION_DATA);
 
 public:  
-    
+
     hello(cppcms::service &srv) :  
         cppcms::application(srv)  
     { 
