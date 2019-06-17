@@ -12,20 +12,28 @@
 #include <vector>
 #include <fstream>
 
-
+//to file!!!!!!
 #define DB_SESSION_DATA "mysql:database=phoenix;user=tester;password=123456789"
+
+
+//utist
 #include "utils.h"
+//!utils
+
+//include boost
+#include "boost_include.hpp"
+//!include boost
 
 // include tmpl:
 #include "main_window.h"
 #include "note_page.h"
 #include "user.h"
-#include "file_test.h"
+#include "file_test.h" //test tmpl
 // end tmpl
 
 class hello : public cppcms::application {  
 private:
-    
+    //main sql_session:
     cppdb::session sql = cppdb::session(DB_SESSION_DATA);
 
 public:  
@@ -33,31 +41,36 @@ public:
     hello(cppcms::service &srv) :  
         cppcms::application(srv)  
     { 
+    //default page
     dispatcher().assign("",&hello::main_window,this);
     dispatcher().assign("/",&hello::main_window,this);
-    mapper().assign("");
+    mapper().assign("","");
+    mapper().assign("","/");
+    //!default page
 
+    //test page
     dispatcher().assign("/test_file",&hello::test_file,this);
     mapper().assign("file_test","/test_file");
-
+    //!test page
     
-    dispatcher().assign("/note/(\\S+)",&hello::note,this,1);
+
+    //note page
+    dispatcher().assign("/note/(\\S+)",&hello::note,this,1); //render:note_page_view
     mapper().assign("note","/note/(\\S+)");
+    //!note page
 
-    dispatcher().assign("/note_page",&hello::note_page,this);
-    mapper().assign("note_page","/note_page");
-
-
+    //user page
     dispatcher().assign("/user",&hello::user, this);
     mapper().assign("user","/user");
+    //!user page
 
-
+    //user_work requestes
     dispatcher().assign("/post/create_user",&hello::create_user_post,this);
     mapper().assign("create_user","/post/create/user");
 
     dispatcher().assign("/post/login_user",&hello::login_user,this);
     mapper().assign("login_user","/post/login_user");
- 
+    //!user_word requestes
 
     dispatcher().assign("/post/create_note", &hello::create_note, this);
     mapper().assign("create_note","/post/create_note");
@@ -87,14 +100,14 @@ public:
     dispatcher().assign("/get/delete_note",&hello::delete_note, this);
     mapper().assign("delete_note","/get/delete_note");
 
-    std::cout << "init -------------------------" << std::endl;
     
     
-    mapper().root("/");
+    mapper().root("/"); 
 
     }  
 
     void test_file(){
+        std::string dir = "/data/user_files/";
         if(request().request_method() == "GET"){
             file_test_content::content c;
             render("file_test_view",c);
@@ -102,7 +115,7 @@ public:
         else if (request().request_method() == "POST"){
             file_test_content::content c;
             c.form.load(context());
-            
+            //request().files()
             if(c.form.validate()){
                 std::string text = c.form.text.value();
                 std::cout << text << std::endl;
@@ -186,42 +199,6 @@ public:
     }
 
 
-    void note_page(){
-        note_page_content::content c;
-        if (request().request_method() == "GET"){
-            std::string local_id = 'q' + request().get("note");
-            cppdb::result res =   sql << "select text from quick_notes where local_id = ?" << local_id << cppdb::row;
-            if (!res.empty()){
-                std::string text;
-                res.fetch(0,text);
-                //response().out() << text;
-                c.local_id = request().get("note");
-                c.text = text;
-                render("note_page_view",c);
-            }
-            else{
-                //response().out() << "problems";
-                //написать что такая заметка отсутсвует
-                //c.local_id = "Такая заметка не существует";
-                //c.text = "";
-                //render("note_page_view",c);
-
-
-                //произвести поиск в расшаренных заметках 
-                std::string s = "share";
-                res = sql << "select text from notes where local_id = ? and prop = ?" << 'n' + request().get("note") << s << cppdb::row;
-                if (!res.empty()){
-                    std::string text;
-                    res.fetch(0,text);
-                    c.local_id = request().get("note");
-                    c.text = text;
-                    render("note_page_view",c);
-                }
-                else
-                    response().set_redirect_header("./note_not_exist.html");
-            }
-        }
-    }
 
 
     void get_note(){
@@ -664,9 +641,9 @@ int main(int argc, char ** argv){
         srv.applications_pool().mount(
             cppcms::applications_factory<hello>()
         );
-        std::cout << "start init---------------------" << std::endl;
+        std::cout << "start PHOENIX" << std::endl;
         srv.run();
-        std::cout << "end init-----------------------------" << std::endl;
+        std::cout << "end PHOENIX" << std::endl;
     }
     catch(std:: exception &e){
         std::cout << e.what() << std::endl;
