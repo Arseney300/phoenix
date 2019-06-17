@@ -160,6 +160,14 @@ public:
     unsigned int get_size(){
         return this->size;
     }
+    //append не сделат без доп capacity, нужно реализовать 
+    /*void append(std::string append_text){
+        unsigned int new_size = this->size + append_text.length();
+
+    }
+    void append(char append_text){
+
+    }*/
 
     void set_text(std::string t){
         this->data = std::unique_ptr<char[]>{new char[t.length()]};

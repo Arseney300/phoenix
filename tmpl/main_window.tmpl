@@ -9,7 +9,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>PHOENIX</title>
+  <title><%= title%></title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
   <!-- Bootstrap core CSS -->
@@ -48,10 +48,10 @@
           </ul>
           <form method="POST" class="form-inline">
             <div class="md-form my-0">
-              <input autocomplete="off" type="search" class="form-control mr-sm-2" name="input1" placeholder="Search" aria-label="Search">
+              <input autocomplete="off" type="search" class="form-control mr-sm-2" name="input1" placeholder="<%=search.placeholder%>" aria-label="Search">
               
             </div>
-            <button class="btn btn-outline-white btn-md ml-2" type="submit" >Search</button>
+            <button class="btn btn-outline-white btn-md ml-2" type="submit" ><%=search.button_name%></button>
           </form>
           <div class="dropdown">
             <button class="m-0 ml-2 btn peach-gradient dropdown-toggle pb-2 pr-3 pl-3 pt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="border-radius: 8px">
@@ -151,22 +151,20 @@
           <div class="col-md-9 ">
             <div class="card waves-effect animated fadeInDown faster">
               <div class="card-body">
-                <h3 class="card-title" style="text-align: left;">Hello, User!!!</h3>
+                <h3 class="card-title" style="text-align: left;"><%= hello_user_text%></h3>
                 <p class="" style="font-size: 17px;">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique odit, error voluptate, quod aperiam qui reprehenderit pariatur eius consequatur veniam culpa deleniti suscipit, minus, velit nulla fugit! Enim, quibusdam, deserunt?
+                  <%= welcome_text%>
                 </p>
-                <a class="btn btn-primary mt-0" href="#" onclick="$('#main_card').show()">Registration</a>
+                <a class="btn btn-primary mt-0" href="#" onclick="$('#main_card').show()"><%=reg_button_name%></a>
               </div>
             </div>
             <div class="row">
               <div class="col-md-4">
                 <div class="card waves-effect mt-4 animated fadeInLeft faster">
                   <div class="card-body">
-                    <h3 class="card-title text-left">NEW</h3>
+                    <h3 class="card-title text-left"><%= new_text_title%></h3>
                     <p>
-                      <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque molestias, aut minima quaerat eaque, distinctio nisi cupiditate ipsum, dolore quos ad pariatur iusto impedit, veniam doloribus reiciendis expedita sit unde!</span>
-                      <span>Vitae tempore commodi animi dolorum et voluptatum, itaque reprehenderit magni pariatur autem dicta sunt necessitatibus numquam voluptas eveniet distinctio quae saepe dolor quasi odio deserunt. Id molestias sapiente, nesciunt ipsam.</span>
-                      <span>Vitae maxime sunt provident veniam corporis libero fugit excepturi minus, molestiae modi dolores ducimus, atque quis accusantium. Necessitatibus quam aspernatur ex explicabo possimus alias neque ipsam maxime illo, sunt. Consequuntur!</span>
+                      <%= new_text%>
                     </p>
                   </div>
                 </div>
@@ -174,22 +172,22 @@
               <div class="col-md-8">
                 <div class="card waves-effect mt-4 animated fadeInUp fast">
                   <div class="card-body">
-                    <h3 class="card-title text-left">Examples:</h3>
+                    <h3 class="card-title text-left"><%= examples.title%></h3>
                     <div class="example-image">
                       <div class="row">
                         <div class="col-md-4">
                           <div class="card waves-effect">
-                            <h5 class="">first:</h5>
+                            <h5 class=""><%= examples.names.at(0)%></h5>
                           </div>
                         </div>
                         <div class="col-md-4">
                           <div class="card waves-effect">
-                            <h3 class="">Second:</h3>
+                            <h5 class=""><%= examples.names.at(1)%></h5>
                           </div>
                         </div>
                         <div class="col-md-4">
                           <div class="card waves-effect">
-                            <h3 class="">Third:</h3>
+                            <h5 class=""><%= examples.names.at(2)%></h5>
                           </div>
                         </div>
                       </div>
@@ -202,13 +200,13 @@
           <div class="col-md-3 animated fadeInRight faster">
             <div class="card waves-effect">
               <div class="card-body">
-                <h3 class="card-title text-center">Quick Note</h3>
+                <h3 class="card-title text-center"><%= quick_note.title%></h3>
                 <hr class="my-2">
                 <div class="form-group shadow-textarea">
-                  <label for="QuickNoteTextArea">Your Note:</label>
+                  <label for="QuickNoteTextArea"><%= quick_note.input_text%></label>
                   <textarea style="max-height: 65vh" name="<%= qn_form.textarea.name() %>"  id="QuickNoteTextArea" cols="30" rows="10" class="form-control z-depth-1" placeholder="Write Something..." spellcheck="false"></textarea>
                 </div>
-                <div class="text-center"><button class="btn btn-danger" onclick="create_quick_note($('#QuickNoteTextArea').val())">Create</button></div>
+                <div class="text-center"><button class="btn btn-danger" onclick="create_quick_note($('#QuickNoteTextArea').val())"><%=quick_note.button_name%></button></div>
               </div>
               </div>
             </div>

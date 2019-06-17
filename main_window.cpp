@@ -21,7 +21,7 @@ namespace my_skin {
 		#line 4 "tmpl/main_window.tmpl"
 			cppcms::translation_domain_scope _trs(out(),_domain_id);
 
-			#line 59 "tmpl/main_window.tmpl"
+			#line 12 "tmpl/main_window.tmpl"
 			out()<<"\n"
 				"<!DOCTYPE html>\n"
 				"<html lang=\"en\">\n"
@@ -30,7 +30,11 @@ namespace my_skin {
 				"  <meta charset=\"utf-8\">\n"
 				"  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n"
 				"  <meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\">\n"
-				"  <title>PHOENIX</title>\n"
+				"  <title>";
+			#line 12 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.title);
+			#line 51 "tmpl/main_window.tmpl"
+			out()<<"</title>\n"
 				"  <!-- Font Awesome -->\n"
 				"  <link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.6.3/css/all.css\">\n"
 				"  <!-- Bootstrap core CSS -->\n"
@@ -69,10 +73,18 @@ namespace my_skin {
 				"          </ul>\n"
 				"          <form method=\"POST\" class=\"form-inline\">\n"
 				"            <div class=\"md-form my-0\">\n"
-				"              <input autocomplete=\"off\" type=\"search\" class=\"form-control mr-sm-2\" name=\"input1\" placeholder=\"Search\" aria-label=\"Search\">\n"
+				"              <input autocomplete=\"off\" type=\"search\" class=\"form-control mr-sm-2\" name=\"input1\" placeholder=\"";
+			#line 51 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.search.placeholder);
+			#line 54 "tmpl/main_window.tmpl"
+			out()<<"\" aria-label=\"Search\">\n"
 				"              \n"
 				"            </div>\n"
-				"            <button class=\"btn btn-outline-white btn-md ml-2\" type=\"submit\" >Search</button>\n"
+				"            <button class=\"btn btn-outline-white btn-md ml-2\" type=\"submit\" >";
+			#line 54 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.search.button_name);
+			#line 59 "tmpl/main_window.tmpl"
+			out()<<"</button>\n"
 				"          </form>\n"
 				"          <div class=\"dropdown\">\n"
 				"            <button class=\"m-0 ml-2 btn peach-gradient dropdown-toggle pb-2 pr-3 pl-3 pt-2\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"  style=\"border-radius: 8px\">\n"
@@ -80,7 +92,7 @@ namespace my_skin {
 				"              ";
 			#line 59 "tmpl/main_window.tmpl"
 			out()<<cppcms::filters::escape(content.account.account_name);
-			#line 209 "tmpl/main_window.tmpl"
+			#line 154 "tmpl/main_window.tmpl"
 			out()<<"\n"
 				"            </button>\n"
 				"            <div class=\"dropdown-menu\">\n"
@@ -176,22 +188,40 @@ namespace my_skin {
 				"          <div class=\"col-md-9 \">\n"
 				"            <div class=\"card waves-effect animated fadeInDown faster\">\n"
 				"              <div class=\"card-body\">\n"
-				"                <h3 class=\"card-title\" style=\"text-align: left;\">Hello, User!!!</h3>\n"
+				"                <h3 class=\"card-title\" style=\"text-align: left;\">";
+			#line 154 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.hello_user_text);
+			#line 156 "tmpl/main_window.tmpl"
+			out()<<"</h3>\n"
 				"                <p class=\"\" style=\"font-size: 17px;\">\n"
-				"                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique odit, error voluptate, quod aperiam qui reprehenderit pariatur eius consequatur veniam culpa deleniti suscipit, minus, velit nulla fugit! Enim, quibusdam, deserunt?\n"
+				"                  ";
+			#line 156 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.welcome_text);
+			#line 158 "tmpl/main_window.tmpl"
+			out()<<"\n"
 				"                </p>\n"
-				"                <a class=\"btn btn-primary mt-0\" href=\"#\" onclick=\"$('#main_card').show()\">Registration</a>\n"
+				"                <a class=\"btn btn-primary mt-0\" href=\"#\" onclick=\"$('#main_card').show()\">";
+			#line 158 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.reg_button_name);
+			#line 165 "tmpl/main_window.tmpl"
+			out()<<"</a>\n"
 				"              </div>\n"
 				"            </div>\n"
 				"            <div class=\"row\">\n"
 				"              <div class=\"col-md-4\">\n"
 				"                <div class=\"card waves-effect mt-4 animated fadeInLeft faster\">\n"
 				"                  <div class=\"card-body\">\n"
-				"                    <h3 class=\"card-title text-left\">NEW</h3>\n"
+				"                    <h3 class=\"card-title text-left\">";
+			#line 165 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.new_text_title);
+			#line 167 "tmpl/main_window.tmpl"
+			out()<<"</h3>\n"
 				"                    <p>\n"
-				"                      <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque molestias, aut minima quaerat eaque, distinctio nisi cupiditate ipsum, dolore quos ad pariatur iusto impedit, veniam doloribus reiciendis expedita sit unde!</span>\n"
-				"                      <span>Vitae tempore commodi animi dolorum et voluptatum, itaque reprehenderit magni pariatur autem dicta sunt necessitatibus numquam voluptas eveniet distinctio quae saepe dolor quasi odio deserunt. Id molestias sapiente, nesciunt ipsam.</span>\n"
-				"                      <span>Vitae maxime sunt provident veniam corporis libero fugit excepturi minus, molestiae modi dolores ducimus, atque quis accusantium. Necessitatibus quam aspernatur ex explicabo possimus alias neque ipsam maxime illo, sunt. Consequuntur!</span>\n"
+				"                      ";
+			#line 167 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.new_text);
+			#line 175 "tmpl/main_window.tmpl"
+			out()<<"\n"
 				"                    </p>\n"
 				"                  </div>\n"
 				"                </div>\n"
@@ -199,22 +229,38 @@ namespace my_skin {
 				"              <div class=\"col-md-8\">\n"
 				"                <div class=\"card waves-effect mt-4 animated fadeInUp fast\">\n"
 				"                  <div class=\"card-body\">\n"
-				"                    <h3 class=\"card-title text-left\">Examples:</h3>\n"
+				"                    <h3 class=\"card-title text-left\">";
+			#line 175 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.examples.title);
+			#line 180 "tmpl/main_window.tmpl"
+			out()<<"</h3>\n"
 				"                    <div class=\"example-image\">\n"
 				"                      <div class=\"row\">\n"
 				"                        <div class=\"col-md-4\">\n"
 				"                          <div class=\"card waves-effect\">\n"
-				"                            <h5 class=\"\">first:</h5>\n"
+				"                            <h5 class=\"\">";
+			#line 180 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.examples.names.at(0));
+			#line 185 "tmpl/main_window.tmpl"
+			out()<<"</h5>\n"
 				"                          </div>\n"
 				"                        </div>\n"
 				"                        <div class=\"col-md-4\">\n"
 				"                          <div class=\"card waves-effect\">\n"
-				"                            <h3 class=\"\">Second:</h3>\n"
+				"                            <h5 class=\"\">";
+			#line 185 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.examples.names.at(1));
+			#line 190 "tmpl/main_window.tmpl"
+			out()<<"</h5>\n"
 				"                          </div>\n"
 				"                        </div>\n"
 				"                        <div class=\"col-md-4\">\n"
 				"                          <div class=\"card waves-effect\">\n"
-				"                            <h3 class=\"\">Third:</h3>\n"
+				"                            <h5 class=\"\">";
+			#line 190 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.examples.names.at(2));
+			#line 203 "tmpl/main_window.tmpl"
+			out()<<"</h5>\n"
 				"                          </div>\n"
 				"                        </div>\n"
 				"                      </div>\n"
@@ -227,17 +273,29 @@ namespace my_skin {
 				"          <div class=\"col-md-3 animated fadeInRight faster\">\n"
 				"            <div class=\"card waves-effect\">\n"
 				"              <div class=\"card-body\">\n"
-				"                <h3 class=\"card-title text-center\">Quick Note</h3>\n"
+				"                <h3 class=\"card-title text-center\">";
+			#line 203 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.quick_note.title);
+			#line 206 "tmpl/main_window.tmpl"
+			out()<<"</h3>\n"
 				"                <hr class=\"my-2\">\n"
 				"                <div class=\"form-group shadow-textarea\">\n"
-				"                  <label for=\"QuickNoteTextArea\">Your Note:</label>\n"
+				"                  <label for=\"QuickNoteTextArea\">";
+			#line 206 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.quick_note.input_text);
+			#line 207 "tmpl/main_window.tmpl"
+			out()<<"</label>\n"
 				"                  <textarea style=\"max-height: 65vh\" name=\"";
-			#line 209 "tmpl/main_window.tmpl"
+			#line 207 "tmpl/main_window.tmpl"
 			out()<<cppcms::filters::escape(content.qn_form.textarea.name());
-			#line 348 "tmpl/main_window.tmpl"
+			#line 209 "tmpl/main_window.tmpl"
 			out()<<"\"  id=\"QuickNoteTextArea\" cols=\"30\" rows=\"10\" class=\"form-control z-depth-1\" placeholder=\"Write Something...\" spellcheck=\"false\"></textarea>\n"
 				"                </div>\n"
-				"                <div class=\"text-center\"><button class=\"btn btn-danger\" onclick=\"create_quick_note($('#QuickNoteTextArea').val())\">Create</button></div>\n"
+				"                <div class=\"text-center\"><button class=\"btn btn-danger\" onclick=\"create_quick_note($('#QuickNoteTextArea').val())\">";
+			#line 209 "tmpl/main_window.tmpl"
+			out()<<cppcms::filters::escape(content.quick_note.button_name);
+			#line 346 "tmpl/main_window.tmpl"
+			out()<<"</button></div>\n"
 				"              </div>\n"
 				"              </div>\n"
 				"            </div>\n"
@@ -375,39 +433,39 @@ namespace my_skin {
 				"</html>\n"
 				"\n"
 				"";
-		#line 348 "tmpl/main_window.tmpl"
+		#line 346 "tmpl/main_window.tmpl"
 		} // end of template render
-	#line 350 "tmpl/main_window.tmpl"
+	#line 348 "tmpl/main_window.tmpl"
 	private:
-	#line 350 "tmpl/main_window.tmpl"
+	#line 348 "tmpl/main_window.tmpl"
 		int _domain_id;
-	#line 350 "tmpl/main_window.tmpl"
+	#line 348 "tmpl/main_window.tmpl"
 	}; // end of class phoenix_view
-#line 351 "tmpl/main_window.tmpl"
+#line 349 "tmpl/main_window.tmpl"
 } // end of namespace my_skin
 #line 2 "tmpl/main_window.tmpl"
 namespace my_skin {
-#line 351 "tmpl/main_window.tmpl"
+#line 349 "tmpl/main_window.tmpl"
 } // end of namespace my_skin
-#line 351 "tmpl/main_window.tmpl"
+#line 349 "tmpl/main_window.tmpl"
 namespace {
-#line 351 "tmpl/main_window.tmpl"
+#line 349 "tmpl/main_window.tmpl"
  cppcms::views::generator my_generator; 
-#line 351 "tmpl/main_window.tmpl"
+#line 349 "tmpl/main_window.tmpl"
  struct loader { 
-#line 351 "tmpl/main_window.tmpl"
+#line 349 "tmpl/main_window.tmpl"
   loader() { 
-#line 351 "tmpl/main_window.tmpl"
+#line 349 "tmpl/main_window.tmpl"
    my_generator.name("my_skin");
-#line 351 "tmpl/main_window.tmpl"
+#line 349 "tmpl/main_window.tmpl"
    my_generator.add_view<my_skin::phoenix_view,main_window_content::content>("phoenix_view",true);
-#line 351 "tmpl/main_window.tmpl"
+#line 349 "tmpl/main_window.tmpl"
     cppcms::views::pool::instance().add(my_generator);
-#line 351 "tmpl/main_window.tmpl"
+#line 349 "tmpl/main_window.tmpl"
  }
-#line 351 "tmpl/main_window.tmpl"
+#line 349 "tmpl/main_window.tmpl"
  ~loader() {  cppcms::views::pool::instance().remove(my_generator); }
-#line 351 "tmpl/main_window.tmpl"
+#line 349 "tmpl/main_window.tmpl"
 } a_loader;
-#line 351 "tmpl/main_window.tmpl"
+#line 349 "tmpl/main_window.tmpl"
 } // anon 

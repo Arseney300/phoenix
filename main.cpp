@@ -120,9 +120,16 @@ public:
 
     void main_window(){
         main_window_content::content c;
-        c.title ="oahuth";  //timed
-        c.welcome_text = "toaehusnt"; //timed
-        c.account.account_name = "Arseney";   //timed
+        //init examples:
+        c.examples.names.push_back("Создание заметки:");
+        c.examples.names.push_back("Создание пользователя:");
+        c.examples.names.push_back("id заметки:");
+        //нужно добавть картинки !!!!
+
+        if( session().is_set("logged") and  session().get("logged")=="1"){
+            c.account.account_name = session().get("name");
+            c.hello_user_text ="Hello, "+session().get("name");
+        }
         if (request().request_method() == "POST"){ 
             c.qn_form.load(context());
             if (c.qn_form.validate()){
