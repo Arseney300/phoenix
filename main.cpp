@@ -23,7 +23,6 @@
 #include "file_test.h"
 // end tmpl
 
-//cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
 class hello : public cppcms::application {  
 private:
     
@@ -142,7 +141,6 @@ public:
         if (request().request_method() == "GET"){
             //std::string local_id = 'q' + request().get("note");
             std::string local_id = 'q' + id;
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
             cppdb::result res =   sql << "select text from quick_notes where local_id = ?" << local_id << cppdb::row;
             if (!res.empty()){
                 std::string text;
@@ -185,7 +183,6 @@ public:
         note_page_content::content c;
         if (request().request_method() == "GET"){
             std::string local_id = 'q' + request().get("note");
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
             cppdb::result res =   sql << "select text from quick_notes where local_id = ?" << local_id << cppdb::row;
             if (!res.empty()){
                 std::string text;
@@ -224,7 +221,6 @@ public:
         if(request().request_method() == "GET"){
             std::string user_id = request().get("user_id");
             std::string local_id = 'n'+ request().get("local_id");
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
             cppdb::result res = sql << "select text from notes where creater_id = ? and local_id = ? " << user_id << local_id << cppdb::row;
             if(!res.empty()){
                 std::string text;
@@ -239,7 +235,6 @@ public:
     void get_quick_note(){
         if(request().request_method() == "GET"){
             std::string local_id = 'q' + request().get("local_id");
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
             cppdb::result res =   sql << "select text from quick_notes where local_id = ?" << local_id << cppdb::row;
             if (!res.empty()){
                 std::string text;
@@ -272,7 +267,6 @@ public:
             std::string local_id = 'q' + create_quick_note_id(10);
             std::string text = request().post("text");
             std::string date = request().post("date");
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
             sql << "insert into quick_notes(local_id,text,date) values(?,?,?)" << local_id << text  << date << cppdb::exec;
             response().out() << local_id.substr(1);
         }
@@ -280,7 +274,6 @@ public:
 
     bool test_id_note(std::string id){
         //id = 'n' + id;
-        //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
         cppdb::result res = sql << "select exists(select * from notes where local_id = ? )" << id << cppdb::row;
         std::string ans;
         if(!res.empty()){res.fetch(0,ans);}
@@ -323,7 +316,6 @@ public:
             std::string local_id = 'n' + ret_id;
             std::string creater_name = request().post("creater_id");
             //проверка на пользователя:
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
             cppdb::result res = sql << "select exists(select * from users where user_id = ? )" << creater_name << cppdb::row;
             std::string ans;
             if(!res.empty()){res.fetch(0,ans);};
@@ -334,14 +326,12 @@ public:
 
             std::string text = request().post("text");
             std::string date = request().post("date");
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
             sql << "insert into notes(local_id,text,creater_id,date) values(?,?,?,?)" << local_id << text << creater_name << date << cppdb::exec;
             response().out() << ret_id;
         }
     }
 
     void share_note_f(std::string last_id,std::string new_id){
-        //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
         sql << "update notes set local_id = ? where local_id = ?" << new_id << last_id << cppdb::exec;
         std::string s = "share";
         sql << "update notes set prop = ? where local_id  =? " << s << new_id << cppdb::exec;
@@ -353,7 +343,6 @@ public:
             std::string last_id = 'n' + request().post("last_id");
             std::string new_id = 'n' + request().post("new_id");
             //проверка на пользователя
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
             cppdb::result res = sql << "select exists(select * from users where user_id = ?)" << user_id << cppdb::row;
             std::string user_check;
             if(!res.empty()){res.fetch(0,user_check);}
@@ -382,7 +371,6 @@ public:
         else{
             // i need protect password
 	        // i need сделать проверку на то, есть ли такой пользователь
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
 
             cppdb::result res = sql << "select exists(select * from users  where name = ? )" << name << cppdb::row;
             std::string flag;
@@ -439,7 +427,6 @@ public:
                 return;
             }
             //проверка есть ли пользователь с таким именем или почтой
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
             cppdb::result res = sql << "select exists(select * from users where name= ? )" << name << cppdb::row;
             cppdb::result res2 = sql << "select exists(select * from users where email =? )" << name/*like email*/ << cppdb::row;
             std::string name_exist, email_exist;
@@ -490,7 +477,6 @@ public:
     void create_user_session(){
         if(request().request_method() == "POST"){
             std::string user_id = request().post("user_id");
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
             //проверка на пользователя:
             cppdb::result res = sql << "select exists(select * from users where user_id = ?)" << user_id << cppdb::row;
             std::string flag;
@@ -550,7 +536,6 @@ public:
                 response().out() << "empty data";
                 return;
             }
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
             //проверка существует ли заметка:
             cppdb::result res = sql << "select exists(select * from notes where local_id = ? and creater_id = ?)" << local_id << user_id << cppdb::row;
             std::string flag;
@@ -569,7 +554,6 @@ public:
         if (request().request_method() == "POST"){
             std::string local_id = 'q' + request().post("local_id");
             std::string text = request().post("text");
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
 
             //проверка на то, гда находится данная заметка
             cppdb::result res = sql << "select exists(select * from quick_notes where local_id = ? )" << local_id << cppdb::row;
@@ -601,7 +585,6 @@ public:
     void get_name(){
         if(request().request_method() == "GET"){
             std::string id = request().get("id");
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
             cppdb::result res = sql << "select name from users where user_id = ? " << id << cppdb::row;
             std::string ans;
             if(!res.empty()){
@@ -617,7 +600,6 @@ public:
 
 
     std::vector<std::string> get_notes_id_f(std::string user_id){
-        //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
         cppdb::result res = sql << "select local_id from notes where creater_id = ?" << user_id;
         std::vector<std::string> ids;
         while(res.next()){
@@ -650,7 +632,6 @@ public:
         if(request().request_method() == "GET"){
             std::string user_id = request().get("user_id");
             std::string local_id = 'n' + request().get("local_id");
-            //cppdb::session sql("mysql:database=phoenix;user=tester;password=123456789");
             cppdb:: result res = sql << "select exists(select * from users where user_id = ?)" << user_id << cppdb::row;
             std::string check_user;
             if(!res.empty()){res.fetch(0,check_user);}
@@ -668,17 +649,6 @@ public:
 };  
 
 
-
-
-/*void hello::main(std::string url){
-    //response().out() << "<h1> Hello World </h1>";
-
-    content::message c;
-    c.text = ">>>HELLO<<<<";
-    render("message",c);
-
-    std::cout << url << std::endl;
-}*/
 
 
 int main(int argc, char ** argv){
