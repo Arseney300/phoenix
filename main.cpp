@@ -12,8 +12,6 @@
 #include <vector>
 #include <fstream>
 
-//to file!!!!!!
-#define DB_SESSION_DATA "mysql:database=phoenix;user=tester;password=123456789"
 
 
 //utist
@@ -34,18 +32,36 @@
 class hello : public cppcms::application {  
 private:
     //main sql_session:
-    cppdb::session sql = cppdb::session(DB_SESSION_DATA);
-
+    //cppdb::session sql = cppdb::session(DB_SESSION_DATA);
+    cppdb::session sql;
+    //password file:
+    std::ifstream pass_file;
 public:  
-
     hello(cppcms::service &srv) :  
         cppcms::application(srv)  
     { 
+    //init pass file
+    try{
+        pass_file.open("./data/passwords.pass");
+    }
+    catch(std::exception&e){
+        std::cout << e.what();
+    }
+    if(!pass_file.is_open()){
+        std::cout << "problems with pass_file";
+    }
+    //!init fiss_file
+
+    //init sql
+    //sql -- first line
+    std::string db_data;
+    pass_file >> db_data;
+    sql = cppdb::session(db_data);
+    //!init sql
     //default page
     dispatcher().assign("",&hello::main_window,this);
     dispatcher().assign("/",&hello::main_window,this);
-    mapper().assign("","");
-    mapper().assign("","/");
+    mapper().assign("");
     //!default page
 
     //test page
