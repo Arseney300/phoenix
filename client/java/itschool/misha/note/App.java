@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class App extends Application {
-    private final String URL="http://37.193.57.163:80/";
+    private final String URL="http://phoenixnote.site/";
     private static NoteApi api;
     private Retrofit retrofit;
     @Override
