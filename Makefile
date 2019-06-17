@@ -7,7 +7,7 @@ all:hello
 
 
 hello: TMPL_OBJECTS
-	g++ -std=c++17  $(TMPL_OBJECTS) $(LIB_FLAGS) -o hello
+	g++ -std=c++17  $(TMPL_OBJECTS) $(LIB_FLAGS) -o phoenix
 TMPL_OBJECTS: TMPL_CPP
 	g++ -c  $(TMPL_CPP)
 TMPL_CPP:
