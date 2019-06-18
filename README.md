@@ -12,14 +12,14 @@ If you don't like unclear ID and want to create your self identificator, you can
 
 # how to install server side: 
 Dependencies:  
-cppcms(1.2.0 and older)    
-cppdb(1.0.0 and older)  
+cppcms(1.2.0 and newer)    
+cppdb(1.0.0 and newer)  
 boost  
 mariadb:  
   mariadb-dev*   
   mariadb-server  
   
-g++ or gcc  with std=c++17 
+g++ with c++17 
 
 install and run:  
 git clone https://github.com/Arseney300/phoenix.git  
