@@ -12,7 +12,7 @@
 #include <vector>
 #include <fstream>
 #include <stdlib.h>
-
+#include <utility>
 
 //utist
 #include "utils.h"
@@ -26,6 +26,7 @@
 #include "main_window.h"
 #include "note_page.h"
 #include "user.h"
+#include "reset_password.h"
 // end tmpl
 
 class hello : public cppcms::application {  
@@ -35,6 +36,10 @@ private:
     cppdb::session sql;
     //password file:
     std::ifstream pass_file;
+
+    //std::vector<std::map<std::string,std::string>> reset_password_list;
+    std::map<std::string,std::string> reset_password_list;
+
 public:  
     hello(cppcms::service &srv) :  
         cppcms::application(srv)  
@@ -63,10 +68,7 @@ public:
     mapper().assign("");
     //!default page
 
-    //test page
-    dispatcher().assign("/test_file",&hello::test_file,this);
-    mapper().assign("test_file","/test_file");
-    //!test_page
+ 
     
 
     //note page
@@ -85,6 +87,9 @@ public:
 
     dispatcher().assign("/post/login_user",&hello::login_user,this);
     mapper().assign("login_user","/post/login_user");
+
+    dispatcher().assign("/reset_password/(\\S+)",&hello::reset_password_page,this,1);
+    mapper().assign("reset_password_page","/reset_password/(\\S+)");
     //!user_word requestes
 
     dispatcher().assign("/post/create_note", &hello::create_note, this);
@@ -99,6 +104,13 @@ public:
     mapper().assign("share_note","/post/share_note");
     dispatcher().assign("/post/update_note",&hello::update_note,this);
     mapper().assign("update_note","/post/update_note");
+    dispatcher().assign("/post/new_file",&hello::new_file,this);
+    mapper().assign("new_file","/post/new_file");
+    dispatcher().assign("/post/reset_password",&hello::reset_password,this);
+    mapper().assign("reset_password","/post/reset_password");
+    dispatcher().assign("/post/change_password",&hello::change_password,this);
+    mapper().assign("change_password","/post/change_password");
+
 
     dispatcher().assign("/get/get_note",&hello::get_note,this);
     mapper().assign("get_note","/get/get_note");
@@ -114,86 +126,15 @@ public:
     mapper().assign("get_notes_id","/get/get_notes_id");
     dispatcher().assign("/get/delete_note",&hello::delete_note, this);
     mapper().assign("delete_note","/get/delete_note");
-
+    dispatcher().assign("/get/delete_user",&hello::delete_user,this);
+    mapper().assign("delete_user","/get/delete_user");
     
     
     mapper().root("/"); 
 
     }  
 
-    void test_file(){
-        std::string dir = "./data/user_files/";
-        if(request().request_method() == "GET"){
-            response().status(404);
-        }
-        /*else if (request().request_method() == "POST"){
-            file_test_content::content c;
-            c.form.load(context());
-            //request().files()
-            if(c.form.validate()){
-                std::string text = c.form.text.value();
-                std::cout << text << std::endl;
-                //c.form.file.load(context());
-                auto file_name = (*c.form.file.value()).filename(); //c.form.file.value()->filename()
-                c.form.file.value()->save_to(dir+file_name);
-                
-            }
-            c.form.clear();
-            render("file_test_view",c);
-        }*/
-        //пока что без формы
-        else if(request().request_method() == "POST"){
-
-            auto file = request().files().at(1);
-            std::string name_of_file = file->filename();
-            std::vector<std::string> split_name_of_file;
-            boost::split(split_name_of_file,name_of_file, boost::is_any_of("::"),boost::token_compress_on);
-            std::string user_id = split_name_of_file.at(0);
-            std::string note_id = split_name_of_file.at(1);
-            std::string file_name = split_name_of_file.at(2);
-            //дальше нужно такому-то пользователю в его заметку добавить имя  файла, чтобы потом было легче найти её
-            
-            if(!user_id.empty()){
-                //то есть user note (не важно расшаренная или нет)
-                note_id = 'n' + note_id;
-                sql << "update notes set file = ? where local_id = ? and creater_id = ? " << file_name << note_id << user_id <<  cppdb::exec;
-                //нужно реализховать проверку на то, есть ли файл от такой заметки такого пользователя на сервере (формата user_id::note_id::*)
-                // и заменить файл, если да
-                std::string command = "rm ./data/user_files/" + user_id+ "::" +note_id.substr(1)+"::*";
-                system(command.c_str());
-                file->save_to(dir+name_of_file);
-            }
-            else{
-                //то есть или расшаренная или quick_note
-                //для начала проверка на quick_note:
-                cppdb::result res  = sql << "select exists(select * from quick_notes where local_id = ? )" << 'q'+note_id << cppdb::row;
-                std::string ans;
-                if(!res.empty()){res.fetch(0,ans);}
-                if(ans == "1"){
-                    //то есть quick_note
-                    note_id = 'q' + note_id;
-                    sql << "update quick_notes set file = ? where local_id = ?" << file_name << note_id << cppdb::exec;
-                    //нужно сделат проверку на то, есть ли файл от такой заметки (format: ::note_id::*)
-                    std::string command = "rm ./data/user_files/::"+note_id.substr(1)+"::*";
-                    system(command.c_str());
-                    file->save_to(dir+name_of_file);
-                }
-                else{
-                    // то есть расшаренная(ну или не существует, хотя такой вариант пока не рассматривается)
-                    note_id = 'n' + note_id;
-                    sql << "update notes set file = ? where local_id = ? " << file_name << note_id << cppdb::exec;
-                    //сделать проверку на то есть ли файо такой заметки (format ::note_id::*)
-                    std::string command = "rm ./data/user_files/::"+note_id.substr(1)+"::*";
-                    system(command.c_str());
-                    file->save_to(dir+name_of_file);
-                }
-            }
-            //переношу файл:
-            //file->save_to(dir+name_of_file);
-
-        }
-        
-    }    
+   
 
 
     void main_window(){
@@ -572,7 +513,7 @@ public:
             render("user_view",c); 
         }
         else{
-            response().set_redirect_header("/hello/");
+            response().set_redirect_header("/");
         }
     }
    
@@ -675,9 +616,26 @@ public:
         }
     }
     
-  
+    //delete user
+    void delete_user(){
+        if(request().request_method() == "GET"){
+            std::string user_id = request().get("user_id");
+            cppdb::result res = sql<<"select exists(select * from users where user_id = ?)" << user_id <<cppdb::row;
+            std::string check_user;
+            if(!res.empty()){res.fetch(0,check_user);}
+            if(check_user =="0"){
+                response().out() << "user not found";
+                return;
+            }
+            sql << "delete from user where user_id =?" << user_id << cppdb::row;
+            //удалить все файлы, которые принадлежат данному пользователю:
+            std::string command = "rm ./data/user_files/"+user_id+"::*";
+            system(command.c_str());
+        }
+    }
 
-    void delete_note(){
+    //delete user note
+    void delete_note(){ 
         if(request().request_method() == "GET"){
             std::string user_id = request().get("user_id");
             std::string local_id = 'n' + request().get("local_id");
@@ -689,11 +647,173 @@ public:
                 return;
             }
             sql << "delete from notes where local_id = ?" << local_id << cppdb::exec;
+            //удалить файл, которые принадлежит данной заметки, если он вообще существует:
+            std::string command = "rm ./data/user_files/"+user_id+"::"+local_id+"::*";
+            system(command.c_str());
+        }
+    }
+
+
+    void reset_password(){
+        if(request().request_method() == "POST"){
+            std::string name_or_email = request().post("name");
+            //exist user:
+            cppdb::result res = sql << "select exists(select * from users where name = ? or email =?)" << name_or_email << name_or_email << cppdb::row;
+            std::string ans;
+            if(!res.empty()){res.fetch(0,ans);}
+            if(ans == "0"){
+                response().out() << "user not found";
+                return;
+            }
+            std::string email;
+            res = sql << "select email from users where name = ? or email =?" << name_or_email << name_or_email << cppdb::row;
+            if(!res.empty()){res.fetch(0,email);}
+
+            //do generate URL for reset_password_page
+
+            std::string url = create_quick_note_id(20); //20 simbols
+            reset_password_list.insert(std::make_pair(url,email));
+
+            std::string message{"www.bastion.site/reset_password/"+url};
+            send_email(email,message);
+        }
+    }
+
+    void reset_password_page(std::string url){
+        if(request().request_method() =="GET"){
+            //search in reset_password_list
+            auto i = reset_password_list.find(url);
+            if(i != reset_password_list.end()){
+                reset_password_content::content c;
+                render("reset_password_view",c);
+            }
+            else
+                response().status(404);
+            
+        }
+        else if(request().request_method() == "POST"){
+            reset_password_content::content c;
+            c.form.load(context());
+            if(c.form.validate()){
+                std::string password = c.form.password.value();
+                std::string password_again = c.form.password_again.value();
+                std::string email;
+                auto i = reset_password_list.find(url);
+                if(i!= reset_password_list.end()){
+                    email = i->second;
+                }
+                else{
+                    response().status(404);
+                }
+                if(password == password_again){
+                    sql << "update users set pass = ? where email =?" << password << email << cppdb::exec;
+                    reset_password_list.erase(i);
+                }
+                else{
+                    response().out() << "password not compare";
+                    c.form.clear();
+                    render("reset_password_view",c);
+                }
+                
+                response().set_redirect_header("/");
+            }
+            
+        }
+    }
+
+
+    void change_password(){
+        if(request().request_method() =="POST"){
+            std::string user_id = request().post("user_id");
+            std::string last_password = request().post("last_pass");
+            std::string new_password = request().post("new_pass");
+            //проверка на пользователя:
+            cppdb::result res = sql << "select exists(select * from users where user_id = ?)" << user_id << cppdb::row;
+            std::string ans;
+            if(!res.empty()){res.fetch(0,ans);}
+            if(ans =="0"){
+                response().out() << "user not found";
+                return;
+            }
+            std::string user_password;
+            res = sql << "select pass from users where user_id = ?" << user_id << cppdb::row;
+            if(!res.empty()){
+                res.fetch(0,user_password);
+            }
+            if(user_password == last_password){
+                if(new_password.length()!=0 and new_password != last_password)
+                    sql << "update users set pass = ? where user_id = ?" << new_password << user_id << cppdb::exec;
+                else{
+                    response().out() << "wrong new password";
+                    return;
+                }
+            }
+            else{
+                response().out() << "wrong password";
+                return;
+            }
 
         }
     }
 
-   
+
+    void new_file(){
+        std::string dir = "./data/user_files/";
+        if(request().request_method() == "GET"){
+            response().status(404);
+        }
+        else if(request().request_method() == "POST"){
+
+            auto file = request().files().at(1);
+            std::string name_of_file = file->filename();
+            std::vector<std::string> split_name_of_file;
+            boost::split(split_name_of_file,name_of_file, boost::is_any_of("::"),boost::token_compress_on);
+            std::string user_id = split_name_of_file.at(0);
+            std::string note_id = split_name_of_file.at(1);
+            std::string file_name = split_name_of_file.at(2);
+            //дальше нужно такому-то пользователю в его заметку добавить имя  файла, чтобы потом было легче найти её
+            
+            if(!user_id.empty()){
+                //то есть user note (не важно расшаренная или нет)
+                note_id = 'n' + note_id;
+                sql << "update notes set file = ? where local_id = ? and creater_id = ? " << file_name << note_id << user_id <<  cppdb::exec;
+                //нужно реализховать проверку на то, есть ли файл от такой заметки такого пользователя на сервере (формата user_id::note_id::*)
+                // и заменить файл, если да
+                std::string command = "rm ./data/user_files/" + user_id+ "::" +note_id.substr(1)+"::*";
+                system(command.c_str());
+                file->save_to(dir+name_of_file);
+            }
+            else{
+                //то есть или расшаренная или quick_note
+                //для начала проверка на quick_note:
+                cppdb::result res  = sql << "select exists(select * from quick_notes where local_id = ? )" << 'q'+note_id << cppdb::row;
+                std::string ans;
+                if(!res.empty()){res.fetch(0,ans);}
+                if(ans == "1"){
+                    //то есть quick_note
+                    note_id = 'q' + note_id;
+                    sql << "update quick_notes set file = ? where local_id = ?" << file_name << note_id << cppdb::exec;
+                    //нужно сделат проверку на то, есть ли файл от такой заметки (format: ::note_id::*)
+                    std::string command = "rm ./data/user_files/::"+note_id.substr(1)+"::*";
+                    system(command.c_str());
+                    file->save_to(dir+name_of_file);
+                }
+                else{
+                    // то есть расшаренная(ну или не существует, хотя такой вариант пока не рассматривается)
+                    note_id = 'n' + note_id;
+                    sql << "update notes set file = ? where local_id = ? " << file_name << note_id << cppdb::exec;
+                    //сделать проверку на то есть ли файо такой заметки (format ::note_id::*)
+                    std::string command = "rm ./data/user_files/::"+note_id.substr(1)+"::*";
+                    system(command.c_str());
+                    file->save_to(dir+name_of_file);
+                }
+            }
+            //переношу файл:
+            //file->save_to(dir+name_of_file);
+
+        }
+        
+    }    
   
 };  
 
