@@ -11,7 +11,7 @@
 #include <string> 
 #include <vector>
 #include <fstream>
-
+#include <stdlib.h>
 
 
 //utist
@@ -26,7 +26,6 @@
 #include "main_window.h"
 #include "note_page.h"
 #include "user.h"
-#include "file_test.h" //test tmpl
 // end tmpl
 
 class hello : public cppcms::application {  
@@ -66,8 +65,8 @@ public:
 
     //test page
     dispatcher().assign("/test_file",&hello::test_file,this);
-    mapper().assign("file_test","/test_file");
-    //!test page
+    mapper().assign("test_file","/test_file");
+    //!test_page
     
 
     //note page
@@ -123,12 +122,11 @@ public:
     }  
 
     void test_file(){
-        std::string dir = "/data/user_files/";
+        std::string dir = "./data/user_files/";
         if(request().request_method() == "GET"){
-            file_test_content::content c;
-            render("file_test_view",c);
+            response().status(404);
         }
-        else if (request().request_method() == "POST"){
+        /*else if (request().request_method() == "POST"){
             file_test_content::content c;
             c.form.load(context());
             //request().files()
@@ -137,11 +135,62 @@ public:
                 std::cout << text << std::endl;
                 //c.form.file.load(context());
                 auto file_name = (*c.form.file.value()).filename(); //c.form.file.value()->filename()
-                c.form.file.value()->save_to(file_name);
+                c.form.file.value()->save_to(dir+file_name);
                 
             }
             c.form.clear();
             render("file_test_view",c);
+        }*/
+        //пока что без формы
+        else if(request().request_method() == "POST"){
+
+            auto file = request().files().at(1);
+            std::string name_of_file = file->filename();
+            std::vector<std::string> split_name_of_file;
+            boost::split(split_name_of_file,name_of_file, boost::is_any_of("::"),boost::token_compress_on);
+            std::string user_id = split_name_of_file.at(0);
+            std::string note_id = split_name_of_file.at(1);
+            std::string file_name = split_name_of_file.at(2);
+            //дальше нужно такому-то пользователю в его заметку добавить имя  файла, чтобы потом было легче найти её
+            
+            if(!user_id.empty()){
+                //то есть user note (не важно расшаренная или нет)
+                note_id = 'n' + note_id;
+                sql << "update notes set file = ? where local_id = ? and creater_id = ? " << file_name << note_id << user_id <<  cppdb::exec;
+                //нужно реализховать проверку на то, есть ли файл от такой заметки такого пользователя на сервере (формата user_id::note_id::*)
+                // и заменить файл, если да
+                std::string command = "rm ./data/user_files/" + user_id+ "::" +note_id.substr(1)+"::*";
+                system(command.c_str());
+                file->save_to(dir+name_of_file);
+            }
+            else{
+                //то есть или расшаренная или quick_note
+                //для начала проверка на quick_note:
+                cppdb::result res  = sql << "select exists(select * from quick_notes where local_id = ? )" << 'q'+note_id << cppdb::row;
+                std::string ans;
+                if(!res.empty()){res.fetch(0,ans);}
+                if(ans == "1"){
+                    //то есть quick_note
+                    note_id = 'q' + note_id;
+                    sql << "update quick_notes set file = ? where local_id = ?" << file_name << note_id << cppdb::exec;
+                    //нужно сделат проверку на то, есть ли файл от такой заметки (format: ::note_id::*)
+                    std::string command = "rm ./data/user_files/::"+note_id.substr(1)+"::*";
+                    system(command.c_str());
+                    file->save_to(dir+name_of_file);
+                }
+                else{
+                    // то есть расшаренная(ну или не существует, хотя такой вариант пока не рассматривается)
+                    note_id = 'n' + note_id;
+                    sql << "update notes set file = ? where local_id = ? " << file_name << note_id << cppdb::exec;
+                    //сделать проверку на то есть ли файо такой заметки (format ::note_id::*)
+                    std::string command = "rm ./data/user_files/::"+note_id.substr(1)+"::*";
+                    system(command.c_str());
+                    file->save_to(dir+name_of_file);
+                }
+            }
+            //переношу файл:
+            //file->save_to(dir+name_of_file);
+
         }
         
     }    

@@ -47,6 +47,7 @@ class date{
 
         date(std::string date){
             std::vector<std::string> split_str;
+            //need boost::token_compress_on
             boost::split(split_str,date,boost::is_any_of(";"));
             try{
                 this->year = validate(std::stoi(split_str.at(0)),"year");
