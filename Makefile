@@ -8,7 +8,7 @@ all:hello
 
 
 hello: TMPL_OBJECTS
-	g++ -std=c++17  $(TMPL_OBJECTS) $(LIB_FLAGS) -o phoenix
+	g++ -std=c++17  $(TMPL_OBJECTS) $(LIB_FLAGS) -o phoenix.out
 	rm *.o
 TMPL_OBJECTS: TMPL_CPP
 	g++ -c  -std=c++17  $(addprefix pages/,$(TMPL_CPP)) $(MAIN_FILES)
