@@ -1,3 +1,11 @@
+/**
+ * Main code with core
+ * update....
+ * 
+*/
+
+
+//cppcms headers:
 #include <cppcms/application.h>  
 #include <cppcms/applications_pool.h>  
 #include <cppcms/service.h>  
@@ -7,15 +15,20 @@
 #include <cppcms/applications_pool.h>
 #include <cppdb/frontend.h>
 #include <cppcms/http_file.h>
+//!cppcms headers
+
+//c++ headers:
 #include <iostream> 
 #include <string> 
 #include <vector>
 #include <fstream>
 #include <stdlib.h>
 #include <utility>
+//!c++ headers
 
 //utist
-#include "utils.h"
+#include "utils/utils.h"
+#include "utils/log.hpp"
 //!utils
 
 //include boost
@@ -23,25 +36,24 @@
 //!include boost
 
 // include tmpl:
-#include "main_window.h"
-#include "note_page.h"
-#include "user.h"
-#include "reset_password.h"
+#include "pages/main_window/main_window.h"
+#include "pages/note_page/note_page.h"
+#include "pages/user/user.h"
+#include "pages/reset_password/reset_password.h"
 // end tmpl
 
-class hello : public cppcms::application {  
+//main phoenix application
+class phoenix_main_application: public cppcms::application {  
 private:
     //main sql_session:
-    //cppdb::session sql = cppdb::session(DB_SESSION_DATA);
     cppdb::session sql;
     //password file:
     std::ifstream pass_file;
-
-    //std::vector<std::map<std::string,std::string>> reset_password_list;
+    //reset_password_list;
     std::map<std::string,std::string> reset_password_list;
 
 public:  
-    hello(cppcms::service &srv) :  
+    phoenix_main_application(cppcms::service &srv) :  
         cppcms::application(srv)  
     { 
     //init pass file
@@ -62,80 +74,107 @@ public:
     pass_file >> db_data;
     sql = cppdb::session(db_data);
     //!init sql
-    //default page
-    dispatcher().assign("",&hello::main_window,this);
-    dispatcher().assign("/",&hello::main_window,this);
+    //default page (main_window)
+    dispatcher().assign("",&phoenix_main_application::main_window,this);
+    dispatcher().assign("/",&phoenix_main_application::main_window,this);
     mapper().assign("");
     //!default page
-
- 
+    
     
 
     //note page
-    dispatcher().assign("/note/(\\S+)",&hello::note,this,1); //render:note_page_view
+    dispatcher().assign("/note/(\\S+)",&phoenix_main_application::note,this,1); //render:note_page_view
     mapper().assign("note","/note/(\\S+)");
     //!note page
 
     //user page
-    dispatcher().assign("/user",&hello::user, this);
+    dispatcher().assign("/user",&phoenix_main_application::user, this);
     mapper().assign("user","/user");
     //!user page
 
     //user_work requestes
-    dispatcher().assign("/post/create_user",&hello::create_user_post,this);
+    dispatcher().assign("/post/create_user",&phoenix_main_application::create_user_post,this);
     mapper().assign("create_user","/post/create/user");
 
-    dispatcher().assign("/post/login_user",&hello::login_user,this);
+    dispatcher().assign("/post/login_user",&phoenix_main_application::login_user,this);
     mapper().assign("login_user","/post/login_user");
 
-    dispatcher().assign("/reset_password/(\\S+)",&hello::reset_password_page,this,1);
+    dispatcher().assign("/reset_password/(\\S+)",&phoenix_main_application::reset_password_page,this,1);
     mapper().assign("reset_password_page","/reset_password/(\\S+)");
-    //!user_word requestes
 
-    dispatcher().assign("/post/create_note", &hello::create_note, this);
-    mapper().assign("create_note","/post/create_note");
-    dispatcher().assign("/post/create_quick_note", &hello::create_quick_note,this);
-    mapper().assign("create_quick_note","/post/create_quick_note");
-    dispatcher().assign("/post/update_quick_note",&hello::update_quick_note,this);
-    mapper().assign("update_quick_note","/post/update_quick_note");
-    dispatcher().assign("/post/create_user_session",&hello::create_user_session,this);
+    dispatcher().assign("/post/create_user_session",&phoenix_main_application::create_user_session,this);
     mapper().assign("create_user_session","/post/create_user_session");
-    dispatcher().assign("/post/share_note",&hello::share_note,this);
-    mapper().assign("share_note","/post/share_note");
-    dispatcher().assign("/post/update_note",&hello::update_note,this);
-    mapper().assign("update_note","/post/update_note");
-    dispatcher().assign("/post/new_file",&hello::new_file,this);
-    mapper().assign("new_file","/post/new_file");
-    dispatcher().assign("/post/reset_password",&hello::reset_password,this);
+
+    dispatcher().assign("/post/reset_password",&phoenix_main_application::reset_password,this);
     mapper().assign("reset_password","/post/reset_password");
-    dispatcher().assign("/post/change_password",&hello::change_password,this);
+
+    dispatcher().assign("/post/change_password",&phoenix_main_application::change_password,this);
     mapper().assign("change_password","/post/change_password");
 
-
-    dispatcher().assign("/get/get_note",&hello::get_note,this);
-    mapper().assign("get_note","/get/get_note");
-    dispatcher().assign("/get/get_quick_note",&hello::get_quick_note,this);
-    mapper().assign("get_quick_note","/get/get_quick_note");
-    dispatcher().assign("/get/test_id_user_note",&hello::test_id_user_note,this);
-    mapper().assign("test_id_user_note","/get/test/id/user/note");
-    dispatcher().assign("/get/get_id",&hello::get_id,this);
-    mapper().assign("get_id","/get/get_id");
-    dispatcher().assign("/get/get_name",&hello::get_name,this);
-    mapper().assign("get_name","/get/get_name");
-    dispatcher().assign("/get/get_notes_id",&hello::get_notes_id,this);
-    mapper().assign("get_notes_id","/get/get_notes_id");
-    dispatcher().assign("/get/delete_note",&hello::delete_note, this);
-    mapper().assign("delete_note","/get/delete_note");
-    dispatcher().assign("/get/delete_user",&hello::delete_user,this);
+    dispatcher().assign("/get/delete_user",&phoenix_main_application::delete_user,this);
     mapper().assign("delete_user","/get/delete_user");
+
+    dispatcher().assign("/get/get_name",&phoenix_main_application::get_name,this); //return name of user_id
+    mapper().assign("get_name","/get/get_name");
+
+    dispatcher().assign("/get/get_id",&phoenix_main_application::get_id,this); //return user_id, if user have session
+    mapper().assign("get_id","/get/get_id");
+    //!user_work requestes
+
+
+
+    //quick_note
+    dispatcher().assign("/post/create_quick_note", &phoenix_main_application::create_quick_note,this);
+    mapper().assign("create_quick_note","/post/create_quick_note");
+
+    dispatcher().assign("/post/update_quick_note",&phoenix_main_application::update_quick_note,this);
+    mapper().assign("update_quick_note","/post/update_quick_note");
+
+    dispatcher().assign("/post/share_note",&phoenix_main_application::share_note,this);
+    mapper().assign("share_note","/post/share_note");
+
+    dispatcher().assign("/get/get_quick_note",&phoenix_main_application::get_quick_note,this);
+    mapper().assign("get_quick_note","/get/get_quick_note");
+
+    dispatcher().assign("/get/delete_quick_note", &phoenix_main_application::delete_quick_note, this);
+    mapper().assign("delete_quick_note","/get/delete_quick_note");
+    //!quick_note
+
+    //user_note
+    dispatcher().assign("/post/create_note", &phoenix_main_application::create_note, this);
+    mapper().assign("create_note","/post/create_note");
+    
+    dispatcher().assign("/post/update_note",&phoenix_main_application::update_note,this);
+    mapper().assign("update_note","/post/update_note");
+
+    dispatcher().assign("/get/delete_user_note",&phoenix_main_application::delete_user_note, this);
+    mapper().assign("delete_user_note","/get/delete_user_note");
+
+    dispatcher().assign("/get/get_user_note",&phoenix_main_application::get_user_note,this);
+    mapper().assign("get_note","/get/get_user_note");
+
+    dispatcher().assign("/get/get_notes_id",&phoenix_main_application::get_notes_id,this); //return all id of user_notes of user
+    mapper().assign("get_notes_id","/get/get_notes_id");
+    //!user_note
+
+
+    //???????
+    dispatcher().assign("/post/new_file",&phoenix_main_application::new_file,this);
+    mapper().assign("new_file","/post/new_file");
+    //?????
+
+
     
     
+    dispatcher().assign("/get/test_id_user_note",&phoenix_main_application::test_id_user_note,this); //???????????
+    mapper().assign("test_id_user_note","/get/test/id/user/note");
+
+     
+    
+   
     mapper().root("/"); 
 
     }  
-
-   
-
 
     void main_window(){
         main_window_content::content c;
@@ -149,7 +188,7 @@ public:
             c.account.account_name = session().get("name");
             c.hello_user_text ="Hello, "+session().get("name");
         }
-        if (request().request_method() == "POST"){ 
+        /*if (request().request_method() == "POST"){ 
             c.qn_form.load(context());
             if (c.qn_form.validate()){
                 std::cout << c.qn_form.textarea.value() << std::endl;
@@ -157,8 +196,8 @@ public:
             
             }
             c.qn_form.clear();
-        }
-        render("phoenix_view",c); 
+        }*/
+        render("main_window",c); 
     }
 
 
@@ -171,7 +210,6 @@ public:
             if (!res.empty()){
                 std::string text;
                 res.fetch(0,text);
-                //response().out() << text;
                 c.local_id = id;
                 c.text = text;
                 render("note_page_view",c);
@@ -207,7 +245,7 @@ public:
 
 
 
-    void get_note(){
+    void get_user_note(){
         if(request().request_method() == "GET"){
             std::string user_id = request().get("user_id");
             std::string local_id = 'n'+ request().get("local_id");
@@ -253,7 +291,6 @@ public:
             return;
         }
         if(request().request_method() =="POST"){
-            //std::string local_id = "q" + request().post("local_id");
             std::string local_id = 'q' + create_quick_note_id(10);
             std::string text = request().post("text");
             std::string date = request().post("date");
@@ -570,7 +607,20 @@ public:
         }
     }
 
- 
+
+    void delete_quick_note(){
+        if(request().request_method() =="GET"){
+            std::string local_id = 'q' + request().post("local_id");
+            cppdb::result res = sql << "select exists(select * from users where local_id = ?)" << local_id;
+            std::string check_note;
+            if(!res.empty()){res.fetch(0,check_note);}
+            if(check_note == "0"){
+                response().out() << "note not found";
+                return;
+            }
+            sql << "delete from quick_notes where local_id = ?" << local_id << cppdb::exec;
+        }
+    }
 
     void get_name(){
         if(request().request_method() == "GET"){
@@ -635,7 +685,7 @@ public:
     }
 
     //delete user note
-    void delete_note(){ 
+    void delete_user_note(){ 
         if(request().request_method() == "GET"){
             std::string user_id = request().get("user_id");
             std::string local_id = 'n' + request().get("local_id");
@@ -818,17 +868,19 @@ public:
 };  
 
 
-
-
 int main(int argc, char ** argv){
     try{
+        loger* begin_loger = new loger{};
         cppcms::service srv(argc, argv);
         srv.applications_pool().mount(
-            cppcms::applications_factory<hello>()
+            cppcms::applications_factory<phoenix_main_application>()
         );
-        std::cout << "start PHOENIX" << std::endl;
+        begin_loger->write("start phoenix main application");
+        begin_loger->close_file();
         srv.run();
-        std::cout << "end PHOENIX" << std::endl;
+        begin_loger->open_file();
+        begin_loger->write("end phoenix main application");
+        begin_loger->close_file();
     }
     catch(std:: exception &e){
         std::cout << e.what() << std::endl;
