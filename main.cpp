@@ -291,7 +291,7 @@ public:
             return;
         }
         if(request().request_method() =="POST"){
-            std::string local_id = 'q' + create_quick_note_id(10);
+            std::string local_id = 'q' + create_quick_note_id(5);
             std::string text = request().post("text");
             std::string date = request().post("date");
             sql << "insert into quick_notes(local_id,text,date) values(?,?,?)" << local_id << text  << date << cppdb::exec;
@@ -724,7 +724,7 @@ public:
             std::string url = create_quick_note_id(20); //20 simbols
             reset_password_list.insert(std::make_pair(url,email));
 
-            std::string message{"www.bastion.site/reset_password/"+url};
+            std::string message{"www.phoenixnote.site/reset_password/"+url};
             send_email(email,message);
         }
     }
