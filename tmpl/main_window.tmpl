@@ -331,7 +331,7 @@
       }
       else{
         $.post("http://phoenixnote.site/post/create_quick_note",{"text":text,date:"2019-05-05 5:12"}, function(data){
-          window.location.assign("http://phoenixnote.site/note_page?note="+data);
+          window.location.assign("http://phoenixnote.site/note/"+data);
         }); 
         //window.location.replace("http://phoenixnote.site/note_page?note="+ans.responseText);
         
