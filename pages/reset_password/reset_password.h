@@ -6,7 +6,7 @@
 #endif
 namespace reset_password_content{
 
-    struct input_form: public cppcms::form{
+    /*struct input_form: public cppcms::form{
         cppcms::widgets::text password,password_again;
         cppcms::widgets::submit button;
         input_form(){
@@ -17,10 +17,20 @@ namespace reset_password_content{
             add(password_again);
             add(button);
         }
+    };*/
+    struct input_form: public cppcms::form{
+        cppcms::widgets::text password,password_again;
+        input_form(){
+            password.name("first_password");
+            password_again.name("second_password");
+            add(password);
+            add(password_again);
+        }
     };
 
     struct content: public cppcms::base_content{
         input_form form;
+        std::string title{"change password"};
     };
 
 }
