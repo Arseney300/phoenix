@@ -51,7 +51,8 @@ private:
     std::ifstream pass_file;
     //reset_password_list;
     std::map<std::string,std::string> reset_password_list;
-
+    //user_files_directory:
+    std::filesystem::path user_files_directory{"./data/user_files/"};
 public:  
     phoenix_main_application(cppcms::service &srv) :  
         cppcms::application(srv)  
@@ -156,6 +157,18 @@ public:
     dispatcher().assign("/get/get_notes_id",&phoenix_main_application::get_notes_id,this); //return all id of user_notes of user
     mapper().assign("get_notes_id","/get/get_notes_id");
     //!user_note
+
+    //files
+    dispatcher().assign("/post/new_file",&phoenix_main_application::new_file, this);
+    mapper().assign("new_file","/post/new_file");
+
+    dispatcher().assign("/get/check_file_exist", &phoenix_main_application::check_file_exist, this);
+    mapper().assign("check_file_exist","/get/check_file_exist");
+
+    dispatcher().assign("/get/download_file",&phoenix_main_application::download_file,this)    ;
+    mapper().assign("download_file","/get/download_file");
+
+    //!files
 
 
     //???????
@@ -291,7 +304,7 @@ public:
             return;
         }
         if(request().request_method() =="POST"){
-            std::string local_id = 'q' + create_quick_note_id(10);
+            std::string local_id = 'q' + create_quick_note_id(5);
             std::string text = request().post("text");
             std::string date = request().post("date");
             sql << "insert into quick_notes(local_id,text,date) values(?,?,?)" << local_id << text  << date << cppdb::exec;
@@ -724,7 +737,7 @@ public:
             std::string url = create_quick_note_id(20); //20 simbols
             reset_password_list.insert(std::make_pair(url,email));
 
-            std::string message{"www.bastion.site/reset_password/"+url};
+            std::string message{"www.phoenixnote.site/reset_password/"+url};
             send_email(email,message);
         }
     }
@@ -864,7 +877,35 @@ public:
         }
         
     }    
-  
+    void check_file_exist(){
+        if(request().request_method() == "GET"){
+            std::string user_id = request().get("user_id");
+            std::string note_id ='n'+ request().get("note_id");
+            //сейчас файлы смотрятся только в user_note
+            cppdb::result res = sql << "select file from notes where local_id = ? and creater_id = ?" << note_id << user_id << cppdb::row;
+            std::string name_of_file;
+            if(!res.empty()){res.fetch(0,name_of_file);}
+            if(!name_of_file.empty()){
+                std::string full_name_of_file{user_id + "::" + request().get("note_id") + "::" + name_of_file};
+                response().out() << full_name_of_file;
+            }
+            else{
+                response().out() << "false";
+            }
+        }
+    }
+    void download_file(){
+        if(request().request_method() == "GET"){
+            std::string name_of_file = request().get("name");
+            std::ifstream file{this->user_files_directory.c_str() + name_of_file};
+            response().content_type("application/octet-stream");
+            response().out() << file.rdbuf();
+        }
+        else{
+            response().status(500);
+        }
+    }
+
 };  
 
 
