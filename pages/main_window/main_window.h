@@ -32,16 +32,25 @@ namespace main_window_content{
         }
     };
 
+    struct Left_title{
+        std::string main_title = "PHOENIX";
+        std::string first_button_name = "first";
+        std::string second_button_name = "second";
+        std::string third_button_name = "third";
+    };
+
     struct content: public cppcms::base_content{
         std::string title {"Phoenix"};
         std::string welcome_text {"Phoenix -- современнный сервис для создания заметок. Основная идея сервиса заключается в упрощении возможности делиться заметками, как между зарегестрированными, там и обычными пользователями"};
         std::string hello_user_text {"Hello, user"}; //default -- user, can change to nickname of user
-        std::string new_text_title { "Обновление 2.0.1"};
-        std::string new_text {"Добавлена возможность работы с файлами \n Добавлена возожность отслеживания даты создания заметки \n Обновлён движок сайта"};
+        std::string new_text_title { "Обновление 3.0.5"};
+        std::string new_text {"Добавлена возможность работы с файлами \n Обновлён движок сайта\n Добавлена возможность компилировать программы \n Обновлён движок \n"};
         std::string reg_button_name{"РЕГИСТРАЦИЯ"};
 
         example examples;
         search_area search;
+
+        Left_title left_title;
 
         struct Account{
             std::string account_name{"PHOENIX"};//default
