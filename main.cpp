@@ -29,6 +29,7 @@
 //utist
 #include "utils/utils.h"
 #include "utils/log.hpp"
+#include "utils/docker.hpp"
 //!utils
 
 //include boost
@@ -41,6 +42,8 @@
 #include "pages/user/user.h"
 #include "pages/reset_password/reset_password.h"
 // end tmpl
+
+
 
 //main phoenix application
 class phoenix_main_application: public cppcms::application {  
@@ -169,6 +172,11 @@ public:
     mapper().assign("download_file","/get/download_file");
 
     //!files
+
+
+
+    dispatcher().assign("/post/compile",&phoenix_main_application::compile,this);
+    mapper().assign("compile","/post/compile");
 
 
     //???????
@@ -903,6 +911,22 @@ public:
         }
         else{
             response().status(500);
+        }
+    }
+
+
+    void compile(){
+        if(request().request_method() == "POST"){
+            std::string note_id = 'n' + request().post("note_id");
+            std::string input = request().post("input");
+            std::string pr_lang = request().post("pr_lang");
+            docker_pool docker{pr_lang, note_id};
+            cppdb::result res = sql << "select text from notes where local_id = ?" << note_id << cppdb::row;
+            std::string text;
+            if(!res.empty()){res.fetch(0,text);}
+            docker.set_text(text);
+            std::string output = docker.run_program();
+            response().out() << output;
         }
     }
 
