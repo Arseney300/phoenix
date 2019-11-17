@@ -34,9 +34,9 @@ namespace main_window_content{
 
     struct Left_title{
         std::string main_title = "PHOENIX";
-        std::string first_button_name = "first";
-        std::string second_button_name = "second";
-        std::string third_button_name = "third";
+        std::string first_button_name = "news";
+        std::string second_button_name = "contacts";
+        std::string third_button_name = "source code";
     };
 
     struct content: public cppcms::base_content{

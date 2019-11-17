@@ -31,12 +31,13 @@ private:
 
     text_size length;
 public:
+    text(const char text[]) : basic_text(text){
+        this->length = strlen(text);
+    }
     text(std::string text) : basic_text(text){
         this->length = text.length();
     }
-    text(char text[]) : basic_text(text){
-        this->length = strlen(text);
-    }
+    
     void set_text(std::string text) override {
         this->data = text;
         this->length = text.length();

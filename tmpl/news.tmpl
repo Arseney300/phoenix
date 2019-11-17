@@ -1,6 +1,6 @@
-<%c++ #include "main_window/main_window.h"%>
+<%c++ #include "news/news.h"%>
 <%skin my_skin%>
-<%view main_window uses main_window_content::content %>
+<%view news_view uses news_content::content %>
 <%template render()%>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,14 +42,13 @@
            </button>   
         <div class="navbar-collapse collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active"><a href="news" class="nav-link"><%=left_title.first_button_name%><span class="sr-only">(current)</span></a></li>
+            <li class="nav-item active"><a href="/news" class="nav-link"><%=left_title.first_button_name%><span class="sr-only">(current)</span></a></li>
             <li class="nav-item"><a href="contacts" class="nav-link"><%=left_title.second_button_name%></a></li>
             <li class="nav-item"><a href="https://github.com/Arseney300/phoenix" class="nav-link"><%=left_title.third_button_name%></a></li>
           </ul>
           <form method="POST" class="form-inline">
             <div class="md-form my-0">
-              <input autocomplete="off" type="search" class="form-control mr-sm-2" name="input1" placeholder="<%=search.placeholder%>" id="input1" aria-label="Search">
-              
+              <input autocomplete="off" type="search" class="form-control mr-sm-2" name="input1" placeholder="<%=search.placeholder%>" id="input1" aria-label="Search">              
             </div>
             <button class="btn btn-outline-white btn-md ml-2" type="button" onclick="go_to_note($('#input1').val())" ><%=search.button_name%></button>
           </form>
@@ -81,7 +80,6 @@
         margin-top: 10vh;
       }
     </style>
-
     <div class="card rounded-bottom"  id="main_card" style="display:none; z-index: 3;">
         
         <div class="card-body amber lighten-5">
@@ -143,77 +141,54 @@
         </div>
       </div>
 
-
-
-    <div class="pt-2 mt-2">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-9 ">
-            <div class="card waves-effect animated fadeInDown faster">
-              <div class="card-body">
-                <h3 class="card-title" style="text-align: left;"><%= hello_user_text%></h3>
-                <p class="" style="font-size: 17px;">
-                  <%= welcome_text%>
-                </p>
-                <a class="btn btn-primary mt-0" href="#" onclick="$('#main_card').show()"><%=reg_button_name%></a>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="card waves-effect mt-4 animated fadeInLeft faster">
-                  <div class="card-body">
-                    <h3 class="card-title text-left"><%= new_text_title%></h3>
-                    <p>
-                      <%= new_text%>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-8">
-                <div class="card waves-effect mt-4 animated fadeInUp fast">
-                  <div class="card-body">
-                    <h3 class="card-title text-left"><%= examples.title%></h3>
-                    <div class="example-image">
-                      <div class="row">
-                        <div class="col-md-4">
-                          <div class="card waves-effect">
-                            <h5 class=""><%= examples.names.at(0)%></h5>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="card waves-effect">
-                            <h5 class=""><%= examples.names.at(1)%></h5>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="card waves-effect">
-                            <h5 class=""><%= examples.names.at(2)%></h5>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+      <div class="pt-2 mt-2">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card waves-effect">
+                <div class="card-body">
+                  <p style ="font-size: 30px; text-align: center;">
+                    Новости  Phoenix
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-3 animated fadeInRight faster">
-            <div class="card waves-effect">
-              <div class="card-body">
-                <h3 class="card-title text-center"><%= quick_note.title%></h3>
-                <hr class="my-2">
-                <div class="form-group shadow-textarea">
-                  <label for="QuickNoteTextArea"><%= quick_note.input_text%></label>
-                  <textarea style="max-height: 65vh" name="<%= qn_form.textarea.name() %>"  id="QuickNoteTextArea" cols="30" rows="10" class="form-control z-depth-1" placeholder="Write Something..." spellcheck="false"></textarea>
-                </div>
-                <div class="text-center"><button class="btn btn-danger" onclick="create_quick_note($('#QuickNoteTextArea').val())"><%=quick_note.button_name%></button></div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card waves-effect mt-4 animated fadeInLeft p-3">
+                <h3 class="card-title text-left">
+                  Version 3.4.0
+                </h3>
+                <p>
+                  Частично изменён дизайн сайта <br>
+                  Добавлены странцы news и contacts
+                </p>
               </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card waves-effect mt-4 animated fadeInDown p-3">
+                <h3 class="card-title text-left">
+                  Version 3.1.0
+                </h3>
+                <p>
+                  Добавлена возможность компилировать программы на языка c++ и python
+                </p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card waves-effect mt-4 animated fadeInRight p-3">
+                <h3 class="card-title text-left">
+                Version 3.0.1
+              </h3>
+              <p>
+                Добавлена возможность загружать и скачивать файлы для личных заметок
+              </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
 
 
@@ -323,26 +298,17 @@
         });
       }
     }
+
     function go_to_note(note_id){
       window.location.assign("http://phoenixnote.site/note/"+note_id);
     }
 
-    function create_quick_note(text){
-      if (text == ''){
-        $("#QuickNoteTextArea").val("please input text");
-      }
-      else{
-        $.post("http://phoenixnote.site/post/create_quick_note",{"text":text,date:"2019-05-05 5:12"}, function(data){
-          window.location.assign("http://phoenixnote.site/note/"+data);
-        }); 
-        
-
-      }
-    }
   </script>
+
 </body>
 
 </html>
+
 
 <%end template%>
 

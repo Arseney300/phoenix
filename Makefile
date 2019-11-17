@@ -1,6 +1,6 @@
 
 LIB_FLAGS = -lcppcms -lcppdb -lbooster
-TMPL_SOURCE= main_window.tmpl user.tmpl note_page.tmpl reset_password.tmpl
+TMPL_SOURCE= main_window.tmpl user.tmpl note_page.tmpl reset_password.tmpl contacts.tmpl news.tmpl
 TMPL_CPP = $(TMPL_SOURCE:.tmpl=.cpp) 
 TMPL_OBJECTS = $(TMPL_CPP:.cpp=.o) $(MAIN_FILES:.cpp=.o)
 MAIN_FILES = main.cpp
@@ -19,6 +19,8 @@ TMPL_CPP:
 	cppcms_tmpl_cc tmpl/user.tmpl -o pages/user.cpp
 	cppcms_tmpl_cc tmpl/note_page.tmpl -o pages/note_page.cpp
 	cppcms_tmpl_cc tmpl/reset_password.tmpl -o pages/reset_password.cpp
+	cppcms_tmpl_cc tmpl/contacts.tmpl -o pages/contacts.cpp
+	cppcms_tmpl_cc tmpl/news.tmpl -o pages/news.cpp
 
 	
 

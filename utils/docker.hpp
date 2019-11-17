@@ -111,6 +111,7 @@ public:
             this->delete_all_files("./data/compiler_files/",this->name_of_program);
             return return_output;
         }
+        return "error";
     }
 };
 #endif

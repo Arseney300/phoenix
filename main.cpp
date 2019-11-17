@@ -41,6 +41,8 @@
 #include "pages/note_page/note_page.h"
 #include "pages/user/user.h"
 #include "pages/reset_password/reset_password.h"
+#include "pages/contacts/contacts.h"
+#include "pages/news/news.h"
 // end tmpl
 
 
@@ -84,7 +86,15 @@ public:
     mapper().assign("");
     //!default page
     
-    
+    //news page
+    dispatcher().assign("/news",&phoenix_main_application::news, this);
+    mapper().assign("news","/news");
+    //!news page
+
+    //contacts
+    dispatcher().assign("/contacts",&phoenix_main_application::contacts,this);
+    mapper().assign("contacts","/contacts");
+    //!contacts
 
     //note page
     dispatcher().assign("/note/(\\S+)",&phoenix_main_application::note,this,1); //render:note_page_view
@@ -262,8 +272,18 @@ public:
             }
         }
     }
-
-
+    void news(){
+        if(request().request_method() == "GET"){
+            news_content::content c;
+            render("news_view",c);
+        }
+    }
+    void contacts(){
+        if(request().request_method() == "GET"){
+            contacts_content::content c;
+            render("contacts_view",c);
+        }
+    }
 
 
     void get_user_note(){
