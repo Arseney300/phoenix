@@ -1,31 +1,35 @@
 #ifndef begin_h
-#define note_page_
+#define begin_h
 #include <cppcms/view.h>
 #include <string>
 #include <cppcms/form.h>
 #endif // !
 namespace note_page_content{
 
-    // struct quick_note_form: public cppcms::form{
-    //     cppcms::widgets::textarea textarea;
-    //     quick_note_form(){
-    //         textarea.name("QuickNoteTextArea");
-    //         add(textarea);
-    //     }
-    // };
+    struct Left_title{
+        std::string main_title = "PHOENIX";
+        std::string first_button_name = "news";
+        std::string second_button_name = "contacts";
+        std::string third_button_name = "source code";
+    };
+
+    struct search_area: public cppcms::form{
+        cppcms::widgets::text input;
+        std::string placeholder{"поиск"};
+        std::string button_name{"Найти"};
+        search_area(){
+            input.name("search");
+            add(input);
+        }
+    };
 
     struct content: public cppcms::base_content{
-    //     std::string title;
-    //     std::string welcome_text;
-
+        Left_title left_title;
+        std::string title{"note"};
         struct Account{
-            std::string account_name;
+            std::string account_name{"PHOENIX"};
         }account;
-
-    //     struct quick_notes{
-    //         std::string data;
-    //     }quick_note;
-    //     quick_note_form qn_form;
+        search_area search;
 
         std::string local_id;
         std::string text;

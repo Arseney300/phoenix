@@ -9,7 +9,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>PHOENIX</title>
+  <title><%= title%></title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
   <!-- Bootstrap core CSS -->
@@ -42,16 +42,16 @@
            </button>   
         <div class="navbar-collapse collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active"><a href="#" class="nav-link">test<span class="sr-only">(current)</span></a></li>
-            <li class="nav-item"><a href="#" class="nav-link">test2</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">test3</a></li>
+            <li class="nav-item active"><a href="http://phoenixnote.site/news" class="nav-link"><%=left_title.first_button_name%><span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a href="http://phoenixnote.site/contacts" class="nav-link"><%=left_title.second_button_name%></a></li>
+            <li class="nav-item"><a href="https://github.com/Arseney300/phoenix" class="nav-link"><%=left_title.third_button_name%></a></li>
           </ul>
           <form method="POST" class="form-inline">
             <div class="md-form my-0">
-              <input autocomplete="off" type="search" class="form-control mr-sm-2" name="input1" placeholder="Search" aria-label="Search">
+              <input autocomplete="off" type="search" class="form-control mr-sm-2" name="input1" placeholder="<%=search.placeholder%>" id="input1" aria-label="Search">
               
             </div>
-            <button class="btn btn-outline-white btn-md ml-2" type="submit" >Search</button>
+            <button class="btn btn-outline-white btn-md ml-2" type="button" onclick="go_to_note($('#input1').val())" ><%=search.button_name%></button>
           </form>
           <div class="dropdown">
             <button class="m-0 ml-2 btn peach-gradient dropdown-toggle pb-2 pr-3 pl-3 pt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="border-radius: 8px">
@@ -129,7 +129,9 @@
         //alert(data);
       })
     }
-
+    function go_to_note(note_id){
+      window.location.assign("http://phoenixnote.site/note/"+note_id);
+    }
 
     jQuery(document).ready(function($) {
       $("#main_card").animate({

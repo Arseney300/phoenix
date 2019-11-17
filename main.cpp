@@ -215,10 +215,7 @@ public:
         c.examples.names.push_back("id заметки:");
         //нужно добавть картинки !!!!
 
-        if( session().is_set("logged") and  session().get("logged")=="1"){
-            c.account.account_name = session().get("name");
-            c.hello_user_text ="Hello, "+session().get("name");
-        }
+        
         /*if (request().request_method() == "POST"){ 
             c.qn_form.load(context());
             if (c.qn_form.validate()){
@@ -243,6 +240,9 @@ public:
                 res.fetch(0,text);
                 c.local_id = id;
                 c.text = text;
+                if( session().is_set("logged") and  session().get("logged")=="1"){
+                    c.account.account_name = session().get("name");
+                }
                 render("note_page_view",c);
             }
             else{
@@ -261,12 +261,18 @@ public:
                     res.fetch(0,text);
                     c.local_id = id;
                     c.text = text;
+                    if( session().is_set("logged") and  session().get("logged")=="1"){
+                        c.account.account_name = session().get("name");
+                    }
                     render("note_page_view",c);
                 }
                 else{
                     c.local_id = "Такая заметка не существует";
                     c.text = "";
                     //response().set_redirect_header("../note_not_exist.html");
+                    if( session().is_set("logged") and  session().get("logged")=="1"){
+                        c.account.account_name = session().get("name");
+                    }
                     render("note_page_view",c);
 		}
             }
