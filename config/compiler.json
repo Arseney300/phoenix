@@ -1,11 +1,11 @@
 {
    "cpp":{
       "type":"compile",
-      "compile_command":"g++-9 -std=c++17 $path_to_files/$name_of_program -o $path_to_files/$name_of_program.out > $path_to_files/$name_of_program.output 2>&1",
+      "compile_command":"g++-9 -std=c++17 $path_to_files/$name_of_program -o $path_to_files/$name_of_program.out <$path_to_files/$name_of_program.input > $path_to_files/$name_of_program.output 2>&1",
       "run_command":"./$path_to_files/$name_of_program.out > $path_to_files/$name_of_program.output 2>&1"
    },
    "python":{
       "type":"inter",
-      "run_command":"python3.7 $path_to_files/$name_of_program > $path_to_files/$name_of_program.output 2>&1"
+      "run_command":"python3.7 $path_to_files/$name_of_program <$path_to_files/$name_of_program.input > $path_to_files/$name_of_program.output 2>&1"
    }
 }

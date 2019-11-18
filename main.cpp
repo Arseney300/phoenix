@@ -951,6 +951,7 @@ public:
             std::string text;
             if(!res.empty()){res.fetch(0,text);}
             docker.set_text(text);
+            docker.set_input(input);
             std::string output = docker.run_program();
             response().out() << output;
         }
