@@ -44,7 +44,7 @@ namespace main_window_content{
         std::string welcome_text {"Phoenix -- современнный сервис для создания заметок. Основная идея сервиса заключается в упрощении возможности делиться заметками, как между зарегестрированными, там и обычными пользователями"};
         std::string hello_user_text {"Hello, user"}; //default -- user, can change to nickname of user
         std::string new_text_title { "Обновление 3.0.5"};
-        std::string new_text {"Добавлена возможность работы с файлами \n Обновлён движок сайта \n Добавлена возможность компилировать программы \n Обновлён движок"};
+        std::string new_text {"Обновлён движок"};
         std::string reg_button_name{"РЕГИСТРАЦИЯ"};
 
         example examples;

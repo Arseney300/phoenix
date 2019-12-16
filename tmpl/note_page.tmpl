@@ -34,7 +34,7 @@
     <header> 
       <nav class="navbar navbar-expand-lg navbar-dark orange accent-4">
         <div class="container-fluid">
-          <a href="#" class="navbar-brand waves-effect"><strong class="" style="font-size: 25px">PHOENIX</strong></a>   
+          <a href="/" class="navbar-brand waves-effect"><strong class="" style="font-size: 25px">PHOENIX</strong></a>   
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,6 +97,7 @@
         </div>
         <div class="container-fluid m-0  p-0 pb-5" style="height: 100%">
           <textarea   style ="resize:none; height: 100%;"name="test"  id="QuickNoteTextArea"  class="form-control z-depth-1" placeholder="Write Something..." spellcheck="false" id="main_textarea" ><%= text%></textarea>
+          <!--<button class="btn btn-default" id="download_button" onclick="download_file()">Download File</button> -->
         </div>
       </div>
     </div>
@@ -145,7 +146,7 @@
       $("#main_card").on('input', function(event) {
         event.preventDefault();
         counter +=1;
-        if (counter == 5){
+        if (counter == 3){
           update_note($("#local_id").text() ,$("#QuickNoteTextArea").val());
           counter = 0;
         }
@@ -153,6 +154,17 @@
         /* Act on the event */
       });
     });
+    jQuery(document).ready(function($){
+      if(1){
+        $("#download_button").show();
+        $("#download_button").text("name_of_file");
+      }
+    });
+
+    function download_file(){
+      var note_id  = $("#local_id").text()
+      $.get("/get/download_file",{"name":"WMCFOIVORNBSQDG::code2::UchNNoQ0Xsc.jpg"})
+    }
   </script>
 </body>
 

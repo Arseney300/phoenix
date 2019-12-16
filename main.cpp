@@ -58,6 +58,8 @@ private:
     std::map<std::string,std::string> reset_password_list;
     //user_files_directory:
     std::filesystem::path user_files_directory{"./data/user_files/"};
+    //mait_loger:
+    loger main_loger{};
 public:  
     phoenix_main_application(cppcms::service &srv) :  
         cppcms::application(srv)  
@@ -208,6 +210,9 @@ public:
     }  
 
     void main_window(){
+        this->main_loger.open_file();
+        this->main_loger.write("main_window_render");
+        this->main_loger.close_file();
         main_window_content::content c;
         //init examples:
         c.examples.names.push_back("Создание заметки:");
@@ -724,7 +729,7 @@ public:
                 response().out() << "user not found";
                 return;
             }
-            sql << "delete from user where user_id =?" << user_id << cppdb::row;
+            sql << "delete from users where user_id =?" << user_id << cppdb::row;
             //удалить все файлы, которые принадлежат данному пользователю:
             std::string command = "rm ./data/user_files/"+user_id+"::*";
             system(command.c_str());

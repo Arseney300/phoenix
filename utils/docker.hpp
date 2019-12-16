@@ -100,7 +100,7 @@ public:
             //run_command:
             //input_file:
             std::ofstream file{"./data/compiler_files/" + this->name_of_program + "." + this->pr_lang + ".input" };
-            file << this->input_data;
+            file << this->input_data << std::endl;
             std::string run_command = "path_to_files="+path_to_compile_files.string()+";name_of_program="+this->name_of_program+"."+this->pr_lang + ";"+ lim + this->compiler_config[this->pr_lang]["run_command"].str();            system(run_command.c_str());
             std::ifstream output_file{"./data/compiler_files/" + this->name_of_program + "." + this->pr_lang + ".output"};
             std::string timed, return_output;
