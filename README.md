@@ -20,11 +20,12 @@ mariadb:
   mariadb-server  
   
 g++ with c++17 
-
+'''
 install and run:  
 git clone https://github.com/Arseney300/phoenix.git  
 cd phoenix  
 make  
 ./phoenix -c config.json 
+'''
 
 

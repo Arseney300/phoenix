@@ -121,6 +121,9 @@ public:
     dispatcher().assign("/post/create_user_session",&phoenix_main_application::create_user_session,this);
     mapper().assign("create_user_session","/post/create_user_session");
 
+    dispatcher().assign("/get/delete_user_session",&phoenix_main_application::delete_user_session, this);
+    mapper().assign("delete_user_session","/get/delete_user_session");
+
     dispatcher().assign("/post/reset_password",&phoenix_main_application::reset_password,this);
     mapper().assign("reset_password","/post/reset_password");
 
@@ -584,7 +587,11 @@ public:
             response().out() << "success";
         }
     }
-
+    void delete_user_session(){
+        if(session().is_set("logged") && session()["logged"] =1){
+            session().clear();
+        }
+    }
     void get_id(){
         if(request().request_method() == "GET"){
             if(session().is_set("logged") and session()["logged"]=="1"){
