@@ -16,6 +16,13 @@ namespace user_content{
 
 
 
+struct Left_title{
+        std::string main_title = "PHOENIX";
+        std::string first_button_name = "news";
+        std::string second_button_name = "contacts";
+        std::string third_button_name = "source code";
+    };
+
 
     struct content: public cppcms::base_content{
         std::string title;
@@ -25,7 +32,7 @@ namespace user_content{
             std::string account_name;
             std::string email;
         }account;
-
+        Left_title left_title;
         // struct quick_notes{
         //     std::string data;
         // }quick_note;
