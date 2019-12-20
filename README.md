@@ -10,7 +10,9 @@ Such as, if you need to quickly send a text or file, you can create "quick note"
 If you don't like unclear ID and want to create your self identificator, you can registrate in service and create any free ID, size of ID and kind of simbols  -- not limited.  
 
 
-# how to install server side: 
+# Server side: 
+Creating with using cppcms framework [GitHub Pages](https://github.com/artyom-beilis/cppcms)
+
 Dependencies:  
 cppcms(1.2.0 and newer)    
 cppdb(1.0.0 and newer)  
@@ -18,10 +20,10 @@ boost
 mariadb:  
   mariadb-dev*   
   mariadb-server  
-  
 g++ with c++17 
-```
+
 install and run:  
+```
 git clone https://github.com/Arseney300/phoenix.git  
 cd phoenix  
 make  
