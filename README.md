@@ -11,7 +11,7 @@ If you don't like unclear ID and want to create your self identificator, you can
 
 
 # Server side: 
-Creating with using cppcms framework [GitHub Pages](https://github.com/artyom-beilis/cppcms)
+Creating with using  [cppcms](https://github.com/artyom-beilis/cppcms) framework
 
 Dependencies:  
 cppcms(1.2.0 and newer)    
