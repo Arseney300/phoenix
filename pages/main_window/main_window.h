@@ -16,7 +16,8 @@ namespace main_window_content{
 
 
     struct example{
-        std::string title{"Примеры"};
+        //std::string title{"Примеры"};
+        std::string title{"Сравнение с другими сервисами заметок"};
         std::vector<std::string> names;
         std::vector<std::string> file_names;
 
@@ -39,11 +40,18 @@ namespace main_window_content{
         std::string third_button_name = "source code";
     };
 
+    struct Dropdown_menu{
+        std::string button_1{"Account"},button_2{"Settings"},button_3{"Notes"},button_4{"Exit"};
+
+    };
+
+
     struct content: public cppcms::base_content{
         std::string title {"Phoenix"};
         std::string welcome_text {"Phoenix -- современнный сервис для создания заметок. Основная идея сервиса заключается в упрощении возможности делиться заметками, как между зарегестрированными, там и обычными пользователями"};
         std::string hello_user_text {"Hello, user"}; //default -- user, can change to nickname of user
-        std::string new_text_title { "Обновление 3.0.5"};
+        //std::string new_text_title { "Обновление 3.0.5"};
+        std::string new_text_title{"Наше android-приложение"};
         std::string new_text {"Обновлён движок"};
         std::string reg_button_name{"РЕГИСТРАЦИЯ"};
 
@@ -51,6 +59,7 @@ namespace main_window_content{
         search_area search;
 
         Left_title left_title;
+        Dropdown_menu dropdown_menu;
 
         struct Account{
             std::string account_name{"PHOENIX"};//default

@@ -42,7 +42,7 @@
            </button>   
         <div class="navbar-collapse collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active"><a href="news" class="nav-link"><%=left_title.first_button_name%><span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a href="news" class="nav-link"><%=left_title.first_button_name%><span class="sr-only">(current)</span></a></li>
             <li class="nav-item"><a href="contacts" class="nav-link"><%=left_title.second_button_name%></a></li>
             <li class="nav-item"><a href="https://github.com/Arseney300/phoenix" class="nav-link"><%=left_title.third_button_name%></a></li>
           </ul>
@@ -55,15 +55,15 @@
           </form>
           <div class="dropdown">
             <button class="m-0 ml-2 btn peach-gradient dropdown-toggle pb-2 pr-3 pl-3 pt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="border-radius: 8px">
-              <img src="img/question.jpeg" style="width:30px; height: 30px;"alt="" class="img rounded-circle m-0 p-0">
+              <!-- <img src="./img/PHOENIX.png" style="width:30px; height: 30px;"alt="" class="img rounded-circle m-0 p-0"> -->
               <%= account.account_name %>
             </button>
             <div class="dropdown-menu">
-              <a href="#" class="dropdown-item" onclick="$('#main_card').toggle()">Account</a>
-              <a href="#" class="dropdown-item">Settings</a>
-              <a href="#" class="dropdown-item">Notes</a>
+              <a href="#" class="dropdown-item" onclick="$('#main_card').toggle()"><%=dropdown_menu.button_1%></a>
+              <a href="#" class="dropdown-item"><%=dropdown_menu.button_2%></a>
+              <a href="#" class="dropdown-item"><%=dropdown_menu.button_3%></a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item text-right">Exit</a>
+              <a href="#" class="dropdown-item text-right"><%=dropdown_menu.button_4%></a>
             </div>
           </div>
         </div> 
@@ -161,18 +161,21 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="card waves-effect mt-4 animated fadeInLeft faster">
-                  <div class="card-body">
-                    <h3 class="card-title text-left"><%= new_text_title%></h3>
-                    <p>
+                  <div class="card-body text-center">
+                    <h3 class="card-title text-center"><%= new_text_title%></h3>
+<!--                     <p>
                       <%= new_text%>
-                    </p>
+                    </p> -->
+                    <img  class="m-0 p-0" src="./img/qr_note.png" alt="" height="350px" width="350px">
                   </div>
                 </div>
               </div>
               <div class="col-md-8">
                 <div class="card waves-effect mt-4 animated fadeInUp fast">
                   <div class="card-body">
-                    <h3 class="card-title text-left"><%= examples.title%></h3>
+                    <h3 class="card-title txt-left"><%=examples.title%></h3>
+                    <img src="./img/table.png" alt="" style="height:auto; width:100%;">
+                    <!-- <h3 class="card-title text-left"><%= examples.title%></h3>
                     <div class="example-image">
                       <div class="row">
                         <div class="col-md-4">
@@ -191,7 +194,8 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
+
                   </div>
                 </div>
               </div>
@@ -343,6 +347,8 @@
 </body>
 
 </html>
+
+
 
 <%end template%>
 

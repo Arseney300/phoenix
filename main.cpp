@@ -219,8 +219,12 @@ public:
         c.examples.names.push_back("Создание пользователя:");
         c.examples.names.push_back("id заметки:");
         //нужно добавть картинки !!!!
-
-        
+        if(session().is_set("logged") && session().get("logged") == "1"){
+            this->user();
+            return;
+        }
+        if(session().is_set("logged") && session().get("logged") == "1")
+            c.account.account_name == session().get("name");
         /*if (request().request_method() == "POST"){ 
             c.qn_form.load(context());
             if (c.qn_form.validate()){
