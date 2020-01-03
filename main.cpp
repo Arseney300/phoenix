@@ -33,7 +33,7 @@
 //!utils
 
 //include boost
-#include "boost_include.hpp"
+#include "utils/boost_include.hpp"
 //!include boost
 
 // include tmpl:
@@ -588,7 +588,7 @@ public:
         }
     }
     void delete_user_session(){
-        if(session().is_set("logged") && session()["logged"] =1){
+        if(session().is_set("logged") && session()["logged"] =="1"){
             session().clear();
         }
     }

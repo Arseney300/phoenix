@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title><%= title%></title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="./css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="./css/style.css" rel="stylesheet">
+  <!-- Specail font -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
+</head>
+<style>
+  main{
+    font-family: Arial, "Times New Roman", sans-serif;
+
+    height: auto;
+    background-image: linear-gradient(to bottom, #fbbe4b, #f3b540, #ecab35, #e4a229, #dc991b);
+  }
+  
+  
+</style>
+<body>
+  <main id="main">
+    <header> 
+      <nav class="navbar navbar-expand-lg navbar-dark orange accent-4">
+        <div class="container-fluid">
+          <a href="/" class="navbar-brand waves-effect"><strong class="" style="font-size: 25px">PHOENIX</strong></a>   
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+           </button>   
+        <div class="navbar-collapse collapse" id="navbarNav">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a href="news" class="nav-link"><%=left_title.first_button_name%><span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a href="contacts" class="nav-link"><%=left_title.second_button_name%></a></li>
+            <li class="nav-item"><a href="https://github.com/Arseney300/phoenix" class="nav-link"><%=left_title.third_button_name%></a></li>
+          </ul>
+          <form method="POST" class="form-inline">
+            <div class="md-form my-0">
+              <input autocomplete="off" type="search" class="form-control mr-sm-2" name="input1" placeholder="<%=search.placeholder%>" id="input1" aria-label="Search">
+              
+            </div>
+            <button class="btn btn-outline-white btn-md ml-2" type="button" onclick="go_to_note($('#input1').val())" ><%=search.button_name%></button>
+          </form>
+        </div> 
+        </div>
+      </nav>
+    </header>
+
+    <div class="container-fluid pt-3">
+      <div class="row">
+        <div class="col-md-8 pt-4 pl-5" style="font-family: 'Montserrat', sans-serif; ">
+          <div class="card" style="background-color: transparent; /*height: 100%;*/">
+            <div class="card-body">
+              <p>PHOENIX -- современный сервис для создания заметок, который позволяет по новому взглянуть на возможность делиться заметами или файлами между пользователями.</p>
+              <p>В рамках обычного нахуй никому не нужного проекта по информатике мы разработали новый сервис, который позволяет удобно делиться заметками с другими людьми, которым блять лень зайти в гугл или вк. </p>
+              <p>Тут должно быть много воды, но мне плевать, дальше идет недлинная инструкция по тому, как работает сервис</p>
+              <p><a href="">Попробовать создать быструю заметку</a></p>      
+            </div>
+          </div>
+        
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <ul class="nav nav-tabs nav-justified" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="login-tab" href="#login" data-toggle="tab" role="tab" aria-controls="login">
+                  <i class="fas fa-user pr-2"></i>SIGN UP</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="signup-tab" data-toggle="tab" href="#signup" role="tab" aria-controls="signup">
+                  <i class="fas fa-heart pr-2"></i>LOGIN</a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                  <form action="" class="pl-3">
+                    <p>Введите логин: </p>
+                    <div class="md-form mt-0">
+                      <i class="fas fa-user prefix"></i>
+                      <input name="Login" type="text" id="inputText1" class="form-control">
+                      <label for="inputText1">Login</label>
+                    </div>
+                    <p>Введите почту: </p>
+                    <div class="md-form mt-0">
+                      <i class="fas fa-envelope prefix"></i>
+                      <input name="email" type="email" id="inputText2" class="form-control">
+                      <label for="inputText2">E-mail address</label>
+                    </div>
+                    <p>Введите пароль: </p>
+                    <div class="md-form mt-0">
+                      <i class="fas fa-key prefix"></i>
+                      <input name="Password_1" type="password" id="inputText3" class="form-control">
+                      <label for="inputText3">Password</label>
+                    </div>
+                    <p>Введите пароль ещё раз: </p>
+                    <div class="md-form mt-0">
+                      <i class="fas fa-key prefix"></i>
+                      <input name="Password_2" type="password" id="inputText4" class="form-control">
+                      <label for="inputText4">Password again</label>
+                    </div>
+                    <div class="text-center mt-0"><button class="btn btn-deep-orange">SIGN UP</button></div>
+                  </form>
+                </div>
+              
+                <div class="tab-pane" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+                  <form action="" class="pl-3">
+                    <p>Введите логин или почту: </p>
+                    <div class="md-form mt-0">
+                      <i class="fas fa-user prefix"></i>
+                      <input name="Login" type="text" id="inputText5" class="form-control">
+                      <label for="inputText5">Login or email</label>
+                    </div>
+                  
+                    <p>Введите пароль: </p>
+                    <div class="md-form mt-0">
+                      <i class="fas fa-key prefix"></i>
+                      <input name="Password_1" type="password" id="inputText6" class="form-control">
+                      <label for="inputText6">Password</label>
+                    </div>
+        
+                    <div class="text-center mt-0"><button class="btn btn-deep-orange">LOGIN</button></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="pl-5">Приложение phoenix note на android:</h3>
+      </div>
+      <div class="row pt-5">
+        <div class="col-md-4">
+          <img src="./img/screen.png" alt="" class="img-fluid">
+        </div>
+        <div class="col-md-6 pt-5">
+          <div class="card" style="background-color: transparent;">
+            <div class="card-body">
+              <p>Также нашей охуенной командой разработчиков(целым одним) было разработано приложение для android.</p>
+              <p>Данное приложение имеет полный функционал phoenix note и позволяет пользоваться нашим сервисом  заметок в любое время и в любом месте</p>
+              <p>Данное приложение находится в активной стадии доработки и будет станвоится всё лучше и лучше</p>
+              <p>QR CODE:</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 pt-5 pl-5">
+          <img src="./img/qr_note.png" alt="" class="img-fluid">
+        </div>
+      </div>
+      <div class="row pt-3">
+        <div class="col-md-6">
+          <div class="card" style="background-color: transparent;">
+            <div class="card-body">
+              <h3 class="card-title">Полезные ссылки:</h3>
+              <p><a href="">Github</a></p>
+              <p><a href="">Инженерный лицей</a></p>
+              <p><a href="">Приложение</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card" style="background-color: transparent;">
+            <div class="card-body">
+              <h3 class="card-title">Разработчики:</h3>
+              <p>Мещеряков Арсений серверная часть и сайт email</p>
+              <p>Солодкин Михаил android приложение email</p>
+              <p>Муль Павел предоставление сервера и помощь email</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid pt-4 pb-2">
+        <h3>Форма обратной связи:<h3>
+        <textarea class="md-textarea form-control"name="" id="" style="resize:none; height: 200px" ></textarea>
+      </div>
+      <div class="row"></div>
+    </div>
+  
+  <footer class="page-footer font-small amber darken-3 pt-4">
+
+  <!-- Footer Elements -->
+  <div class="container">
+
+    <!-- Call to action -->
+    <ul class="list-unstyled list-inline text-center py-2">
+      <li class="list-inline-item">
+        <h5 class="mb-1">Register for free</h5>
+      </li>
+      <li class="list-inline-item">
+        <a href="#main" class="btn btn-outline-white btn-rounded">Sign up!</a>
+      </li>
+    </ul>
+    <!-- Call to action -->
+
+  </div>
+  <!-- Footer Elements -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="http://lyceum.nstu.ru/">   lyceum.nstu.ru</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+  </main>
+
+
+  <!-- SCRIPTS -->
+  <!-- AutoSize TextArea -->
+  <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
+  <script>
+    autosize(document.getElementById('QuickNoteTextArea'));
+  </script>
+  <!-- JQuery -->
+  <script type="text/javascript" src="./js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="./js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="./js/mdb.min.js"></script>
+  <!-- Для мувов -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>    
+  
+</body>
+
+</html>
