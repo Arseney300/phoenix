@@ -14,19 +14,21 @@
   <link href="./css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
   <link href="./css/style.css" rel="stylesheet">
+  <!-- Specail font -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
 </head>
 <style>
   main{
     font-family: Arial, "Times New Roman", sans-serif;
 
-    height: 100vh;
+    height: auto;
     background-image: linear-gradient(to bottom, #fbbe4b, #f3b540, #ecab35, #e4a229, #dc991b);
   }
   
   
 </style>
 <body>
-  <main>
+  <main id="main">
     <header> 
       <nav class="navbar navbar-expand-lg navbar-dark orange accent-4">
         <div class="container-fluid">
@@ -49,151 +51,169 @@
             </div>
             <button class="btn btn-outline-white btn-md ml-2" type="button" onclick="go_to_note($('#input1').val())" ><%=search.button_name%></button>
           </form>
-          <!-- <div class="dropdown">
-            <button class="m-0 ml-2 btn peach-gradient dropdown-toggle pb-2 pr-3 pl-3 pt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="border-radius: 8px">
-              <%= account.account_name %>
-            </button>
-            <div class="dropdown-menu">
-              <a href="#" class="dropdown-item" onclick="$('#main_card').toggle()"><%=dropdown_menu.button_1%></a>
-              <a href="#" class="dropdown-item"><%=dropdown_menu.button_2%></a>
-              <a href="#" class="dropdown-item"><%=dropdown_menu.button_3%></a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item text-right"><%=dropdown_menu.button_4%></a>
-            </div>
-          </div> -->
-          <div>
-            <a href="">login</a>/<a href="">signup</a>
-          </div>
         </div> 
         </div>
       </nav>
     </header>
 
-    
-    <style>
-      #main_card{
-        position:  absolute;
-        width: 600px;
-        height: 550px;
-        margin-left: 35vw;
-        margin-top: 10vh;
-      }
-    </style>
-
-    <div class="card rounded-bottom"  id="main_card" style="display:none; z-index: 3;">
+    <div class="container-fluid pt-3">
+      <div class="row">
+        <div class="col-md-8 pt-4 pl-5" style="font-family: 'Montserrat', sans-serif; ">
+          <div class="card" style="background-color: transparent; /*height: 100%;*/">
+            <div class="card-body">
+              <p>PHOENIX -- современный сервис для создания заметок, который позволяет по новому взглянуть на возможность делиться заметами и файлами между пользователями.</p>
+              <p>Здесь должно идти описание проекта</p>
+              <p>и/или иинструкция по пользованию сервисом, так как в других местах её нету</p>
+              <p><a href="">Попробовать создать быструю заметку</a></p>      
+            </div>
+          </div>
         
-        <div class="card-body amber lighten-5">
-          
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Registration</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Login</a>
-            </li>
-
-          </ul>
-          <div class="tab-content" id="myTabContent">
-            <div class="mb-0 mt-1" style="display: none; " id="reg_error"><p style="color:red"></p></div>
-            <div class="tab-pane fade show active pt-2" id="home" role="tabpanel" aria-labelledby="home-tab">
-              <p>Input your name:</p>
-              <div class="md-form mt-0">
-                <i class="fas fa-user prefix"></i>
-                <input name="Login" type="text" id="inputText1" class="form-control" autofocus="true">
-                <label for="inputText1">Login</label>
-              </div>
-              <p>Input your email:</p>
-              <div class="md-form mt-0">
-                <i class="fas fa-envelope prefix"></i>
-                <input type="email" name="Email" id="inputText2" class="form-control">
-                <label for="inputText2">Email</label>
-              </div>
-              <p>Input password:  </p>
-              <div class="md-form mt-0">
-                <i class="fas prefix fa-key"></i>
-                <input type="password" name="password_1" id="inputText3" class="form-control">
-                <label for="inputText3">Password</label>
-              </div>
-              <p>Input password again:</p>
-              <div class="md-form mt-0">
-                <i class="fas prefix fa-key"></i>
-                <input type="password" name="password_2" id="inputText4" class="form-control">
-                <label for="inputText4">Password</label>
-              </div>
-              <div style="text-align: center;"><button class="btn btn-primary" type="button" onclick="createuser($('#inputText1').val(),$('#inputText2').val(), $('#inputText3').val(),$('#inputText4').val() )">REG</button></div>
-            </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"> 
-              <p>Input your name or email:</p>
-              <div class="md-form mt-0">
-                <i class="fas fa-user prefix"></i>
-                <input name="Login" type="text" id="inputText5" class="form-control">
-                <label for="inputText5">Login or email</label>
-              </div>
-              <p>Input password:</p>
-              <div class="md-form mt-0">
-                <i class="fas prefix fa-key"></i>
-                <input type="password" name="password_1" id="inputText6" class="form-control">
-                <label for="inputText6">Password</label>
-              </div>
-              <div style="text-align: center;"><button class="btn btn-primary" type="button" onclick="loginuser($('#inputText5').val(),$('#inputText6').val())">LOGIN</button></div>
-            </div>
-          </div>
         </div>
-      </div>
-
-
-
-    <div class="pt-2 mt-2">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-9 ">
-            <div class="card waves-effect animated fadeInDown faster">
-              <div class="card-body">
-                <h3 class="card-title" style="text-align: left;"><%= hello_user_text%></h3>
-                <p class="" style="font-size: 17px;">
-                  <%= welcome_text%>
-                </p>
-                <a class="btn btn-primary mt-0" href="#" onclick="$('#main_card').show()"><%=reg_button_name%></a>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="card waves-effect mt-4 animated fadeInLeft faster">
-                  <div class="card-body text-center">
-                    <h3 class="card-title text-center"><%= new_text_title%></h3>
-                    <img  class="m-0 p-0" src="./img/qr_note.png" alt="" height="350px" width="350px">
-                  </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <ul class="nav nav-tabs nav-justified" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="login-tab" href="#login" data-toggle="tab" role="tab" aria-controls="login">
+                  <i class="fas fa-user pr-2"></i>SIGN UP</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="signup-tab" data-toggle="tab" href="#signup" role="tab" aria-controls="signup">
+                  <i class="fas fa-heart pr-2"></i>LOGIN</a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                  <form action="" class="pl-3">
+                    <p>Введите логин: </p>
+                    <div class="md-form mt-0">
+                      <i class="fas fa-user prefix"></i>
+                      <input name="Login" type="text" id="inputText1" class="form-control">
+                      <label for="inputText1">Login</label>
+                    </div>
+                    <p>Введите почту: </p>
+                    <div class="md-form mt-0">
+                      <i class="fas fa-envelope prefix"></i>
+                      <input name="email" type="email" id="inputText2" class="form-control">
+                      <label for="inputText2">E-mail address</label>
+                    </div>
+                    <p>Введите пароль: </p>
+                    <div class="md-form mt-0">
+                      <i class="fas fa-key prefix"></i>
+                      <input name="Password_1" type="password" id="inputText3" class="form-control">
+                      <label for="inputText3">Password</label>
+                    </div>
+                    <p>Введите пароль ещё раз: </p>
+                    <div class="md-form mt-0">
+                      <i class="fas fa-key prefix"></i>
+                      <input name="Password_2" type="password" id="inputText4" class="form-control">
+                      <label for="inputText4">Password again</label>
+                    </div>
+                    <div class="text-center mt-0"><button class="btn btn-deep-orange">SIGN UP</button></div>
+                  </form>
                 </div>
-              </div>
-              <div class="col-md-8">
-                <div class="card waves-effect mt-4 animated fadeInUp fast">
-                  <div class="card-body">
-                    <h3 class="card-title txt-left"><%=examples.title%></h3>
-                    <img src="./img/table.png" alt="" style="height:auto; width:100%;">
-                  </div>
+              
+                <div class="tab-pane" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+                  <form action="" class="pl-3">
+                    <p>Введите логин или почту: </p>
+                    <div class="md-form mt-0">
+                      <i class="fas fa-user prefix"></i>
+                      <input name="Login" type="text" id="inputText5" class="form-control">
+                      <label for="inputText5">Login or email</label>
+                    </div>
+                  
+                    <p>Введите пароль: </p>
+                    <div class="md-form mt-0">
+                      <i class="fas fa-key prefix"></i>
+                      <input name="Password_1" type="password" id="inputText6" class="form-control">
+                      <label for="inputText6">Password</label>
+                    </div>
+        
+                    <div class="text-center mt-0"><button class="btn btn-deep-orange">LOGIN</button></div>
+                  </form>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 animated fadeInRight faster">
-            <div class="card waves-effect">
-              <div class="card-body">
-                <h3 class="card-title text-center"><%= quick_note.title%></h3>
-                <hr class="my-2">
-                <div class="form-group shadow-textarea">
-                  <label for="QuickNoteTextArea"><%= quick_note.input_text%></label>
-                  <textarea style="max-height: 65vh" name="<%= qn_form.textarea.name() %>"  id="QuickNoteTextArea" cols="30" rows="10" class="form-control z-depth-1" placeholder="Write Something..." spellcheck="false"></textarea>
-                </div>
-                <div class="text-center"><button class="btn btn-danger" onclick="create_quick_note($('#QuickNoteTextArea').val())"><%=quick_note.button_name%></button></div>
-              </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div>
+        <h3 class="pl-5">Приложение phoenix note на android:</h3>
+      </div>
+      <div class="row pt-5">
+        <div class="col-md-4">
+          <img src="./img/screen.png" alt="" class="img-fluid">
+        </div>
+        <div class="col-md-6 pt-5">
+          <div class="card" style="background-color: transparent;">
+            <div class="card-body">
+              <p>Также нами было разработано приложение для android.</p>
+              <p>Данное приложение имеет полный функционал phoenix note и позволяет пользоваться нашим сервисом  заметок в любое время и в любом месте</p>
+              <p>Приложение находится в активной стадии доработки и будет становится всё лучше и лучше</p>
+              <p>QR CODE:</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 pt-5 pl-5">
+          <img src="./img/qr_note.png" alt="" class="img-fluid">
+        </div>
+      </div>
+      <div class="row pt-3">
+        <div class="col-md-6">
+          <div class="card" style="background-color: transparent;">
+            <div class="card-body">
+              <h3 class="card-title">Полезные ссылки:</h3>
+              <p><a href="">Github</a></p>
+              <p><a href="">Инженерный лицей</a></p>
+              <p><a href="">Приложение</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card" style="background-color: transparent;">
+            <div class="card-body">
+              <h3 class="card-title">Разработчики:</h3>
+              <p>Мещеряков Арсений серверная часть и сайт email</p>
+              <p>Солодкин Михаил android приложение email</p>
+              <p>Муль Павел предоставление сервера и помощь email</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid pt-4 pb-2">
+        <h3>Форма обратной связи:<h3>
+        <textarea class="md-textarea form-control"name="" id="" style="resize:none; height: 200px" ></textarea>
+      </div>
+      <div class="row"></div>
     </div>
+  
+  <footer class="page-footer font-small amber darken-3 pt-4">
 
+  <!-- Footer Elements -->
+  <div class="container">
 
+    <!-- Call to action -->
+    <ul class="list-unstyled list-inline text-center py-2">
+      <li class="list-inline-item">
+        <h5 class="mb-1">Register for free</h5>
+      </li>
+      <li class="list-inline-item">
+        <a href="#main" class="btn btn-outline-white btn-rounded">Sign up!</a>
+      </li>
+    </ul>
+    <!-- Call to action -->
+
+  </div>
+  <!-- Footer Elements -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="http://lyceum.nstu.ru/">   lyceum.nstu.ru</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 
   </main>
 
@@ -214,110 +234,7 @@
   <script type="text/javascript" src="./js/mdb.min.js"></script>
   <!-- Для мувов -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>    
-  <script>
-    $("#main_card").draggable();
-
-
-    jQuery(function($){
-  $(document).mouseup(function (e){ // событие клика по веб-документу
-    var div = $("#main_card"); // тут указываем ID элемента
-    if (!div.is(e.target) // если клик был не по нашему блоку
-        && div.has(e.target).length === 0) { // и не по его дочерним элементам
-      div.hide(); // скрываем его
-    }
-  });
-});
-  </script>
-  <script>
-    function createuser(name,email,pass,pass2) {
-      if (name =='' ||  email=='' || pass=='' || pass!=pass2 || pass.length <=5) { // а также ещё куча условий
-        if (name==''){
-          $("#reg_error > p").text("Please input name");
-        }
-        else if (email==''){
-          $("#reg_error > p").text("Please input email");
-        }
-        else if (pass==''){
-          $("#reg_error > p").text("Please input password");
-        }
-        else if(pass !=pass2){
-          $("#reg_error > p").text("Password 1 != password 2");
-        }
-        else if(pass.length <=5){
-          $("#reg_error > p").text("Password is very short (<=5)");
-        }
-        $("#reg_error").show();
-      }
-      else{
-        res = jQuery.post("http://phoenixnote.site/post/create_user",{name:name,email:email,pass:pass},function(data){
-          if (res.responseText == "user with this name exist" || res.responseText == "user with this email exist"){
-            $("#reg_error > p").text(res.responseText);
-            $("#reg_error").show();
-          }
-          else{
-            $("#reg_error > p").text('created');
-            $("#reg_error").show();
-          }  
-        },);
-
-
-        
-
-      }
-    }
-
-    function loginuser(name,pass) {
-      if(name=='' || pass==''){
-        if (name==''){
-          $("#reg_error > p").text("Please input name or email");
-          $("#reg_error").show();
-        }
-        else if (pass == ''){
-          $("#reg_error > p").text("Please input password");
-          $("#reg_error").show();
-        }
-      }
-      else{
-        res = $.post('http://phoenixnote.site/post/login_user', {"login": name, "pass":pass}, function(data) {
-          /*optional stuff to do after success */
-          //проверка на то, что логин прошел успешно:
-          if(data == "user with this name or email not exist" || data == "WRONG PASSWORD"){
-            $("#reg_error > p").text(data); 
-            $("#reg_error").show();
-          }
-          else{
-            //запрос на создание сессии
-            $.post('http://phoenixnote.site/post/create_user_session', {"user_id": data}, function(data2) {
-              /*optional stuff to do after success */
-              if(data2 == "success"){
-                window.location.assign("http://phoenixnote.site/user");
-              }
-              else{
-                $("#reg_error > p").text("problmes with session");
-                $("#reg_error").show();
-              }
-            });
-          }
-        });
-      }
-    }
-    function go_to_note(note_id){
-      window.location.assign("http://phoenixnote.site/note/"+note_id);
-    }
-
-    function create_quick_note(text){
-      if (text == ''){
-        $("#QuickNoteTextArea").val("please input text");
-      }
-      else{
-        $.post("http://phoenixnote.site/post/create_quick_note",{"text":text,date:"2019-05-05 5:12"}, function(data){
-          window.location.assign("http://phoenixnote.site/note/"+data);
-        }); 
-        
-
-      }
-    }
-  </script>
+  
 </body>
 
 </html>

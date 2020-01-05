@@ -1,0 +1,26 @@
+.sidebar-fixed{
+	height: 100vh;
+	width: 230px;
+	z-index: 1049;
+	padding-top: 20px;
+	background-color:#e37900;
+	border-radius: 5px;
+}
+ .list-group a{
+	background-color:  #e37900;
+}
+
+.navbar{
+	padding-left: 230px;
+}
+
+#main{
+	padding-left: 230px;
+	height: auto;
+	min-height: 100vh;
+}
+
+#main .card{
+	height: 265px;
+	border-radius: 10px;
+}
