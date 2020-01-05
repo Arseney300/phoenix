@@ -1,2 +1,2 @@
 *.java linguist-vendored=false
-media/* linguist-vendored=false
+media linguist-vendored=false
