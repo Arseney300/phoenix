@@ -51,15 +51,18 @@
 class phoenix_main_application: public cppcms::application {  
 private:
     //main sql_session:
-    cppdb::session sql;
+    //cppdb::session sql;
     //password file:
     std::ifstream pass_file;
+    //db init string:
+    std::string db_data;
     //reset_password_list;
     std::map<std::string,std::string> reset_password_list;
     //user_files_directory:
     std::filesystem::path user_files_directory{"./data/user_files/"};
     //mait_loger:
     loger main_loger{};
+    
 public:  
     phoenix_main_application(cppcms::service &srv) :  
         cppcms::application(srv)  
@@ -78,9 +81,9 @@ public:
 
     //init sql
     //sql -- first line
-    std::string db_data;
-    pass_file >> db_data;
-    sql = cppdb::session(db_data);
+    //std::string db_data;
+    pass_file >> this->db_data;
+    //sql = cppdb::session(db_data);
     //!init sql
     //default page (main_window)
     dispatcher().assign("",&phoenix_main_application::main_window,this);
@@ -244,6 +247,7 @@ public:
     void note(std::string id){
         note_page_content::content c;
         if (request().request_method() == "GET"){
+            cppdb::session sql{this->db_data};
             //std::string local_id = 'q' + request().get("note");
             std::string local_id = 'q' + id;
             cppdb::result res =   sql << "select text from quick_notes where local_id = ?" << local_id << cppdb::row;
@@ -306,6 +310,7 @@ public:
 
     void get_user_note(){
         if(request().request_method() == "GET"){
+            cppdb::session sql{this->db_data};
             std::string user_id = request().get("user_id");
             std::string local_id = 'n'+ request().get("local_id");
             cppdb::result res = sql << "select text from notes where creater_id = ? and local_id = ? " << user_id << local_id << cppdb::row;
@@ -321,6 +326,7 @@ public:
     }
     void get_quick_note(){
         if(request().request_method() == "GET"){
+            cppdb::session sql{this->db_data};
             std::string local_id = 'q' + request().get("local_id");
             cppdb::result res =   sql << "select text from quick_notes where local_id = ?" << local_id << cppdb::row;
             if (!res.empty()){
@@ -350,6 +356,7 @@ public:
             return;
         }
         if(request().request_method() =="POST"){
+            cppdb::session sql{this->db_data};
             std::string local_id = 'q' + create_quick_note_id(5);
             std::string text = request().post("text");
             std::string date = request().post("date");
@@ -359,6 +366,7 @@ public:
     }
 
     bool test_id_note(std::string id){
+        cppdb::session sql{this->db_data};
         //id = 'n' + id;
         cppdb::result res = sql << "select exists(select * from notes where local_id = ? )" << id << cppdb::row;
         std::string ans;
@@ -398,6 +406,7 @@ public:
                 response().out() << "id not free";
                 return;
             }*/
+            cppdb::session sql{this->db_data};
             std::string ret_id = create_quick_note_id(10);// то есть по умолчанию id будет рандомным 
             std::string local_id = 'n' + ret_id;
             std::string creater_name = request().post("creater_id");
@@ -418,6 +427,7 @@ public:
     }
 
     void share_note_f(std::string last_id,std::string new_id){
+        cppdb::session sql{this->db_data};
         sql << "update notes set local_id = ? where local_id = ?" << new_id << last_id << cppdb::exec;
         std::string s = "share";
         sql << "update notes set prop = ? where local_id  =? " << s << new_id << cppdb::exec;
@@ -425,6 +435,7 @@ public:
 
     void share_note(){
         if(request().request_method() == "POST"){
+            cppdb::session sql{this->db_data};
             std::string user_id =  request().post("user_id");
             std::string last_id = 'n' + request().post("last_id");
             std::string new_id = 'n' + request().post("new_id");
@@ -457,7 +468,7 @@ public:
         else{
             // i need protect password
 	        // i need сделать проверку на то, есть ли такой пользователь
-
+            cppdb::session sql{this->db_data};
             cppdb::result res = sql << "select exists(select * from users  where name = ? )" << name << cppdb::row;
             std::string flag;
             if (!res.empty()){
@@ -506,6 +517,7 @@ public:
     void login_user(){
         if (request().request_method() == "GET"){response().status(404);return;}
 	    if (request().request_method() == "POST"){
+            cppdb::session sql{this->db_data};
 	        std::string name = request().post("login");
 	        std::string pass = request().post("pass");
             if(name.empty() || pass.empty()){
@@ -562,6 +574,7 @@ public:
 
     void create_user_session(){
         if(request().request_method() == "POST"){
+            cppdb::session sql{this->db_data};
             std::string user_id = request().post("user_id");
             //проверка на пользователя:
             cppdb::result res = sql << "select exists(select * from users where user_id = ?)" << user_id << cppdb::row;
@@ -619,6 +632,7 @@ public:
    
     void update_note(){
         if(request().request_method() == "POST"){
+            cppdb::session sql{this->db_data};
             std::string local_id = 'n' + request().post("local_id");
             std::string text = request().post("text");
             std::string user_id = request().post("user_id");
@@ -642,6 +656,7 @@ public:
 
     void update_quick_note(){
         if (request().request_method() == "POST"){
+            cppdb::session sql{this->db_data};
             std::string local_id = 'q' + request().post("local_id");
             std::string text = request().post("text");
 
@@ -673,6 +688,7 @@ public:
 
     void delete_quick_note(){
         if(request().request_method() =="GET"){
+            cppdb::session sql{this->db_data};
             std::string local_id = 'q' + request().post("local_id");
             cppdb::result res = sql << "select exists(select * from users where local_id = ?)" << local_id;
             std::string check_note;
@@ -687,6 +703,7 @@ public:
 
     void get_name(){
         if(request().request_method() == "GET"){
+            cppdb::session sql{this->db_data};
             std::string id = request().get("id");
             cppdb::result res = sql << "select name from users where user_id = ? " << id << cppdb::row;
             std::string ans;
@@ -703,6 +720,7 @@ public:
 
 
     std::vector<std::string> get_notes_id_f(std::string user_id){
+        cppdb::session sql{this->db_data};
         cppdb::result res = sql << "select local_id from notes where creater_id = ?" << user_id;
         std::vector<std::string> ids;
         while(res.next()){
@@ -732,6 +750,7 @@ public:
     //delete user
     void delete_user(){
         if(request().request_method() == "GET"){
+            cppdb::session sql{this->db_data};
             std::string user_id = request().get("user_id");
             cppdb::result res = sql<<"select exists(select * from users where user_id = ?)" << user_id <<cppdb::row;
             std::string check_user;
@@ -750,6 +769,7 @@ public:
     //delete user note
     void delete_user_note(){ 
         if(request().request_method() == "GET"){
+            cppdb::session sql{this->db_data};
             std::string user_id = request().get("user_id");
             std::string local_id = 'n' + request().get("local_id");
             cppdb:: result res = sql << "select exists(select * from users where user_id = ?)" << user_id << cppdb::row;
@@ -769,6 +789,7 @@ public:
 
     void reset_password(){
         if(request().request_method() == "POST"){
+            cppdb::session sql{this->db_data};
             std::string name_or_email = request().post("name");
             //exist user:
             cppdb::result res = sql << "select exists(select * from users where name = ? or email =?)" << name_or_email << name_or_email << cppdb::row;
@@ -805,6 +826,7 @@ public:
             
         }
         else if(request().request_method() == "POST"){
+            cppdb::session sql{this->db_data};
             reset_password_content::content c;
             c.form.load(context());
             if(c.form.validate()){
@@ -837,6 +859,7 @@ public:
 
     void change_password(){
         if(request().request_method() =="POST"){
+            cppdb::session sql{this->db_data};
             std::string user_id = request().post("user_id");
             std::string last_password = request().post("last_pass");
             std::string new_password = request().post("new_pass");
@@ -876,7 +899,7 @@ public:
             response().status(404);
         }
         else if(request().request_method() == "POST"){
-
+            cppdb::session sql{this->db_data};
             auto file = request().files().at(1);
             std::string name_of_file = file->filename();
             std::vector<std::string> split_name_of_file;
@@ -929,6 +952,7 @@ public:
     }    
     void check_file_exist(){
         if(request().request_method() == "GET"){
+            cppdb::session sql{this->db_data};
             std::string user_id = request().get("user_id");
             std::string note_id ='n'+ request().get("note_id");
             //сейчас файлы смотрятся только в user_note
@@ -959,6 +983,7 @@ public:
 
     void compile(){
         if(request().request_method() == "POST"){
+            cppdb::session sql{this->db_data};
             std::string note_id = 'n' + request().post("note_id");
             std::string input = request().post("input");
             std::string pr_lang = request().post("pr_lang");
