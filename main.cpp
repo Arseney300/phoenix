@@ -636,7 +636,7 @@ public:
         if(request().request_method() == "POST"){
             if(session().is_set("logged") && session()["logged"] == "1"){
                 auto user_id = session()["user_id"];
-                auto last_pass =  request().post("last_passoau");
+                auto last_pass =  request().post("last_pass");
                 auto new_pass_1 = request().post("password_1");
                 auto new_pass_2 = request().post("password_2");
                 if(new_pass_1 == new_pass_2){

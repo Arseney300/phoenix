@@ -160,7 +160,7 @@
       var last_pass = $("#inputText1").val();
       var new_pass1 = $("#inputText2").val();
       var new_pass2 = $("#inputText3").val();
-      $.post("/user/user_change_password",{"last_pass":last_pass, "password_1":new_pass1, "password_2":new_pass2},function(data) {
+      $.post("/user/change_password",{"last_pass":last_pass, "password_1":new_pass1, "password_2":new_pass2},function(data) {
         alert(data);
       });
     }
