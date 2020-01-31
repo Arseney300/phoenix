@@ -323,7 +323,7 @@ public:
         }
     }
     void create_quick_note_page(){
-        if(request().request_method() == "POST"){
+        if(request().request_method() == "GET"){
             if(session().is_set("logged") && session().get("logged") =="1"){
                 quick_note_content::content c;
                 render("quick_note_session_view",c);
