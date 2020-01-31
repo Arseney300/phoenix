@@ -26,9 +26,6 @@ namespace note_page_content{
     struct content: public cppcms::base_content{
         Left_title left_title;
         std::string title{"note"};
-        struct Account{
-            std::string account_name{"PHOENIX"};
-        }account;
         search_area search;
 
         std::string local_id;

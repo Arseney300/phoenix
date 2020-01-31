@@ -13,26 +13,29 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
   <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="media/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
-  <link href="css/mdb.min.css" rel="stylesheet">
+  <link href="media/css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
-  <link href="css/style.css" rel="stylesheet">
+  <link href="media/css/style.css" rel="stylesheet">
+  <!-- Specail font -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
+  <!-- Special style for user_window -->
+  <link rel="stylesheet" href="media/css/user_window_style.css">
 </head>
 <style>
   main{
     font-family: Arial, "Times New Roman", sans-serif;
 
-    height: 100vh;
+    height: auto;
     background-image: linear-gradient(to bottom, #fbbe4b, #f3b540, #ecab35, #e4a229, #dc991b);
   }
-  
+
   
 </style>
 <body>
-  <main>
     <header> 
-      <nav class="navbar navbar-expand-lg navbar-dark orange accent-4">
+      <nav class="navbar navbar-expand-lg navbar-dark orange accent-4 fixed-top scrolling-navbar">
         <div class="container-fluid">
           <a href="/" class="navbar-brand waves-effect"><strong class="" style="font-size: 25px">PHOENIX</strong></a>   
 
@@ -42,8 +45,8 @@
            </button>   
         <div class="navbar-collapse collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active"><a href="http://phoenixnote.site/news" class="nav-link"><%=left_title.first_button_name%><span class="sr-only">(current)</span></a></li>
-            <li class="nav-item"><a href="http://phoenixnote.site/contacts" class="nav-link"><%=left_title.second_button_name%></a></li>
+            <li class="nav-item"><a href="news" class="nav-link"><%=left_title.first_button_name%><span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a href="contacts" class="nav-link"><%=left_title.second_button_name%></a></li>
             <li class="nav-item"><a href="https://github.com/Arseney300/phoenix" class="nav-link"><%=left_title.third_button_name%></a></li>
           </ul>
           <form method="POST" class="form-inline">
@@ -53,119 +56,65 @@
             </div>
             <button class="btn btn-outline-white btn-md ml-2" type="button" onclick="go_to_note($('#input1').val())" ><%=search.button_name%></button>
           </form>
-          <div class="dropdown">
-            <button class="m-0 ml-2 btn peach-gradient dropdown-toggle pb-2 pr-3 pl-3 pt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="border-radius: 8px">
-              <img src="img/question.jpeg" style="width:30px; height: 30px;"alt="" class="img rounded-circle m-0 p-0">
-              <%= account.account_name %>
-            </button>
-            <div class="dropdown-menu">
-              <a href="#" class="dropdown-item" onclick="$('#main_card').toggle()">Account</a>
-              <a href="#" class="dropdown-item">Settings</a>
-              <a href="#" class="dropdown-item">Notes</a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item text-right">Exit</a>
-            </div>
-          </div>
         </div> 
         </div>
       </nav>
-    </header>
 
-    <style>
-      .mycard{
-        position:  absolute;
-        left: 40%;
-        top: 20%;
-        height: 30%;
-        width: 20%;
-        border-radius: 9px;
-      }
-      .main_textarea{
-        width: 100%;
-        height: 100%;
-        min-height: 100%;
-        max-height: 100%;
-        resize: none;
-      }
-    </style>
+    <div class="sidebar-fixed position-fixed">
 
-    
-    <div class="card mycard" id="main_card">
-      <div class="card-body" >
-        <div class="card-title" style="text-align: center;">
-          <h3 id="local_id"><%= local_id %></h3>
-        </div>
-        <div class="container-fluid m-0  p-0 pb-5" style="height: 100%">
-          <textarea   style ="resize:none; height: 100%;"name="test"  id="QuickNoteTextArea"  class="form-control z-depth-1" placeholder="Write Something..." spellcheck="false" id="main_textarea" ><%= text%></textarea>
-          <!--<button class="btn btn-default" id="download_button" onclick="download_file()">Download File</button> -->
-        </div>
+      <div class="waves-effect">
+        <h1>PHOENIX</h1>
       </div>
+
+      <div class="list-group list-group-flush">
+        <a href="#" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-user mr-3"></i>Личный кабинет
+        </a>
+        <a href="#" class="list-group-item list-group-item-action waves-effect">
+          <i class="fa fa-plus mr-3"></i>Создание быстрой заметки</a>
+        <a href="#" class="list-group-item list-group-item-action waves-effect">
+          <i class="fa fa-sticky-note mr-3"></i>Создание личной заметки</a>
+        <a href="#" class="list-group-item list-group-item-action waves-effect active">
+          <i class="fa fa-eye mr-3"></i>Просмотреть заметку</a>
+        <a href="#" class="list-group-item list-group-item-action waves-effect">
+          <i class="fa fa-archive  mr-3"></i>Личные заметки</a>
+      </div>
+
     </div>
 
-    
-
-
-  </main>
+      
+    </header>
+    <main id="main" class="pt-5 max-lg-5">
+      <form action="" class="md-form">
+          <input type="text" id="input2" class="form-control" placeholder = "Введите id заметки" style="width: 200px;float:left; margin-left: 38vw; margin-top: 10px;" value="<%=local_id%>">
+          <button class="btn btn-deep-orange" style="margin-left: 30px">Search</button>
+        
+        <div class="card main_card ml-3 mt-1 mr-4" style="/*height: 88vh;*/height: 83vh; width: auto;">
+          <div class="card-body">
+            <textarea name="" id="" style="height: 100%; width: 100%; resize: none; border:none;"><%=text%></textarea>
+          </div>
+        </div>
+      </form> 
+    </main>
 
 
   <!-- SCRIPTS -->
   <!-- AutoSize TextArea -->
+  <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
+  <script>
+    autosize(document.getElementById('QuickNoteTextArea'));
 
+  </script>
   <!-- JQuery -->
-  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="media/js/jquery-3.3.1.min.js"></script>
   <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="js/popper.min.js"></script>
+  <script type="text/javascript" src="media/js/popper.min.js"></script>
   <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="media/js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <script type="text/javascript" src="media/js/mdb.min.js"></script>
   <!-- Для мувов -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>    
-  <!-- animation: -->
-  <script>
-    function update_note(local_id,new_text) {
-      // body...
-      $.post("http://phoenixnote.site/post/update_quick_note",{"local_id":local_id,"text":new_text},function (data) {
-        // body...
-        //alert(data);
-      })
-    }
-    function go_to_note(note_id){
-      window.location.assign("http://phoenixnote.site/note/"+note_id);
-    }
-
-    jQuery(document).ready(function($) {
-      $("#main_card").animate({
-        left: "10%",
-        top:"15%",
-        height: "70%",
-        width: "80%"});
-    });
-    counter = 0;
-    jQuery(document).ready(function($) {
-      $("#main_card").on('input', function(event) {
-        event.preventDefault();
-        counter +=1;
-        if (counter == 3){
-          update_note($("#local_id").text() ,$("#QuickNoteTextArea").val());
-          counter = 0;
-        }
-        
-        /* Act on the event */
-      });
-    });
-    jQuery(document).ready(function($){
-      if(1){
-        $("#download_button").show();
-        $("#download_button").text("name_of_file");
-      }
-    });
-
-    function download_file(){
-      var note_id  = $("#local_id").text()
-      $.get("/get/download_file",{"name":"WMCFOIVORNBSQDG::code2::UchNNoQ0Xsc.jpg"})
-    }
-  </script>
 </body>
 
 </html>

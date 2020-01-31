@@ -249,50 +249,70 @@ public:
     void note(std::string id){
         note_page_content::content c;
         if (request().request_method() == "GET"){
-            cppdb::session sql{this->db_data};
-            //std::string local_id = 'q' + request().get("note");
-            std::string local_id = 'q' + id;
-            cppdb::result res =   sql << "select text from quick_notes where local_id = ?" << local_id << cppdb::row;
-            if (!res.empty()){
-                std::string text;
-                res.fetch(0,text);
-                c.local_id = id;
-                c.text = text;
-                if( session().is_set("logged") and  session().get("logged")=="1"){
-                    c.account.account_name = session().get("name");
-                }
-                render("note_page_view",c);
-            }
-            else{
-                //response().out() << "problems";
-                //написать что такая заметка отсутсвует
-                //c.local_id = "Такая заметка не существует";
-                //c.text = "";
-                //render("note_page_view",c);
-
-
-                //произвести поиск в расшаренных заметках 
-                std::string s = "share";
-                res = sql << "select text from notes where local_id = ? and prop = ?" << 'n' +id<< s << cppdb::row;
+            if(session().is_set("logged") and session().get("logged") == "1"){
+                //добавить в этот режим поиск по user notes
+                cppdb::session sql{this->db_data};
+                std::string local_id = 'q' + id;
+                cppdb::result res =   sql << "select text from quick_notes where local_id = ?" << local_id << cppdb::row;
                 if (!res.empty()){
                     std::string text;
                     res.fetch(0,text);
+                    c.title = id;
                     c.local_id = id;
                     c.text = text;
-                    if( session().is_set("logged") and  session().get("logged")=="1"){
-                        c.account.account_name = session().get("name");
+                    render("note_page_session_view",c);
+                }
+                else{
+                    //произвести поиск в расшаренных заметках 
+                    std::string s = "share";
+                    res = sql << "select text from notes where local_id = ? and prop = ?" << 'n' +id<< s << cppdb::row;
+                    if (!res.empty()){
+                        std::string text;
+                        res.fetch(0,text);
+                        c.title = id;
+                        c.local_id = id;
+                        c.text = text;
+                        render("note_page_session_view",c);
                     }
+                    else{
+                        c.title = "phoenix note";
+                        c.local_id = id;
+                        c.text = "Такая заметка не существует";
+                        render("note_page_session_view",c);
+                    }
+                }
+            }
+            else{
+                cppdb::session sql{this->db_data};
+                std::string local_id = 'q' + id;
+                cppdb::result res =   sql << "select text from quick_notes where local_id = ?" << local_id << cppdb::row;
+                if (!res.empty()){
+                    std::string text;
+                    res.fetch(0,text);
+                    c.title = id;
+                    c.local_id = id;
+                    c.text = text;
                     render("note_page_view",c);
                 }
                 else{
-                    c.local_id = "Такая заметка не существует";
-                    c.text = "";
-                    //response().set_redirect_header("../note_not_exist.html");
-                    if( session().is_set("logged") and  session().get("logged")=="1"){
-                        c.account.account_name = session().get("name");
+                    //произвести поиск в расшаренных заметках 
+                    std::string s = "share";
+                    res = sql << "select text from notes where local_id = ? and prop = ?" << 'n' +id<< s << cppdb::row;
+                    if (!res.empty()){
+                        std::string text;
+                        res.fetch(0,text);
+                        c.title = id;
+                        c.local_id = id;
+                        c.text = text;
+                        render("note_page_view",c);
                     }
-                    render("note_page_view",c);
-		}
+                    else{
+                        c.title = "phoenix note";
+                        c.local_id = id;
+                        c.text = "Такая заметка не существует";
+                        render("note_page_view",c);
+                    }
+                }
             }
         }
     }

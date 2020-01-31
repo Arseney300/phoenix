@@ -82,12 +82,12 @@
     </header>
     <main id="main" class="pt-5 max-lg-5">
       <form action="" class="md-form">
-          <input type="text" id="input2" class="form-control" placeholder = "Введите id заметки" style="width: 200px;float:left; margin-left: 38vw; margin-top: 10px;">
+          <input type="text" id="input2" class="form-control" placeholder = "Введите id заметки" style="width: 200px;float:left; margin-left: 38vw; margin-top: 10px;" value="<%=local_id%>">
           <button class="btn btn-deep-orange" style="margin-left: 30px">Search</button>
         
         <div class="card main_card ml-3 mt-1 mr-4" style="/*height: 88vh;*/height: 83vh; width: auto;">
           <div class="card-body">
-            <textarea name="" id="" style="height: 100%; width: 100%; resize: none; border:none;"></textarea>
+            <textarea name="" id="" style="height: 100%; width: 100%; resize: none; border:none;"><%=text%></textarea>
           </div>
         </div>
       </form> 
