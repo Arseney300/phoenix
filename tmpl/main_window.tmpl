@@ -113,7 +113,7 @@
                       <input name="Password_2" type="password" id="inputText4" class="form-control">
                       <label for="inputText4">Password again</label>
                     </div>
-                    <div class="text-center mt-0"><button class="btn btn-deep-orange">SIGN UP</button></div>
+                    <div class="text-center mt-0"><button class="btn btn-deep-orange" onclick="signup()">SIGN UP</button></div>
                   </form>
                 </div>
               
@@ -133,7 +133,7 @@
                       <label for="inputText6">Password</label>
                     </div>
         
-                    <div class="text-center mt-0"><button class="btn btn-deep-orange">LOGIN</button></div>
+                    <div class="text-center mt-0"><button class="btn btn-deep-orange" onclick="login()">LOGIN</button></div>
                   </form>
                 </div>
               </div>
@@ -238,10 +238,55 @@
   <script type="text/javascript" src="media/js/mdb.min.js"></script>
   <!-- Для мувов -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>    
-  
+  <script>
+    function login(argument) {
+      var name = $("#inputText5").val();
+      var pass = $("#inputText6").val();
+      $.post("/post/login_user",{"login":name,"pass":pass},function(data){
+        if(data == "user with this name or email not exist"){
+          alert(data);
+        }
+        else{
+          //in data -- user_id
+          $.post("/post/create_user_session",{"user_id":data},function(data){
+            alert("created");
+          });
+        }
+      });
+    }
+    function signup(){
+      var login = $("#inputText1").val();
+      var email = $("#inputText2").val();
+      var pass1 = $("#inputText3").val();
+      var pass2 = $("#inputText4").val();
+      if(pass1 !=pass2){
+        alert("пароли не совпадают");
+      }
+      else{
+        $.post("/post/create_user",{"name":login, "email":email, "pass":pass1},function(data){
+          if(data == "empty data"){
+            window.location.assign("/user");
+          }
+          else if(data == "user with this name exist"){
+            alert(data);
+          }
+          else if(data == "user with this email exist"){
+            alert(data);
+          }
+          else{
+            //data is user_id
+            $.post("/post/create_user_session",{"user_id":data},function(data){
+                    window.location.assign("/user");
+            })
+          }
+        });
+      }
+    }
+  </script>
 </body>
 
 </html>
+
 
 
 <%end template%>
