@@ -43,6 +43,7 @@
 #include "pages/reset_password/reset_password.h"
 #include "pages/contacts/contacts.h"
 #include "pages/news/news.h"
+#include "pages/quick_note/quick_note.h"
 // end tmpl
 
 
@@ -112,6 +113,11 @@ public:
     dispatcher().assign("/user/change_password",&phoenix_main_application::user_change_password,this);
     mapper().assign("change_password","/user/change_password");
     //!user page
+
+    //create_quick_note page
+    dispatcher().assign("/quick_note", &phoenix_main_application::create_quick_note_page,this);
+    mapper().assign("quick_note","/quick_note");
+    //!create_quick_note page
 
     //user_work requestes
     dispatcher().assign("/post/create_user",&phoenix_main_application::create_user_post,this);
@@ -316,6 +322,22 @@ public:
             }
         }
     }
+    void create_quick_note_page(){
+        if(request().request_method() == "POST"){
+            if(session().is_set("logged") && session().get("logged") =="1"){
+                quick_note_content::content c;
+                render("quick_note_session_view",c);
+            }
+            else{
+                quick_note_content::content c;
+                render("quick_note_view",c);
+            }
+        }
+    }
+
+
+
+
     void news(){
         if(request().request_method() == "GET"){
             news_content::content c;
@@ -698,7 +720,10 @@ public:
             }
         }
     }
-   
+
+    
+
+
     void update_note(){
         if(request().request_method() == "POST"){
             cppdb::session sql{this->db_data};

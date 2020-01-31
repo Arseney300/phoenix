@@ -84,11 +84,11 @@
       <form action="">
         <div class="card main_card ml-3 mt-5 mr-4" style="/*height: 88vh;*/height: 83vh; width: auto;">
           <div class="card-body">
-            <textarea name="" id="" style="height: 100%; width: 100%; resize: none; border:none;"></textarea>
+            <textarea name="main_textarea" id="main_textarea" style="height: 100%; width: 100%; resize: none; border:none;"></textarea>
           </div>
         </div>
         <div class="text-center mt-0">
-          <button class="btn btn-primary">Создать</button>
+          <button class="btn btn-primary" onclick="create_quick_note()">Создать</button>
         </div>
       </form> 
     </main>
@@ -111,6 +111,16 @@
   <script type="text/javascript" src="./js/mdb.min.js"></script>
   <!-- Для мувов -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>    
+  <script>
+    function create_quick_note() {
+      var text = $("#main_textarea").val();
+      var date = "00:00:00"; //????????
+      $.post("/post/create_quick_note",{"text":text, "date":date},function(data){
+        //data is quick_note_id;
+        window.location.assign("/note/"+data);
+      });
+    }
+  </script>
 </body>
 
 </html>
