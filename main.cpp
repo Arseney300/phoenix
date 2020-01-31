@@ -103,6 +103,8 @@ public:
     //!contacts
 
     //note page
+    dispatcher().assign("/note",&phoenix_main_application::note_empty,this);
+    mapper().assign("note","/note");
     dispatcher().assign("/note/(\\S+)",&phoenix_main_application::note,this,1); //render:note_page_view
     mapper().assign("note","/note/(\\S+)");
     //!note page
@@ -250,7 +252,23 @@ public:
         }*/
         render("main_window",c); 
     }
-
+    void note_empty(){
+        note_page_content::content c;
+        if(request().request_method() == "GET"){
+            if(session().is_set("logged") && session().get("logged") == "1"){
+                c.title = "phoenix note";
+                c.text = "";
+                c.local_id = "Введите id заметки";
+                render("note_page_session_view",c);
+            }
+            else{
+                c.title = "phoenix note";
+                c.text = "";
+                c.local_id = "Введите id заметки";
+                render("note_page_session",c);
+            }
+        }
+    }
 
     void note(std::string id){
         note_page_content::content c;
