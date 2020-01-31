@@ -1,7 +1,3 @@
-<%c++ #include "user/user.h"%>
-<%skin my_skin%>
-<%view user_view uses user_content::content %>
-<%template render()%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +26,7 @@
     height: auto;
     background-image: linear-gradient(to bottom, #fbbe4b, #f3b540, #ecab35, #e4a229, #dc991b);
   }
-  
+
   
 </style>
 <body>
@@ -67,10 +63,10 @@
       </div>
 
       <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action waves-effect active">
+        <a href="#" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-user mr-3"></i>Личный кабинет
         </a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
+        <a href="#" class="list-group-item list-group-item-action waves-effect active">
           <i class="fa fa-plus mr-3"></i>Создание быстрой заметки</a>
         <a href="#" class="list-group-item list-group-item-action waves-effect">
           <i class="fa fa-sticky-note mr-3"></i>Создание личной заметки</a>
@@ -85,58 +81,16 @@
       
     </header>
     <main id="main" class="pt-5 max-lg-5">
-      <div class="row pt-5 pl-3">
-        <div class="col-md-4">
-          <div class="card" style="height: 100%">
-            <div class="card-body">
-              <div class="card-title text-center"><H3>Смена пароля</H3></div>
-                  <p>Введите старый пароль: </p>
-                  <div class="md-form mt-0">
-                    <i class="fas fa-key prefix"></i>
-                    <input name="Login" type="password" id="inputText1" class="form-control">
-                    <label for="inputText1">старый пароль</label>
-                  </div>
-                  <p>Введите новый пароль:</p>
-                  <div class="md-form mt-0">
-                    <i class="fas fa-key prefix"></i>
-                    <input name="password_1" type="password" id="inputText2" class="form-control">
-                    <label for="inputText2">новый пароль</label>
-                  </div>
-                  <p>Повторите новый пароль: </p>
-                  <div class="md-form mt-0">
-                    <i class="fas fa-key prefix"></i>
-                    <input name="password_2" type="password" id="inputText3" class="form-control">
-                    <label for="inputText3">повтор пароля</label>
-                  </div>
-                  <div class="text-center mt-0"><button class="btn btn-deep-orange" onclick="change_password()">Сменить пароль</button></div>
-            </div>
+      <form action="">
+        <div class="card main_card ml-3 mt-5 mr-4" style="/*height: 88vh;*/height: 83vh; width: auto;">
+          <div class="card-body">
+            <textarea name="" id="" style="height: 100%; width: 100%; resize: none; border:none;"></textarea>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card" style="height: auto">
-            <div class="card-body">
-              <div class="card-title text-center">
-                <h3>Количество заметок:</h3>
-              </div>
-              <%=count_of_notes%>
-            </div>
-          </div>
+        <div class="text-center mt-0">
+          <button class="btn btn-primary">Создать</button>
         </div>
-        <div class="col-md-4">
-          <div class="card" style="height: auto">
-            <div class="card-body">
-              <div class="card-title">
-                <h3>Удаление аккаунта:</h3>
-              </div>
-              <form action="">
-                <div class="text-center mt-0">
-                  <button class="btn btn-danger">Удалить пользователя</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+      </form> 
     </main>
 
 
@@ -157,22 +111,6 @@
   <script type="text/javascript" src="./js/mdb.min.js"></script>
   <!-- Для мувов -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>    
-  <script>
-    function change_password(){
-      var last_pass = $("#inputText1").val();
-      var new_pass1 = $("#inputText2").val();
-      var new_pass2 = $("#inputText3").val();
-      $.post("/user/user_change_password",{"last_pass":last_pass, "password_1":new_pass1, "password_2":new_pass2},function(data) {
-        alert(data);
-      });
-    }
-  </script>>
 </body>
 
 </html>
-
-
-<%end template%>
-
-<%end view%>
-<%end skin%>

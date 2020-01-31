@@ -109,6 +109,8 @@ public:
     //user page
     dispatcher().assign("/user",&phoenix_main_application::user, this);
     mapper().assign("user","/user");
+    dispatcher().assign("/user/change_password",&phoenix_main_application::user_change_password,this);
+    mapper().assign("change_password","/user/change_password");
     //!user page
 
     //user_work requestes
@@ -620,13 +622,60 @@ public:
 
     void user(){
         if (session().is_set("logged") and session()["logged"] == "1"){
-            user_content::content c;
+            user_content::content c; 
             c.account.account_name = session()["name"];
             c.account.email = session()["email"];
+            c.count_of_notes = get_notes_id_f(session().get("user_id")).size();;
             render("user_view",c); 
         }
         else{
             response().set_redirect_header("/");
+        }
+    }
+    void user_change_password(){
+        if(request().request_method() == "POST"){
+            if(session().is_set("logged") && session()["logged"] == "1"){
+                auto user_id = session()["user_id"];
+                auto last_pass =  request().post("last_passoau");
+                auto new_pass_1 = request().post("password_1");
+                auto new_pass_2 = request().post("password_2");
+                if(new_pass_1 == new_pass_2){
+                    response().out() << "password not equal";
+                    return;
+                }
+                cppdb::session sql{this->db_data};
+                std::string last_password = last_pass;
+                std::string new_password =new_pass_1;
+
+                //проверка на пользователя:
+                cppdb::result res = sql << "select exists(select * from users where user_id = ?)" << user_id << cppdb::row;
+                std::string ans;
+                if(!res.empty()){res.fetch(0,ans);}
+                if(ans =="0"){
+                    response().out() << "user not found";
+                    return;
+                }
+                std::string user_password;
+                res = sql << "select pass from users where user_id = ?" << user_id << cppdb::row;
+                if(!res.empty()){
+                    res.fetch(0,user_password);
+                }
+                if(user_password == last_password){
+                    if(new_password.length()!=0 and new_password != last_password){
+                        sql << "update users set pass = ? where user_id = ?" << new_password << user_id << cppdb::exec;
+                        response().out() << "OK";
+                    }
+                    else{
+                        response().out() << "wrong new password";
+                        return;
+                    }
+                }
+                else{
+                    response().out() << "wrong password";
+                    return;
+                }
+
+            }
         }
     }
    
