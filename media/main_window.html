@@ -245,7 +245,8 @@
         else{
           //in data -- user_id
           $.post("/post/create_user_session",{"user_id":data},function(data){
-            alert("created");
+            window.location.assign("/user");
+
           });
         }
       });
@@ -261,7 +262,7 @@
       else{
         $.post("/post/create_user",{"name":login, "email":email, "pass":pass1},function(data){
           if(data == "empty data"){
-            window.location.assign("/user");
+            alert(data);
           }
           else if(data == "user with this name exist"){
             alert(data);
