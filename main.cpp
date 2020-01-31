@@ -639,7 +639,7 @@ public:
                 auto last_pass =  request().post("last_pass");
                 auto new_pass_1 = request().post("password_1");
                 auto new_pass_2 = request().post("password_2");
-                if(new_pass_1 == new_pass_2){
+                if(new_pass_1 != new_pass_2){
                     response().out() << "password not equal";
                     return;
                 }
