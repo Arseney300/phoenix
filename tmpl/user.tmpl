@@ -67,16 +67,16 @@
       </div>
 
       <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action waves-effect active">
+        <a href="/user" class="list-group-item list-group-item-action waves-effect active">
           <i class="fas fa-user mr-3"></i>Личный кабинет
         </a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
+        <a href="/quick_note" class="list-group-item list-group-item-action waves-effect">
           <i class="fa fa-plus mr-3"></i>Создание быстрой заметки</a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
+        <a href="/user_note" class="list-group-item list-group-item-action waves-effect">
           <i class="fa fa-sticky-note mr-3"></i>Создание личной заметки</a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
+        <a href="/note" class="list-group-item list-group-item-action waves-effect">
           <i class="fa fa-eye mr-3"></i>Просмотреть заметку</a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
+        <a href="/notes" class="list-group-item list-group-item-action waves-effect">
           <i class="fa fa-archive  mr-3"></i>Личные заметки</a>
       </div>
 
@@ -134,6 +134,13 @@
             </div>
           </div>
         </div>
+        <div class="col-md-4 mt-3">
+          <div class="card" style="height:auto">
+            <div class="card-body text-center">
+              <button class="btn btn-danger" onclick="exit()">Выйти из пользователя</button>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
 
@@ -160,7 +167,7 @@
       var last_pass = $("#inputText1").val();
       var new_pass1 = $("#inputText2").val();
       var new_pass2 = $("#inputText3").val();
-      $.post("/user/change_password",{"last_pass":last_pass, "password_1":new_pass1, "password_2":new_pass2},function(data) {
+      $.post("/user/user_change_password",{"last_pass":last_pass, "password_1":new_pass1, "password_2":new_pass2},function(data) {
         alert(data);
       });
     }
@@ -173,11 +180,15 @@
         });
       });
     }
+    function exit(){
+      $.get("/get/delete_user_session",function(data){
+          window.location.assign("/");
+      })
+    }
   </script>>
 </body>
 
 </html>
-
 
 <%end template%>
 
