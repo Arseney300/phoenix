@@ -131,6 +131,8 @@ public:
     //notes page
     dispatcher().assign("/notes",&phoenix_main_application::notes_page, this);
     mapper().assign("notes","/notes");
+    dispatcher().assign("/notes/(\\S+)",&phoenix_main_application::notes_page,this,1);
+    mapper().assign("notes","/notes/(\\S+)");
     //!notes page
 
     //user_work requestes
@@ -388,6 +390,7 @@ public:
                 notes_content::content_2 c;
                 c.ID = id;
                 c.text = text;
+                render("notes_note_view",c);
             }
         }
     }

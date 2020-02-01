@@ -126,13 +126,9 @@
   <!-- Для мувов -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>    
   <script>
-    function search_note() {
-      var id = $("#input2").val();
-      window.location.assign("/note/"+id);
-    }
-    function update_note(local_id,new_text) {
+    function update_note(local_id,new_text,user_id) {
       // body...
-      $.post("http://phoenixnote.site/post/update_quick_note",{"local_id":local_id,"text":new_text},function (data) {
+      $.post("http://phoenixnote.site/post/update_note",{"local_id":local_id,"text":new_text,"user_id":user_id},function (data) {
         // body...
         //alert(data);
       })
@@ -140,7 +136,9 @@
     jQuery(document).ready(function($) {
       $("#main_textarea").on('input', function(event) {
         event.preventDefault();
-        update_note($("#main_textarea").text() ,$("#input2").val());
+        $.get("/get/get_id",function(user_id){
+          update_note($("#id_button").val(), $("#main_textarea").val(), user_id);
+        });
       });
     });
 

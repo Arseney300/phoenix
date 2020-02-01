@@ -38,7 +38,7 @@ namespace notes_content{
         search_area search;
         std::string ID;
         std::string text;
-    }
+    };
 
 }
 

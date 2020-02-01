@@ -91,7 +91,7 @@
         <div class="col-md-4 pt-4">
           <div class="card">
             <div class="card-body" style="overflow-y: scroll">
-              <h3 class="card-title text-center"><a href="<%= note.first%>" style="color:black"><%= note.first%></a></h3>
+              <h3 class="card-title text-center"><a href="/notes/<%= note.first%>" style="color:black"><%= note.first%></a></h3>
               <p style="font-size: 20px"> <%=note.second%></p>
             </div>
           </div>
@@ -261,13 +261,9 @@
   <!-- Для мувов -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>    
   <script>
-    function search_note() {
-      var id = $("#input2").val();
-      window.location.assign("/note/"+id);
-    }
-    function update_note(local_id,new_text) {
+    function update_note(local_id,new_text,user_id) {
       // body...
-      $.post("http://phoenixnote.site/post/update_quick_note",{"local_id":local_id,"text":new_text},function (data) {
+      $.post("http://phoenixnote.site/post/update_note",{"local_id":local_id,"text":new_text,"user_id":user_id},function (data) {
         // body...
         //alert(data);
       })
@@ -275,7 +271,9 @@
     jQuery(document).ready(function($) {
       $("#main_textarea").on('input', function(event) {
         event.preventDefault();
-        update_note($("#main_textarea").text() ,$("#input2").val());
+        $.get("/get/get_id",function(user_id){
+          update_note($("#id_button").val(), $("#main_textarea").val(), user_id);
+        });
       });
     });
 
