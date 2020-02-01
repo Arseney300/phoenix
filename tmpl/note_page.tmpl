@@ -140,4 +140,126 @@
 
 <%end template%>
 <%end view%>
+
+<%view note_page_view uses note_page_content::content %>
+<%template render()%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title><%= title%></title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="media/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="media/css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="media/css/style.css" rel="stylesheet">
+  <!-- Specail font -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
+  <!-- Special style for user_window -->
+  <!-- <link rel="stylesheet" href="./css/user_window_style.css"> -->
+</head>
+<style>
+  main{
+    font-family: Arial, "Times New Roman", sans-serif;
+
+    height: auto;
+    background-image: linear-gradient(to bottom, #fbbe4b, #f3b540, #ecab35, #e4a229, #dc991b);
+  }
+
+  
+</style>
+<body>
+    <header> 
+      <nav class="navbar navbar-expand-lg navbar-dark orange accent-4 fixed-top scrolling-navbar">
+        <div class="container-fluid">
+          <a href="/" class="navbar-brand waves-effect"><strong class="" style="font-size: 25px">PHOENIX</strong></a>   
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+           </button>   
+        <div class="navbar-collapse collapse" id="navbarNav">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a href="news" class="nav-link"><%=left_title.first_button_name%><span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a href="contacts" class="nav-link"><%=left_title.second_button_name%></a></li>
+            <li class="nav-item"><a href="https://github.com/Arseney300/phoenix" class="nav-link"><%=left_title.third_button_name%></a></li>
+          </ul>
+          <form method="POST" class="form-inline">
+            <div class="md-form my-0">
+              <input autocomplete="off" type="search" class="form-control mr-sm-2" name="input1" placeholder="<%=search.placeholder%>" id="input1" aria-label="Search">
+              
+            </div>
+            <button class="btn btn-outline-white btn-md ml-2" type="button" onclick="go_to_note($('#input1').val())" ><%=search.button_name%></button>
+          </form>
+        </div> 
+        </div>
+      </nav>
+
+    
+
+      
+    </header>
+    <main id="main" class="pt-5 max-lg-5" style="height: 100vh;">
+          <input type="text" id="input2" class="form-control" placeholder = "Введите id заметки" style="width: 200px;float:left; margin-left: 38vw; margin-top: 33px;" value="<%=local_id%>">
+          <button class="btn btn-deep-orange" style=" margin-top: 29px;margin-left: 30px; float: none;" onclick="search_note()">Search</button>
+        
+        <div class="card main_card ml-3 mt-1 mr-4" style="/*height: 88vh;*/height: 83vh; width: auto;">
+          <div class="card-body">
+            <textarea name="main_textarea" id="main_textarea" style="height: 100%; width: 100%; resize: none; border:none;"><%=text%></textarea>
+          </div>
+        </div>
+    </main>
+
+
+  <!-- SCRIPTS -->
+  <!-- AutoSize TextArea -->
+  <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
+  <script>
+    autosize(document.getElementById('QuickNoteTextArea'));
+
+  </script>
+  <!-- JQuery -->
+  <script type="text/javascript" src="media/js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="media/js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="media/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="media/js/mdb.min.js"></script>
+  <!-- Для мувов -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>    
+  <script>
+    function search_note() {
+      var id = $("#input2").val();
+      window.location.assign("/note/"+id);
+    }
+    function update_note(local_id,new_text) {
+      // body...
+      $.post("http://phoenixnote.site/post/update_quick_note",{"local_id":local_id,"text":new_text},function (data) {
+        // body...
+        //alert(data);
+      })
+    }
+    jQuery(document).ready(function($) {
+      $("#main_textarea").on('input', function(event) {
+        event.preventDefault();
+        update_note($("#main_textarea").text() ,$("#input2").val());
+      });
+    });
+  </script>  
+</body>
+
+</html>
+
+
+
+
+<%template%>
+<%end view%>
 <%end skin%>
