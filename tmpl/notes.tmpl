@@ -287,25 +287,23 @@
     function delete_note(){
       var note_id = $("#id_button").text();
       $.get("/get/get_id",function(user_id){
-        $.get("/get/delete_user_note",{"user_id":user_id, "local_id":note_id});
+        $.get("/get/delete_user_note",{"user_id":user_id, "local_id":note_id},function() {
+          window.location.assign("/notes");
+        });
       });
     }
     function share() {
       var last_id = $("#id_button").text();
       var new_id = window.prompt("Введите новый id",last_id);
       $.get("/get/get_id",function(id) {
-        while(flag){
-          $.post("/post/share_note",{"user_id":id, "last_id":last_id, "new_id":new_id},function(data) {
-            flag = true;
-            if(data == "id is not free"){
-              flag = true;
-              new_id = window.prompt("К сожалению id занят, введите другой",new_id);
-            }
-            else{
-              flag = false;
-            }
-          });
-        }
+        $.post("/post/share_note",{"user_id":id, "last_id":last_id, "new_id":new_id},function(data) {
+          if(data == "id is not free"){
+            alert("К сожалению такое id занято, повторите попытку с другим id");
+          }
+          else{
+            window.location.assign("/notes/"+new_id);
+          }
+        });
       });
     }
   </script>  

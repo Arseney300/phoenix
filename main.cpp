@@ -393,6 +393,23 @@ public:
                 render("notes_note_view",c);
             }
         }
+        else if(request().request_method() == "POST"){
+            if(session().is_set("logged") && session().get("logged") == "1"){
+                std::string dir = "./data/user_files/";
+                cppdb::session sql{this->db_data};
+                std::string user_id = session().get("user_id");
+                std::string local_id = request().get("local_id");
+                auto file = request().files().at(1);
+                std::string name_of_file = file->filename();
+                std::string full_file_name = user_id + "::" + local_id+"::"+name_of_file;
+                name_of_file = full_file_name;
+                std::string note_id = 'n' + local_id;
+                sql << "update notes set file = ? where local_id = ? and creater_id = ? " << name_of_file << note_id << user_id << cppdb::exec;
+                std::string command = "rm ./data/user_files/" + user_id + "::" + local_id + "::*";
+                system(command.c_str());
+                file->save_to(dir+ full_file_name);
+            }
+        }
     }
 
 
