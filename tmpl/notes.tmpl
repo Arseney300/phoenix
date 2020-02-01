@@ -170,8 +170,22 @@
     margin-left: 15px;
 
   }
+  .buttons_block form{
+    float:right;
+    margin-left: 15px;
+  }
   .main_card{
     clear:both;
+  }
+  
+  input[type="file"] {
+    display: none;
+  }
+  .custom-file-upload {
+    /*border: 1px solid #ccc;*/
+    display: inline-block;
+    /*padding: 6px 12px;*/
+    cursor: pointer;
   }
   
 </style>
@@ -228,7 +242,12 @@
     </header>
     <main id="main" class="pt-5 max-lg-5">
           <div class="buttons_block" style="margin-top: 30px;">
-          <button class="btn btn-secondary">file</button>
+          <form action="" method="POST"  enctype="multipart/form-data">
+            <label for="file-upload" class="custom-file-upload btn btn-secondary">
+              <i class="fa fa-cloud-upload"></i> File
+            </label>
+            <input id="file-upload" type="file" onchange="this.form.submit()"/>
+          </form>
           <button class="btn btn-success">compile</button>
           <button class="btn btn-default" onclick="share()">share</button>
           <button class="btn btn-danger" onclick="delete_note()">delete</button>
