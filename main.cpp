@@ -105,7 +105,7 @@ public:
     //!contacts
 
     //note page
-    dispatcher().assign("/note",&phoenix_main_application::note_empty,this);
+    dispatcher().assign("/note",&phoenix_main_application::note,this);
     mapper().assign("note","/note");
     dispatcher().assign("/note/(\\S+)",&phoenix_main_application::note,this,1); //render:note_page_view
     mapper().assign("note","/note/(\\S+)");
@@ -264,7 +264,7 @@ public:
         }*/
         render("main_window",c); 
     }
-    void note_empty(){
+    void note(){
         note_page_content::content c;
         if(request().request_method() == "GET"){
             if(session().is_set("logged") && session().get("logged") == "1"){
@@ -362,14 +362,32 @@ public:
                 std::vector<std::string> ids = get_notes_id_f(user_id);
                 for(auto &i: ids){
                     std::string text;
-                    std::string local_id = i;
+                    std::string local_id = 'n' + i;
                     cppdb::result res = sql << "select text from notes where creater_id = ? and local_id = ? " << user_id << local_id << cppdb::row;
                     if(!res.empty()){
-                            res.fetch(0,text);
+                        res.fetch(0,text);
                     }
-                    c.notes.push_back({local_id,text});
+                    c.notes.push_back({i,text});
                 }
                 render("notes_view",c);
+            }
+        }
+    }
+
+    void notes_page(std::string id){
+        if(request().request_method() == "GET"){
+            if(session().is_set("logged") && session().get("logged") == "1"){
+                cppdb::session sql{this->db_data};
+                std::string local_id = 'n' + id;
+                std::string user_id = session().get("user_id");
+                cppdb::result res = sql << "select text from notes where creater_id = ? and local_id =? " << user_id << local_id << cppdb::row;
+                std::string text{""};
+                if(!res.empty()){
+                    res.fetch(0,text);
+                }
+                notes_content::content_2 c;
+                c.ID = id;
+                c.text = text;
             }
         }
     }

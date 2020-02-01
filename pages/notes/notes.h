@@ -32,6 +32,13 @@ namespace notes_content{
         std::vector<std::pair<std::string,std::string>> notes;
         
     };
+    struct content_2: public cppcms::base_content{
+        Left_title left_title;
+        std::string title{"phoenix note"};
+        search_area search;
+        std::string ID;
+        std::string text;
+    }
 
 }
 

@@ -90,9 +90,9 @@
         <% item %>
         <div class="col-md-4 pt-4">
           <div class="card">
-            <div class="card-body">
-              <h3 class="card-title text-center"><%= note.first%></h3>
-              <p> <%=note.second%></p>
+            <div class="card-body" style="overflow-y: scroll">
+              <h3 class="card-title text-center"><a href="<%= note.first%>" style="color:black"><%= note.first%></a></h3>
+              <p style="font-size: 20px"> <%=note.second%></p>
             </div>
           </div>
         </div>
@@ -128,4 +128,177 @@
 
 <%end template%>
 <%end view%>
+
+
+<%view notes_note_view uses notes_content::content_2 %>
+<%template render()%>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title><%= title%></title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="media/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="media/css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="media/css/style.css" rel="stylesheet">
+  <!-- Specail font -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
+  <!-- Special style for user_window -->
+  <link rel="stylesheet" href="media/css/user_window_style.css">
+</head>
+<style>
+  main{
+    font-family: Arial, "Times New Roman", sans-serif;
+
+    height: auto;
+    background-image: linear-gradient(to bottom, #fbbe4b, #f3b540, #ecab35, #e4a229, #dc991b);
+
+  }
+  .buttons_block{
+    padding-right: 30px;
+  }
+  .buttons_block button{
+    float:right; 
+    margin-left: 15px;
+
+  }
+  .main_card{
+    clear:both;
+  }
+  
+</style>
+<body>
+    <header> 
+      <nav class="navbar navbar-expand-lg navbar-dark orange accent-4 fixed-top scrolling-navbar">
+        <div class="container-fluid">
+          <a href="/" class="navbar-brand waves-effect"><strong class="" style="font-size: 25px">PHOENIX</strong></a>   
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+           </button>   
+        <div class="navbar-collapse collapse" id="navbarNav">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a href="news" class="nav-link"><%=left_title.first_button_name%><span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a href="contacts" class="nav-link"><%=left_title.second_button_name%></a></li>
+            <li class="nav-item"><a href="https://github.com/Arseney300/phoenix" class="nav-link"><%=left_title.third_button_name%></a></li>
+          </ul>
+          <form method="POST" class="form-inline">
+            <div class="md-form my-0">
+              <input autocomplete="off" type="search" class="form-control mr-sm-2" name="input1" placeholder="<%=search.placeholder%>" id="input1" aria-label="Search">
+              
+            </div>
+            <button class="btn btn-outline-white btn-md ml-2" type="button" onclick="go_to_note($('#input1').val())" ><%=search.button_name%></button>
+          </form>
+        </div> 
+        </div>
+      </nav>
+
+    <div class="sidebar-fixed position-fixed">
+
+      <div class="waves-effect">
+        <h1>PHOENIX</h1>
+      </div>
+
+      <div class="list-group list-group-flush">
+        <a href="/user" class="list-group-item list-group-item-action waves-effect">
+          <i class="fas fa-user mr-3"></i>Личный кабинет
+        </a>
+        <a href="/quick_note" class="list-group-item list-group-item-action waves-effect">
+          <i class="fa fa-plus mr-3"></i>Создание быстрой заметки</a>
+        <a href="/user_note" class="list-group-item list-group-item-action waves-effect">
+          <i class="fa fa-sticky-note mr-3"></i>Создание личной заметки</a>
+        <a href="/note" class="list-group-item list-group-item-action waves-effect">
+          <i class="fa fa-eye mr-3"></i>Просмотреть заметку</a>
+        <a href="/notes" class="list-group-item list-group-item-action waves-effect active">
+          <i class="fa fa-archive  mr-3"></i>Личные заметки</a>
+      </div>
+
+    </div>
+
+      
+    </header>
+    <main id="main" class="pt-5 max-lg-5">
+          <div class="buttons_block" style="margin-top: 30px;">
+          <button class="btn btn-secondary">file</button>
+          <button class="btn btn-success">compile</button>
+          <button class="btn btn-default">share</button>
+          <button class="btn btn-danger">delete</button>
+          <button class="btn btn-info" id="id_button" style="-webkit-user-select: text;  -moz-user-select: text;-ms-user-select: text; user-select: text;" onclick="copy()"><%=id%></button>      
+        </div>
+        
+        <div class="card main_card ml-3 mt-1 mr-4 " style="/*height: 88vh;*/height: 83vh; width: auto;">
+          <div class="card-body">
+            <textarea name="main_textarea" id="main_textarea" style="height: 100%; width: 100%; resize: none; border:none;"><%=text%></textarea>
+          </div>
+        </div>
+    </main>
+
+
+  <!-- SCRIPTS -->
+  <!-- AutoSize TextArea -->
+  <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
+  <script>
+    autosize(document.getElementById('QuickNoteTextArea'));
+
+  </script>
+  <!-- JQuery -->
+  <script type="text/javascript" src="media/js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="media/js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="media/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="media/js/mdb.min.js"></script>
+  <!-- Для мувов -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>    
+  <script>
+    function search_note() {
+      var id = $("#input2").val();
+      window.location.assign("/note/"+id);
+    }
+    function update_note(local_id,new_text) {
+      // body...
+      $.post("http://phoenixnote.site/post/update_quick_note",{"local_id":local_id,"text":new_text},function (data) {
+        // body...
+        //alert(data);
+      })
+    }
+    jQuery(document).ready(function($) {
+      $("#main_textarea").on('input', function(event) {
+        event.preventDefault();
+        update_note($("#main_textarea").text() ,$("#input2").val());
+      });
+    });
+
+    function copy(){
+      var copy = $("#id_button");
+      copy.select();
+      copy.focus();
+      //copy.setSelectionRange(0,99999);
+      document.execCommand("copy");
+    }
+    function delete_note(){
+      var note_id = $("#id_button").val();
+      $.get("/get/get_id",function(user_id){
+        $.get("/get/delete_user_note",{"user_id":user_id, "local_id":note_id});
+      });
+    }
+  </script>  
+</body>
+
+</html>
+
+
+<%end template%>
+<%end view%>
+
 <%end skin%>
