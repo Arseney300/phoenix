@@ -393,12 +393,13 @@ public:
                 render("notes_note_view",c);
             }
         }
-        else if(request().request_method() == "POST"){
+        /*else if(request().request_method() == "POST"){
             if(session().is_set("logged") && session().get("logged") == "1"){
                 std::string dir = "./data/user_files/";
                 cppdb::session sql{this->db_data};
                 std::string user_id = session().get("user_id");
                 std::string local_id = request().get("local_id");
+                std::cout << request().is_ready() << std::endl;
                 auto file = request().files().at(1);
                 std::string name_of_file = file->filename();
                 std::string full_file_name = user_id + "::" + local_id+"::"+name_of_file;
@@ -409,7 +410,7 @@ public:
                 system(command.c_str());
                 file->save_to(dir+ full_file_name);
             }
-        }
+        }*/
     }
 
 
