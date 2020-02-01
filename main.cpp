@@ -264,7 +264,7 @@ public:
             if(session().is_set("logged") && session().get("logged") == "1"){
                 c.title = "phoenix note";
                 c.text = "";
-                c.local_id = "Введите id заметки";
+                c.local_id = "";
                 render("note_page_session_view",c);
             }
             else{
