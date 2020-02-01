@@ -1,5 +1,5 @@
 *.java linguist-vendored=false
-media linguist-vendored=false
+media/* linguist-vendored=false
 *.js  linguist-vendored=false
 *.css linguist-vendored=false
 *.scss linguist-vendored=false
