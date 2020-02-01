@@ -7,5 +7,10 @@
    "python":{
       "type":"inter",
       "run_command":"python3.7 $path_to_files/$name_of_program <$path_to_files/$name_of_program.input > $path_to_files/$name_of_program.output 2>&1"
-   }
+   },
+   "brainfuck":{
+      "type":"compile",
+      "compile_command":"bf-x86  -o $path_to_files/$name_of_program.out  $path_to_files/$name_of_program  > $path_to_files/$name_of_program.output 2>&1",
+      "run_command":"./$path_to_files/$name_of_program.out < $path_to_files/$name_of_program.input > $path_to_files/$name_of_program.output 2>&1"
+   } 
 }

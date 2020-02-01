@@ -216,10 +216,10 @@ public:
     //!files
 
 
-
+    //compile
     dispatcher().assign("/post/compile",&phoenix_main_application::compile,this);
     mapper().assign("compile","/post/compile");
-
+    //!compile
 
     //???????
     dispatcher().assign("/post/new_file",&phoenix_main_application::new_file,this);
