@@ -1,3 +1,7 @@
+<%c++ #include "user_note/user_note.h"%>
+<%skin my_skin%>
+<%view user_note_view uses user_note_content::content %>
+<%template render()%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,15 +13,15 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
   <!-- Bootstrap core CSS -->
-  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="media/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
-  <link href="./css/mdb.min.css" rel="stylesheet">
+  <link href="media/css/mdb.min.css" rel="stylesheet">
   <!-- Your custom styles (optional) -->
-  <link href="./css/style.css" rel="stylesheet">
+  <link href="media/css/style.css" rel="stylesheet">
   <!-- Specail font -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
   <!-- Special style for user_window -->
-  <link rel="stylesheet" href="./css/user_window_style.css">
+  <link rel="stylesheet" href="media/css/user_window_style.css">
 </head>
 <style>
   main{
@@ -102,15 +106,19 @@
 
   </script>
   <!-- JQuery -->
-  <script type="text/javascript" src="./js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="media/js/jquery-3.3.1.min.js"></script>
   <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="./js/popper.min.js"></script>
+  <script type="text/javascript" src="media/js/popper.min.js"></script>
   <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="media/js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="./js/mdb.min.js"></script>
+  <script type="text/javascript" src="media/js/mdb.min.js"></script>
   <!-- Для мувов -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>    
 </body>
 
 </html>
+
+<%end template%>
+<%end view%>
+<%end skin%>

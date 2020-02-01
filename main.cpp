@@ -44,6 +44,7 @@
 #include "pages/contacts/contacts.h"
 #include "pages/news/news.h"
 #include "pages/quick_note/quick_note.h"
+#include "pages/user_note/user_note.h"
 // end tmpl
 
 
@@ -120,6 +121,11 @@ public:
     dispatcher().assign("/quick_note", &phoenix_main_application::create_quick_note_page,this);
     mapper().assign("quick_note","/quick_note");
     //!create_quick_note page
+
+    //create_user_note page
+    dispatcher().assign("/user_note",&phoenix_main_application::create_user_note_page,this);
+    mapper().assign("user_note","/user_note");
+    //!create_user_note page
 
     //user_work requestes
     dispatcher().assign("/post/create_user",&phoenix_main_application::create_user_post,this);
@@ -264,7 +270,7 @@ public:
             else{
                 c.title = "phoenix note";
                 c.text = "";
-                c.local_id = "Введите id заметки";
+                c.local_id = "";
                 render("note_page_session",c);
             }
         }
@@ -353,6 +359,17 @@ public:
         }
     }
 
+    void create_user_note_page(){
+        if(request().request_method() == "GET"){
+            if(session().is_set("logged") && session().get("logged") == "1"){
+                user_note_content::content c;
+                render("user_note_view",c);
+            }
+            else{
+                response().set_redirect_header("/");
+            }
+        }
+    }
 
 
 
