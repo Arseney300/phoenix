@@ -118,7 +118,9 @@
       var text = $("#main_textarea").val();
       $.get("/get/get_id",function(data){
         //data is user_id
-        $.post("/post/create_note",{"creater_id":data, "text":text, "date":"00:00:00"});
+        $.post("/post/create_note",{"creater_id":data, "text":text, "date":"00:00:00"},function(id) {
+          window.location.assign("/notes/"+id);
+        });
       })
     }
   </script>

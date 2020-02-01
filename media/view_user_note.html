@@ -95,8 +95,8 @@
           <div class="buttons_block" style="margin-top: 30px;">
           <button class="btn btn-secondary">file</button>
           <button class="btn btn-success">compile</button>
-          <button class="btn btn-default">share</button>
-          <button class="btn btn-danger">delete</button>
+          <button class="btn btn-default" onclick="share()">share</button>
+          <button class="btn btn-danger" onclick="delete_note()">delete</button>
           <button class="btn btn-info" id="id_button" style="-webkit-user-select: text;  -moz-user-select: text;-ms-user-select: text; user-select: text;" onclick="copy()"><%=id%></button>      
         </div>
         
@@ -137,7 +137,7 @@
       $("#main_textarea").on('input', function(event) {
         event.preventDefault();
         $.get("/get/get_id",function(user_id){
-          update_note($("#id_button").val(), $("#main_textarea").val(), user_id);
+          update_note($("#id_button").text(), $("#main_textarea").val(), user_id);
         });
       });
     });
@@ -150,9 +150,27 @@
       document.execCommand("copy");
     }
     function delete_note(){
-      var note_id = $("#id_button").val();
+      var note_id = $("#id_button").text();
       $.get("/get/get_id",function(user_id){
         $.get("/get/delete_user_note",{"user_id":user_id, "local_id":note_id});
+      });
+    }
+    function share() {
+      var last_id = $("#id_button").text();
+      var new_id = window.prompt("Введите новый id",last_id);
+      $.get("/get/get_id",function(id) {
+        while(flag){
+          $.post("/post/share_note",{"user_id":id, "last_id":last_id, "new_id":new_id},function(data) {
+            flag = true;
+            if(data == "id is not free"){
+              flag = true;
+              new_id = window.prompt("К сожалению id занят, введите другой",new_id);
+            }
+            else{
+              flag = false;
+            }
+          });
+        }
       });
     }
   </script>  
