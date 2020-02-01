@@ -279,7 +279,7 @@ public:
                 c.title = "phoenix note";
                 c.text = "";
                 c.local_id = "";
-                render("note_page_session",c);
+                render("note_page_view",c);
             }
         }
     }

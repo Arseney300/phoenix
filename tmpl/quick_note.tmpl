@@ -126,7 +126,112 @@
 </body>
 
 </html>
+<%end template>
+<%end view%>
+<%view quick_note_view uses quick_note_content::content%>
+<%template render()%>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title><%= title%></title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="media/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="media/css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="media/css/style.css" rel="stylesheet">
+  <!-- Specail font -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
+</head>
+<style>
+  main{
+    font-family: Arial, "Times New Roman", sans-serif;
+
+    height: auto;
+    background-image: linear-gradient(to bottom, #fbbe4b, #f3b540, #ecab35, #e4a229, #dc991b);
+  }
+
+  
+</style>
+<body>
+    <header> 
+      <nav class="navbar navbar-expand-lg navbar-dark orange accent-4 fixed-top scrolling-navbar">
+        <div class="container-fluid">
+          <a href="/" class="navbar-brand waves-effect"><strong class="" style="font-size: 25px">PHOENIX</strong></a>   
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+           </button>   
+        <div class="navbar-collapse collapse" id="navbarNav">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a href="news" class="nav-link"><%=left_title.first_button_name%><span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a href="contacts" class="nav-link"><%=left_title.second_button_name%></a></li>
+            <li class="nav-item"><a href="https://github.com/Arseney300/phoenix" class="nav-link"><%=left_title.third_button_name%></a></li>
+          </ul>
+          <form method="POST" class="form-inline">
+            <div class="md-form my-0">
+              <input autocomplete="off" type="search" class="form-control mr-sm-2" name="input1" placeholder="<%=search.placeholder%>" id="input1" aria-label="Search">
+              
+            </div>
+            <button class="btn btn-outline-white btn-md ml-2" type="button" onclick="go_to_note($('#input1').val())" ><%=search.button_name%></button>
+          </form>
+        </div> 
+        </div>
+      </nav>
+
+    
+
+      
+    </header>
+    <main id="main" class="pt-5 max-lg-5" style="height: 100vh;">
+        <div class="card main_card ml-3 mt-5 mr-4" style="/*height: 88vh;*/height: 83vh; width: auto;">
+          <div class="card-body">
+            <textarea name="main_textarea" id="main_textarea" style="height: 100%; width: 100%; resize: none; border:none;"></textarea>
+          </div>
+        </div>
+        <div class="text-center mt-0">
+          <button class="btn btn-primary" onclick="create_quick_note()">Создать</button>
+        </div>
+    </main>
+
+
+  <!-- SCRIPTS -->
+  <!-- AutoSize TextArea -->
+  <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
+  <script>
+    autosize(document.getElementById('QuickNoteTextArea'));
+
+  </script>
+  <!-- JQuery -->
+  <script type="text/javascript" src="media/js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="media/js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="media/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="media/js/mdb.min.js"></script>
+  <!-- Для мувов -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>    
+  <script>
+    function create_quick_note() {
+      var text = $("#main_textarea").val();
+      var date = "00:00:00"; //????????
+      $.post("/post/create_quick_note",{"text":text, "date":date},function(data){
+        //data is quick_note_id;
+        window.location.assign("/note/"+data);
+      });
+    }
+  </script>
+</body>
+
+</html>
 
 
 <%end template%>

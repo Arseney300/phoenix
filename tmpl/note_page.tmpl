@@ -249,7 +249,7 @@
     jQuery(document).ready(function($) {
       $("#main_textarea").on('input', function(event) {
         event.preventDefault();
-        update_note($("#main_textarea").text() ,$("#input2").val());
+        update_note( $("#input2").val(),$("#main_textarea").val());
       });
     });
   </script>  
@@ -260,6 +260,6 @@
 
 
 
-<%template%>
+<%end template%>
 <%end view%>
 <%end skin%>
