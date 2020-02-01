@@ -45,6 +45,7 @@
 #include "pages/news/news.h"
 #include "pages/quick_note/quick_note.h"
 #include "pages/user_note/user_note.h"
+#include "pages/notes/notes.h"
 // end tmpl
 
 
@@ -126,6 +127,11 @@ public:
     dispatcher().assign("/user_note",&phoenix_main_application::create_user_note_page,this);
     mapper().assign("user_note","/user_note");
     //!create_user_note page
+
+    //notes page
+    dispatcher().assign("/notes",&phoenix_main_application::notes_page, this);
+    mapper().assign("notes","/notes");
+    //!notes page
 
     //user_work requestes
     dispatcher().assign("/post/create_user",&phoenix_main_application::create_user_post,this);
@@ -346,6 +352,30 @@ public:
             }
         }
     }
+
+    void notes_page(){
+        if(request().request_method() == "GET"){
+            if(session().is_set("logged") && session().get("logged") == "1"){
+                cppdb::session sql{this->db_data};
+                notes_content::content c;
+                std::string user_id = session().get("user_id");
+                std::vector<std::string> ids = get_notes_id_f(user_id);
+                for(auto &i: ids){
+                    std::string text;
+                    std::string local_id = i;
+                    cppdb::result res = sql << "select text from notes where creater_id = ? and local_id = ? " << user_id << local_id << cppdb::row;
+                    if(!res.empty()){
+                            res.fetch(0,text);
+                    }
+                    c.notes.push_back({local_id,text});
+                }
+                render("notes_view",c);
+            }
+        }
+    }
+
+
+
     void create_quick_note_page(){
         if(request().request_method() == "GET"){
             if(session().is_set("logged") && session().get("logged") =="1"){

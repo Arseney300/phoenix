@@ -63,7 +63,7 @@
       </div>
 
       <div class="list-group list-group-flush">
-        <a href="/user" class="list-group-item list-group-item-action waves-effect active">
+        <a href="/user" class="list-group-item list-group-item-action waves-effect">
           <i class="fas fa-user mr-3"></i>Личный кабинет
         </a>
         <a href="/quick_note" class="list-group-item list-group-item-action waves-effect">
@@ -72,7 +72,7 @@
           <i class="fa fa-sticky-note mr-3"></i>Создание личной заметки</a>
         <a href="/note" class="list-group-item list-group-item-action waves-effect">
           <i class="fa fa-eye mr-3"></i>Просмотреть заметку</a>
-        <a href="/notes" class="list-group-item list-group-item-action waves-effect">
+        <a href="/notes" class="list-group-item list-group-item-action waves-effect active">
           <i class="fa fa-archive  mr-3"></i>Личные заметки</a>
       </div>
 
@@ -82,38 +82,21 @@
     </header>
     <main id="main" class="pt-5 max-lg-5">
       <div class="row pt-5 pl-3">
+        <% foreach note in notes%>
+        <% item %>
         <div class="col-md-4 pt-4">
           <div class="card">
             <div class="card-body">
-              <h3 class="card-title text-center">JEUTHNOEU</h3>
-              <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo expedita inventore reiciendis ad dicta, perferendis sequi placeat, quibusdam voluptatum officiis quam dolorem quidem ratione nam cumque aspernatur! Odit, nostrum fugit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore iure, quasi sed laborum ratione, consequuntur magnam aspernatur, tempora placeat odio quod optio quisquam. Officia qui iusto eum placeat ad nostrum?</p>
+              <h3 class="card-title text-center"><% note.first%></h3>
+              <p> <%note.second%></p>
             </div>
           </div>
         </div>
-        <div class="col-md-4 pt-4">
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title text-center">JEUTHNOEU</h3>
-              <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo expedita inventore reiciendis ad dicta, perferendis sequi placeat, quibusdam voluptatum officiis quam dolorem quidem ratione nam cumque aspernatur! Odit, nostrum fugit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore iure, quasi sed laborum ratione, consequuntur magnam aspernatur, tempora placeat odio quod optio quisquam. Officia qui iusto eum placeat ad nostrum?</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 pt-4">
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title text-center">JEUTHNOEU</h3>
-              <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo expedita inventore reiciendis ad dicta, perferendis sequi placeat, quibusdam voluptatum officiis quam dolorem quidem ratione nam cumque aspernatur! Odit, nostrum fugit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore iure, quasi sed laborum ratione, consequuntur magnam aspernatur, tempora placeat odio quod optio quisquam. Officia qui iusto eum placeat ad nostrum?</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 pt-4">
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title text-center">JEUTHNOEU</h3>
-              <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo expedita inventore reiciendis ad dicta, perferendis sequi placeat, quibusdam voluptatum officiis quam dolorem quidem ratione nam cumque aspernatur! Odit, nostrum fugit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore iure, quasi sed laborum ratione, consequuntur magnam aspernatur, tempora placeat odio quod optio quisquam. Officia qui iusto eum placeat ad nostrum?</p>
-            </div>
-          </div>
-        </div>
+        <% end %>
+        <% empty %>
+          пусто
+        <% end%>        
+
       </div>
     </main>
 
