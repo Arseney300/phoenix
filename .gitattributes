@@ -4,4 +4,4 @@ media/* linguist-vendored=false
 *.css linguist-vendored=false
 *.scss linguist-vendored=false
 *.html linguist-vendored=false
-
+media/* linguist-vendored
